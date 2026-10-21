@@ -367,3 +367,109 @@ toast({ title: 'Deleted', tone: 'success', action: { label: 'Undo', onClick: und
 
 `toast(options | string)` returns the id. `title`, `description`, `tone` (`neutral | info | success | warning | danger`), `duration` (5000; `0` keeps it) and `action` (`{ label, onClick }`) are the options. The store keeps four; older messages are dropped and their timers cleared. A danger toast is `role="alert"`; the rest are `role="status"`. The action dismisses after `onClick`.
 
+
+## Fieldset
+
+`legend`, `hint`, `disabled`, `class`. A native `<fieldset>` with a legend; the default slot holds the controls. Disabling the fieldset disables everything inside it.
+
+## FormField
+
+A label, a hint and an error around a control the kit does not wrap.
+
+| Prop | Type | Default |
+|---|---|---|
+| `label` | string | `''` |
+| `hint` / `error` | string | `''` |
+| `forId` | string | `''` |
+| `required` | boolean | `false` |
+| `class` | string | `''` |
+
+The slot receives `describedBy`; put it on the control's `aria-describedby`. An error is `role="alert"` and wins over the hint. Without `forId` the label is a `span`, so pass the control's id when there is one.
+
+## Slider
+
+A native `<input type="range">`, themed.
+
+| Prop | Type | Default |
+|---|---|---|
+| `value` | number | `0` (bindable) |
+| `min` / `max` / `step` | number | `0` / `100` / `1` |
+| `label` / `hint` / `error` | string | `''` |
+| `id` | string | generated |
+| `disabled` | boolean | `false` |
+| `showValue` | boolean | `true` |
+| `format` | `(value) => string` | `null` |
+| `class` | string | `''` |
+
+Events: `input` and `change` with the number. The track is filled to the value; the thumb is a circle because a thumb is round by nature. Keyboard is the browser's range behaviour.
+
+## Combobox
+
+A searchable single choice. The input is the combobox; the popup is a listbox.
+
+| Prop | Type | Default |
+|---|---|---|
+| `value` | string | `''` (bindable) |
+| `options` | `{ value, label?, disabled? }[]` | `[]` |
+| `label` / `placeholder` | string | `''` |
+| `emptyLabel` / `clearLabel` | string | `No results` / `Clear` |
+| `hint` / `error` | string | `''` |
+| `disabled` | boolean | `false` |
+| `id` | string | generated |
+| `class` | string | `''` |
+
+Event: `change` with `{ value, option }`; `option` is `null` when cleared. Focusing opens the list; typing filters by label and value; ArrowDown/ArrowUp, Home/End move; Enter chooses; Escape closes; Tab closes. The list has `role="listbox"` and the input names the active option with `aria-activedescendant`.
+
+## MultiSelect
+
+The multiple version of Combobox. Selected values are chips inside the field.
+
+| Prop | Type | Default |
+|---|---|---|
+| `values` | string[] | `[]` (bindable) |
+| `options` | `{ value, label?, disabled? }[]` | `[]` |
+| `label` / `placeholder` | string | `''` |
+| `emptyLabel` / `clearLabel` / `removeLabel` | string | `No results` / `Clear all` / `Remove` |
+| `hint` / `error` | string | `''` |
+| `disabled` | boolean | `false` |
+| `id` | string | generated |
+| `class` | string | `''` |
+
+Event: `change` with the values array. The list stays open while picking; Backspace with an empty query removes the last value; each chip has a named remove button; the listbox is `aria-multiselectable="true"`.
+
+## DatePicker
+
+A field with a drawn calendar.
+
+| Prop | Type | Default |
+|---|---|---|
+| `value` | ISO `YYYY-MM-DD` | `''` (bindable) |
+| `label` / `placeholder` | string | `''` / `Select a date` |
+| `hint` / `error` | string | `''` |
+| `min` / `max` | ISO string | `''` |
+| `locale` | BCP 47 tag | `en-US` |
+| `firstDay` | `0 \| 1` | `1` (Monday) |
+| `clearable` | boolean | `true` |
+| `clearLabel` / `previousLabel` / `nextLabel` | string | `Clear` / `Previous month` / `Next month` |
+| `disabled` / `required` | boolean | `false` |
+| `id` | string | generated |
+| `class` | string | `''` |
+
+Event: `change` with the ISO string, or `''` when cleared. The visible date and the month/weekday names come from `Intl`; the kit owns no date engine. `min`/`max` are compared as strings, which is why the value is ISO. Keyboard: arrows move by day/week, Home/End to the week's edges, PageUp/PageDown by month, Escape closes and returns focus.
+
+## FileUpload
+
+A drop zone and a file list.
+
+| Prop | Type | Default |
+|---|---|---|
+| `files` | File[] | `[]` (bindable) |
+| `accept` | string | `''` |
+| `multiple` | boolean | `true` |
+| `disabled` | boolean | `false` |
+| `label` / `chooseLabel` | string | `Drop files here` / `Choose files` |
+| `removeLabel` | string | `Remove` |
+| `hint` / `error` | string | `''` |
+| `class` | string | `''` |
+
+Event: `change` with the files array. The component picks and lists files; it does not upload. `accept` filters the picker; a dropped file is not filtered by the component. Drop, click and Enter/Space open the picker; each file has a named remove button.

@@ -19,18 +19,25 @@
     Button,
     Card,
     Checkbox,
+    Combobox,
     Chip,
+    DatePicker,
     EmptyState,
+    Fieldset,
+    FileUpload,
+    FormField,
     IconButton,
     Kbd,
     Menu,
     Modal,
+    MultiSelect,
     Notice,
     Popover,
     Progress,
     RadioGroup,
     SearchField,
     SegmentedControl,
+    Slider,
     Select,
     SelectField,
     Skeleton,
@@ -64,6 +71,11 @@
   let popoverOpen = false;
   let alertOpen = false;
   let radio = 'board';
+  let comboFolder = 'home';
+  let tags = ['design'];
+  let dueDate = '2024-03-15';
+  let quietHours = 22;
+  let uploads = [];
   let progress = 62;
   let tableSort = { key: 'name', direction: 'asc' };
   let tableSelected = [];
@@ -112,6 +124,22 @@
     { id: 'why', title: 'Why one radius?', body: 'A card, a menu and a field are the same kind of rectangle. Density changes their size, not their corner.' },
     { id: 'how', title: 'How does a theme work?', body: 'A theme sets the semantic variables on an attribute. No JavaScript is needed to switch it.' },
   ];
+
+  const folderOptions = [
+    { value: 'inbox', label: 'Inbox' },
+    { value: 'home', label: 'Home' },
+    { value: 'work', label: 'Work' },
+    { value: 'archive', label: 'Archive' },
+  ];
+
+  const tagOptions = [
+    { value: 'design', label: 'Design' },
+    { value: 'paper', label: 'Paper' },
+    { value: 'code', label: 'Code' },
+    { value: 'reading', label: 'Reading' },
+  ];
+
+  const quietFormat = (value) => `${String(value).padStart(2, '0')}:00`;
 
   const radioOptions = [
     { value: 'board', label: 'Board', description: 'Cards with a tint and a date' },
@@ -191,7 +219,7 @@
         </IconButton>
       </div>
       <p class="mt-5 flex flex-wrap gap-x-5 gap-y-1 text-whisper uppercase tracking-widest text-ink-faint">
-        <span>30 components</span>
+        <span>37 components</span>
         <span>6 themes</span>
         <span>2 modes</span>
         <span>Svelte 4 and Tailwind 3</span>
@@ -206,7 +234,7 @@
   </header>
 
   <nav class="mt-6 flex flex-wrap gap-x-4 gap-y-2 text-whisper uppercase tracking-widest text-ink-faint" aria-label="Sections">
-    {#each [['palette', 'Palette'], ['type', 'Type'], ['buttons', 'Buttons'], ['fields', 'Fields'], ['marks', 'Chips'], ['surfaces', 'Surfaces'], ['structure', 'Structure'], ['table', 'Table'], ['overlays', 'Overlays'], ['feedback', 'Feedback'], ['notices', 'Notices'], ['empty', 'Empty']] as [id, name]}
+    {#each [['palette', 'Palette'], ['type', 'Type'], ['buttons', 'Buttons'], ['fields', 'Fields'], ['forms', 'Forms'], ['marks', 'Chips'], ['surfaces', 'Surfaces'], ['structure', 'Structure'], ['table', 'Table'], ['overlays', 'Overlays'], ['feedback', 'Feedback'], ['notices', 'Notices'], ['empty', 'Empty']] as [id, name]}
       <a href="#{id}" class="transition-colors duration-fast hover:text-ink">{name}</a>
     {/each}
   </nav>
@@ -287,6 +315,22 @@
     </div>
     <div class="mt-6">
       <RadioGroup label="Default view" bind:value={radio} orientation="horizontal" options={radioOptions} />
+    </div>
+  </section>
+
+  <section id="forms" class="mt-12 scroll-mt-20">
+    <h2 class="text-lg font-bold tracking-tight">Form controls</h2>
+    <p class="mt-1 text-xs text-ink-soft">Search, multiple values, a drawn calendar, a native slider and a drop zone. All controlled; no hidden state.</p>
+    <div class="mt-4 grid gap-6 md:grid-cols-2">
+      <Combobox label="Folder" options={folderOptions} bind:value={comboFolder} hint="Type to filter the list" />
+      <MultiSelect label="Tags" options={tagOptions} bind:values={tags} hint="Backspace removes the last tag" />
+      <DatePicker label="Due date" bind:value={dueDate} hint="The calendar is drawn by the kit" />
+      <FormField label="Quiet hours" forId="quiet-hours">
+        <Slider id="quiet-hours" label="" bind:value={quietHours} min={18} max={23} step={1} format={quietFormat} hint="No notifications after this time" />
+      </FormField>
+      <Fieldset legend="Attachments" hint="Files stay on this device until sync" class="md:col-span-2">
+        <FileUpload label="Drop files here" chooseLabel="Choose files" bind:files={uploads} hint="Markdown and images are fine" />
+      </Fieldset>
     </div>
   </section>
 

@@ -8,7 +8,7 @@ It is a Svelte 4 component library with a Tailwind preset and a plain-CSS token 
 
 The design system itself, in one page: [DESIGN.md](DESIGN.md).
 
-> **Status:** 0.3.0, source distribution. Not on npm yet; install from this repository.
+> **Status:** 0.4.0, source distribution. Not on npm yet; install from this repository.
 
 **Live gallery:** [aa-blinov.github.io/monos-ui](https://aa-blinov.github.io/monos-ui/)
 
@@ -94,6 +94,12 @@ Themes: `gruvbox`, `github`, `dracula`, `nord`, `solarized`, `catppuccin`. Modes
 | `TextArea` | The same field, multi-line |
 | `Select` | Themed listbox: the popup is drawn by the kit |
 | `SelectField` | Native select for forms, themed closed control |
+| `Combobox` | Searchable single choice; typed filter, listbox, active descendant |
+| `MultiSelect` | Searchable multiple choice; chips inside the field |
+| `DatePicker` | ISO string + drawn calendar; `Intl` month and weekday names |
+| `Slider` | Native range, themed track and thumb |
+| `FileUpload` | Drop zone and file list; `files` is data, not a transport |
+| `Fieldset` / `FormField` | Named group; label, hint and error around any control |
 | `SearchField` | Pill search with magnifier and clear |
 | `Checkbox` | 16px box, 24/44px row |
 | `Switch` | `role="switch"` row |

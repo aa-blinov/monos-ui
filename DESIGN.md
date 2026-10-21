@@ -41,6 +41,11 @@ A card has `shadow-rest` (`0 1px 2px / 3%`), which is paper texture rather than 
 - **Text buttons.** The word is the button: `primary` is bold ink, `secondary` is soft ink, `danger` is red. There is no filled call to action and no outlined action. The only frame is a toggle's chosen state.
 - **Icon buttons** are 28/36/44px squares with a required `label`. A tooltip repeats the name; it is never the only name.
 - **Fields** are underline rows (`h-9`, bottom border), with search fields as pills. Height is declared, not derived from padding. A choice whose list is part of the interface uses `Select`, a themed listbox; a long form may keep the native `SelectField`.
+- **A searchable choice** is a `Combobox` (one) or `MultiSelect` (several): a field, a filtered listbox and an active option named by `aria-activedescendant`. `Select` is for a short fixed list; the native `SelectField` is for a long form.
+- **A date** is a `DatePicker`: an ISO string, a drawn calendar, month and weekday names from `Intl`, and min/max compared as strings. The kit owns no date arithmetic beyond the calendar grid.
+- **A range** is a `Slider`: a native range with a themed track and a thumb that is a circle because a thumb is round by nature. The value is visible beside the label.
+- **A file** is a `FileUpload`: a drop zone, a real file input and a list of `File` objects. The kit picks and lists; it does not upload.
+- **A group** is a `Fieldset`; a label, hint and error around an arbitrary control is a `FormField`. The error is an alert and wins over the hint.
 - **Chips** are bordered labels, not filters; **badges** are uppercase status words, optionally with a dot.
 - **Cards** are `bg-surface`, one border and a resting shadow. `interactive` makes the card a button and adds the lift.
 - **Menus** are a trigger plus data items; arrows, Home/End, Escape and an outside click work; the first item takes focus when the menu opens.
@@ -61,7 +66,7 @@ A card has `shadow-rest` (`0 1px 2px / 3%`), which is paper texture rather than 
 
 Every control has rest, hover, `:focus-visible`, disabled and, where it applies, selected or loading. A state never relies on colour alone: a checkbox has a check, a tab has an underline, a sort has a triangle, a toast has a word and a dot.
 
-The touch target is 44px on a phone for anything a finger presses. A desktop row may be 24 or 28px; the padding around it is what makes the target, not the glyph.
+The touch target is 44px on a phone for anything a finger presses, including a calendar day. A desktop row may be 24 or 28px; the padding around it is what makes the target, not the glyph.
 
 ## Motion
 
@@ -83,4 +88,4 @@ Only state changes move. `--ui-duration-fast` (150ms) for colour and focus, `--u
 
 ## What the kit does not own
 
-`NoteCard`, `NoteBoard`, `Sidebar`, `Editor`, `TerminalPanel`, the conflict screens, the command palette, charts, a date engine and a drag-and-drop board are product patterns. They may be assembled from these primitives, but their content and behaviour belong to the app. See [`docs/migrating-monos.md`](docs/migrating-monos.md) for the map.
+`NoteCard`, `NoteBoard`, `Sidebar`, `Editor`, `TerminalPanel`, the conflict screens, the command palette, charts, a date engine, an upload transport and a drag-and-drop board are product patterns. They may be assembled from these primitives, but their content and behaviour belong to the app. See [`docs/migrating-monos.md`](docs/migrating-monos.md) for the map.

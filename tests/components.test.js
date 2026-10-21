@@ -7,6 +7,11 @@ import Avatar from '../src/components/Avatar.svelte';
 import Button from '../src/components/Button.svelte';
 import Card from '../src/components/Card.svelte';
 import Checkbox from '../src/components/Checkbox.svelte';
+import Combobox from '../src/components/Combobox.svelte';
+import DatePicker from '../src/components/DatePicker.svelte';
+import Fieldset from '../src/components/Fieldset.svelte';
+import FileUpload from '../src/components/FileUpload.svelte';
+import FormField from '../src/components/FormField.svelte';
 import Chip from '../src/components/Chip.svelte';
 import Menu from '../src/components/Menu.svelte';
 import Modal from '../src/components/Modal.svelte';
@@ -27,6 +32,8 @@ import { clearToasts, toast } from '../src/toast.js';
 import TextField from '../src/components/TextField.svelte';
 import FieldHarness from './fixtures/FieldHarness.svelte';
 import ModalHarness from './fixtures/ModalHarness.svelte';
+import MultiSelect from '../src/components/MultiSelect.svelte';
+import Slider from '../src/components/Slider.svelte';
 
 afterEach(() => {
   cleanup();
@@ -428,5 +435,116 @@ describe('Table', () => {
     expect(selected).toHaveBeenCalled();
     expect(screen.getByRole('checkbox', { name: 'Select all rows' }).checked).toBe(true);
     expect(screen.getByRole('checkbox', { name: 'Select row 2' }).checked).toBe(true);
+  });
+});
+
+describe('Fieldset and FormField', () => {
+  test('Fieldset names the group', () => {
+    render(Fieldset, { legend: 'Advanced', hint: 'Rarely changed' });
+    expect(screen.getByRole('group', { name: 'Advanced' })).toBeTruthy();
+    expect(screen.getByText('Rarely changed')).toBeTruthy();
+  });
+
+  test('FormField labels a control and shows its error', () => {
+    render(FormField, { label: 'View', forId: 'view-control', error: 'Choose one' });
+    expect(screen.getByText('View').getAttribute('for')).toBe('view-control');
+    expect(screen.getByRole('alert').textContent).toContain('Choose one');
+  });
+});
+
+describe('Slider', () => {
+  test('reports its value and change', async () => {
+    const { component } = render(Slider, { label: 'Zoom', value: 30 });
+    const changed = vi.fn();
+    component.$on('change', changed);
+    const slider = screen.getByRole('slider', { name: 'Zoom' });
+    expect(slider.value).toBe('30');
+    await fireEvent.change(slider, { target: { value: '70' } });
+    expect(changed).toHaveBeenCalled();
+    expect(slider.value).toBe('70');
+  });
+});
+
+describe('Combobox', () => {
+  const options = [
+    { value: 'inbox', label: 'Inbox' },
+    { value: 'home', label: 'Home' },
+    { value: 'work', label: 'Work' },
+  ];
+
+  test('filters the list and chooses with the keyboard', async () => {
+    const { component } = render(Combobox, { label: 'Folder', options });
+    const changed = vi.fn();
+    component.$on('change', changed);
+    const input = screen.getByRole('combobox', { name: 'Folder' });
+    await fireEvent.focus(input);
+    await tick();
+    expect(screen.getByRole('listbox')).toBeTruthy();
+    await fireEvent.input(input, { target: { value: 'hom' } });
+    await tick();
+    expect(screen.getAllByRole('option')).toHaveLength(1);
+    await fireEvent.keyDown(input, { key: 'Enter' });
+    expect(changed).toHaveBeenCalledWith(expect.objectContaining({ detail: expect.objectContaining({ value: 'home' }) }));
+    expect(screen.queryByRole('listbox')).toBeNull();
+  });
+});
+
+describe('MultiSelect', () => {
+  const options = [
+    { value: 'design', label: 'Design' },
+    { value: 'code', label: 'Code' },
+  ];
+
+  test('toggles options and removes a chip', async () => {
+    const { component } = render(MultiSelect, { label: 'Tags', options, values: ['design'] });
+    const changed = vi.fn();
+    component.$on('change', changed);
+    const input = screen.getByRole('combobox', { name: 'Tags' });
+    await fireEvent.focus(input);
+    await tick();
+    await fireEvent.pointerDown(screen.getByRole('option', { name: 'Code' }));
+    await tick();
+    expect(changed).toHaveBeenCalled();
+    expect(screen.getByRole('combobox', { name: 'Tags' })).toBeTruthy();
+
+    await fireEvent.click(screen.getByRole('button', { name: 'Remove Design' }));
+    await tick();
+    expect(screen.queryByRole('button', { name: 'Remove Design' })).toBeNull();
+  });
+});
+
+describe('DatePicker', () => {
+  test('opens a calendar and chooses a day', async () => {
+    const { component, container } = render(DatePicker, { label: 'Due date', value: '2024-03-15', locale: 'en-US' });
+    const changed = vi.fn();
+    component.$on('change', changed);
+    await fireEvent.click(screen.getByRole('button', { name: 'Due date' }));
+    await tick();
+    expect(screen.getByRole('dialog', { name: 'Due date' })).toBeTruthy();
+    const day15 = container.querySelector('[data-date="2024-03-15"]');
+    await fireEvent.keyDown(day15, { key: 'ArrowRight' });
+    await tick();
+    expect(document.activeElement.getAttribute('data-date')).toBe('2024-03-16');
+    const day = container.querySelector('[data-date="2024-03-20"]');
+    expect(day).toBeTruthy();
+    await fireEvent.click(day);
+    expect(changed).toHaveBeenCalledWith(expect.objectContaining({ detail: '2024-03-20' }));
+  });
+});
+
+describe('FileUpload', () => {
+  test('adds and removes a picked file', async () => {
+    const { component, container } = render(FileUpload, { label: 'Attachments' });
+    const changed = vi.fn();
+    component.$on('change', changed);
+    const input = container.querySelector('input[type="file"]');
+    const file = new File(['hello'], 'note.md', { type: 'text/markdown' });
+    Object.defineProperty(input, 'files', { value: [file], configurable: true });
+    await fireEvent.change(input);
+    await tick();
+    expect(screen.getByText('note.md')).toBeTruthy();
+    expect(changed).toHaveBeenCalled();
+    await fireEvent.click(screen.getByRole('button', { name: 'Remove note.md' }));
+    expect(screen.queryByText('note.md')).toBeNull();
   });
 });

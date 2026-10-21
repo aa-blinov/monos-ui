@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.4.0
+
+- `Combobox`, `MultiSelect`, `DatePicker`, `Slider`, `FileUpload`, `Fieldset` and `FormField`.
+- The form layer is controlled and labelled: bindable values, real listboxes, a drawn calendar and a native range.
+- 37 primitives; 44 tests; the gallery has a Form controls section.
+
 ## 0.3.0
 
 - `Tabs`, `Accordion`, `Popover`, `AlertDialog`, `RadioGroup`, `Progress`, `Skeleton`, `Avatar`, `Table`, and `Toaster` / `toast`.
