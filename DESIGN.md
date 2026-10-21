@@ -59,6 +59,11 @@ A card has `shadow-rest` (`0 1px 2px / 3%`), which is paper texture rather than 
 - **Progress** is a thin bar with the one radius. Indeterminate is a sweep, not a spinner in disguise; `Skeleton` reserves the size the content will take, so the arrival does not move the page.
 - **Avatars** are circles, image or initials, with a status dot on the edge. The dot is the only place where a status colour is a dot, not a word; it is never the only signal (the name is there).
 - **Tables** are for data, not layout. Headers sort with a triangle and `aria-sort`; selection is a checkbox column; a row action belongs in a cell, because a clickable `<tr>` is not a keyboard control.
+- **Breadcrumbs** say where the page sits; the last item is the current page, not a link. The separator is a slash, never a middle dot.
+- **A page header** is a title, a sentence and the actions at the top right. It is a pattern, not an app shell.
+- **Pagination** keeps first, last and the current neighbourhood; a gap is an ellipsis, not a disabled button.
+- **A drawer** is the side version of a modal: same focus trap, same scroll lock, same focus return, a slide from the edge. Use it for navigation or a long filter form on a phone.
+- **Prose** is the reading column: 70ch measure, 14/1.7 body, one face, code on one surface, tables with a hairline. It owns rhythm, not words.
 - **Toasts** are transient and live in one region; `Notice` is inline and stays. A danger toast is an alert; the rest are status. Four at a time is enough.
 - **The tooltip** is one look and one delay (450ms; immediate on keyboard focus), and it does not exist below 640px.
 

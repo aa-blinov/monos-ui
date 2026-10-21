@@ -16,12 +16,14 @@
     AlertDialog,
     Avatar,
     Badge,
+    Breadcrumbs,
     Button,
     Card,
     Checkbox,
     Combobox,
     Chip,
     DatePicker,
+    Drawer,
     EmptyState,
     Fieldset,
     FileUpload,
@@ -32,6 +34,9 @@
     Modal,
     MultiSelect,
     Notice,
+    PageHeader,
+    Pagination,
+    Prose,
     Popover,
     Progress,
     RadioGroup,
@@ -76,6 +81,8 @@
   let dueDate = '2024-03-15';
   let quietHours = 22;
   let uploads = [];
+  let page = 4;
+  let drawerOpen = false;
   let progress = 62;
   let tableSort = { key: 'name', direction: 'asc' };
   let tableSelected = [];
@@ -219,7 +226,7 @@
         </IconButton>
       </div>
       <p class="mt-5 flex flex-wrap gap-x-5 gap-y-1 text-whisper uppercase tracking-widest text-ink-faint">
-        <span>37 components</span>
+        <span>42 components</span>
         <span>6 themes</span>
         <span>2 modes</span>
         <span>Svelte 4 and Tailwind 3</span>
@@ -234,7 +241,7 @@
   </header>
 
   <nav class="mt-6 flex flex-wrap gap-x-4 gap-y-2 text-whisper uppercase tracking-widest text-ink-faint" aria-label="Sections">
-    {#each [['palette', 'Palette'], ['type', 'Type'], ['buttons', 'Buttons'], ['fields', 'Fields'], ['forms', 'Forms'], ['marks', 'Chips'], ['surfaces', 'Surfaces'], ['structure', 'Structure'], ['table', 'Table'], ['overlays', 'Overlays'], ['feedback', 'Feedback'], ['notices', 'Notices'], ['empty', 'Empty']] as [id, name]}
+    {#each [['palette', 'Palette'], ['type', 'Type'], ['buttons', 'Buttons'], ['fields', 'Fields'], ['forms', 'Forms'], ['marks', 'Chips'], ['surfaces', 'Surfaces'], ['structure', 'Structure'], ['table', 'Table'], ['navigation', 'Navigation'], ['overlays', 'Overlays'], ['feedback', 'Feedback'], ['notices', 'Notices'], ['empty', 'Empty']] as [id, name]}
       <a href="#{id}" class="transition-colors duration-fast hover:text-ink">{name}</a>
     {/each}
   </nav>
@@ -412,6 +419,49 @@
     <p class="mt-2 text-whisper uppercase tracking-widest text-ink-faint">
       {tableSelected.length} selected, sorted by {tableSort ? `${tableSort.key} ${tableSort.direction}` : 'nothing'}
     </p>
+  </section>
+
+  <section id="navigation" class="mt-12 scroll-mt-20">
+    <h2 class="text-lg font-bold tracking-tight">Navigation and content</h2>
+    <div class="mt-4 space-y-8">
+      <PageHeader title="A page header" description="It names the page, says what it is for and holds the actions." level={2}>
+        <svelte:fragment slot="actions">
+          <Button variant="secondary" size="sm">Share</Button>
+        </svelte:fragment>
+      </PageHeader>
+
+      <div class="grid gap-8 md:grid-cols-2">
+        <div class="space-y-8">
+          <div>
+            <Breadcrumbs items={[{ label: 'Notes', href: '#' }, { label: 'Work', href: '#' }, { label: 'Today' }]} />
+          </div>
+          <div>
+            <Pagination bind:page pages={12} />
+          </div>
+          <div>
+            <Button variant="secondary" on:click={() => (drawerOpen = true)}>Open a drawer</Button>
+            <Drawer bind:open={drawerOpen} title="Filters" description="Narrow the board without leaving it.">
+              <p class="text-sm leading-relaxed text-ink-soft">The drawer holds a longer filter form on a phone, or navigation when the sidebar is gone.</p>
+              <svelte:fragment slot="footer">
+                <Button variant="secondary" on:click={() => (drawerOpen = false)}>Cancel</Button>
+                <Button on:click={() => (drawerOpen = false)}>Apply</Button>
+              </svelte:fragment>
+            </Drawer>
+          </div>
+        </div>
+
+        <Prose>
+          <h3>Reading a note</h3>
+          <p>A reading column is a measure, a rhythm and a quiet place for links. The prose wrapper owns the space between the elements; the product owns the words.</p>
+          <ul>
+            <li>Headings take the same face and weight as the rest of the kit.</li>
+            <li>Code sits on one surface, with one radius.</li>
+          </ul>
+          <blockquote>One radius, one face, one accent at a time.</blockquote>
+          <pre><code>npm install github:aa-blinov/monos-ui</code></pre>
+        </Prose>
+      </div>
+    </div>
   </section>
 
   <section id="overlays" class="mt-12 scroll-mt-20">

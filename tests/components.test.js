@@ -4,11 +4,13 @@ import { tick } from 'svelte';
 import Accordion from '../src/components/Accordion.svelte';
 import AlertDialog from '../src/components/AlertDialog.svelte';
 import Avatar from '../src/components/Avatar.svelte';
+import Breadcrumbs from '../src/components/Breadcrumbs.svelte';
 import Button from '../src/components/Button.svelte';
 import Card from '../src/components/Card.svelte';
 import Checkbox from '../src/components/Checkbox.svelte';
 import Combobox from '../src/components/Combobox.svelte';
 import DatePicker from '../src/components/DatePicker.svelte';
+import Drawer from '../src/components/Drawer.svelte';
 import Fieldset from '../src/components/Fieldset.svelte';
 import FileUpload from '../src/components/FileUpload.svelte';
 import FormField from '../src/components/FormField.svelte';
@@ -32,6 +34,9 @@ import { clearToasts, toast } from '../src/toast.js';
 import TextField from '../src/components/TextField.svelte';
 import FieldHarness from './fixtures/FieldHarness.svelte';
 import ModalHarness from './fixtures/ModalHarness.svelte';
+import PageHeader from '../src/components/PageHeader.svelte';
+import Pagination from '../src/components/Pagination.svelte';
+import Prose from '../src/components/Prose.svelte';
 import MultiSelect from '../src/components/MultiSelect.svelte';
 import Slider from '../src/components/Slider.svelte';
 
@@ -546,5 +551,59 @@ describe('FileUpload', () => {
     expect(changed).toHaveBeenCalled();
     await fireEvent.click(screen.getByRole('button', { name: 'Remove note.md' }));
     expect(screen.queryByText('note.md')).toBeNull();
+  });
+});
+
+describe('Breadcrumbs and PageHeader', () => {
+  test('Breadcrumbs mark the current page', () => {
+    render(Breadcrumbs, {
+      items: [
+        { label: 'Notes', href: '/notes' },
+        { label: 'Work', href: '/notes/work' },
+        { label: 'Today' },
+      ],
+    });
+    expect(screen.getByRole('navigation', { name: 'Breadcrumb' })).toBeTruthy();
+    expect(screen.getByRole('link', { name: 'Notes' }).getAttribute('href')).toBe('/notes');
+    expect(screen.getByText('Today').getAttribute('aria-current')).toBe('page');
+  });
+
+  test('PageHeader names the page', () => {
+    render(PageHeader, { title: 'Settings', description: 'How this desk behaves' });
+    expect(screen.getByRole('heading', { level: 1, name: 'Settings' })).toBeTruthy();
+    expect(screen.getByText('How this desk behaves')).toBeTruthy();
+  });
+});
+
+describe('Pagination', () => {
+  test('moves to the next page and marks the current one', async () => {
+    const { component } = render(Pagination, { page: 5, pages: 10 });
+    const changed = vi.fn();
+    component.$on('change', changed);
+    expect(screen.getByRole('navigation', { name: 'Pagination' })).toBeTruthy();
+    expect(screen.getByRole('button', { name: '5' }).getAttribute('aria-current')).toBe('page');
+    await fireEvent.click(screen.getByRole('button', { name: 'Next page' }));
+    expect(changed).toHaveBeenCalledWith(expect.objectContaining({ detail: 6 }));
+    expect(screen.getByRole('button', { name: '6' }).getAttribute('aria-current')).toBe('page');
+  });
+});
+
+describe('Drawer', () => {
+  test('is a dialog and closes on Escape', async () => {
+    const { component } = render(Drawer, { open: true, title: 'Filters' });
+    const closed = vi.fn();
+    component.$on('close', closed);
+    await tick();
+    expect(screen.getByRole('dialog', { name: 'Filters' })).toBeTruthy();
+    await fireEvent.keyDown(window, { key: 'Escape' });
+    expect(closed).toHaveBeenCalledTimes(1);
+    expect(screen.queryByRole('dialog')).toBeNull();
+  });
+});
+
+describe('Prose', () => {
+  test('renders the reading column', () => {
+    const { container } = render(Prose);
+    expect(container.querySelector('.ui-prose')).toBeTruthy();
   });
 });

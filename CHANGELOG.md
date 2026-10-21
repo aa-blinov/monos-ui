@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.5.0
+
+- `Breadcrumbs`, `PageHeader`, `Pagination`, `Drawer` and `Prose`.
+- 42 primitives; 49 tests; the gallery has a Navigation and content section.
+
 ## 0.4.0
 
 - `Combobox`, `MultiSelect`, `DatePicker`, `Slider`, `FileUpload`, `Fieldset` and `FormField`.

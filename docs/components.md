@@ -473,3 +473,43 @@ A drop zone and a file list.
 | `class` | string | `''` |
 
 Event: `change` with the files array. The component picks and lists files; it does not upload. `accept` filters the picker; a dropped file is not filtered by the component. Drop, click and Enter/Space open the picker; each file has a named remove button.
+
+## Breadcrumbs
+
+`items` (`{ label, href? }[]`), `label` (`Breadcrumb`), `class`. The last item is the current page (`aria-current="page"`) and is not a link. The separators are a decorative slash, not a middle dot.
+
+## PageHeader
+
+`title`, `description`, `level` (1–6), `class`. Slot `actions`. It draws the page's heading, a sentence and the actions at the top right; the heading level is a prop because a page header is not always the document's first heading.
+
+## Pagination
+
+| Prop | Type | Default |
+|---|---|---|
+| `page` | number | `1` (bindable) |
+| `pages` | number | `1` |
+| `label` | string | `Pagination` |
+| `previousLabel` / `nextLabel` | string | `Previous page` / `Next page` |
+| `class` | string | `''` |
+
+Event: `change` with the new page. Up to seven pages are all shown; longer ranges keep first, last and the current neighbourhood, with a real ellipsis for the gaps. The current button has `aria-current="page"`.
+
+## Drawer
+
+A modal panel from the side. Use it for navigation or a long filter form on a phone.
+
+| Prop | Type | Default |
+|---|---|---|
+| `open` | boolean | `false` (bindable) |
+| `title` / `description` | string | `''` |
+| `side` | `right \| left` | `right` |
+| `size` | `sm \| md \| lg \| xl` | `md` |
+| `closeLabel` | string | `Close` |
+| `closeOnBackdrop` / `closeOnEscape` | boolean | `true` |
+| `class` | string | `''` |
+
+Events: `close`. Slots: default, `footer`. It locks the page, traps Tab, focuses the panel, closes on Escape or the backdrop, and returns focus on close. The panel slides in; under reduce motion it appears without movement.
+
+## Prose
+
+A reading column for Markdown or article content: 70ch measure, 14/1.7 body, headings, lists, links, inline code, code blocks, blockquotes, rules, tables and images in the kit's tokens. Slot: default; `class` for the wrapper. The component owns the rhythm, the product owns the words.
