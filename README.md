@@ -10,6 +10,8 @@ The design system itself, in one page: [DESIGN.md](DESIGN.md).
 
 > **Status:** 0.1.0, source distribution. Not on npm yet; install from this repository.
 
+**Live gallery:** [aa-blinov.github.io/monos-ui](https://aa-blinov.github.io/monos-ui/)
+
 ![The kit's gallery: palette, type, buttons and fields](docs/preview.png)
 
 ## Install

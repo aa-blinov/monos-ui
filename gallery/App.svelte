@@ -1,4 +1,5 @@
 <script>
+  import { onDestroy } from 'svelte';
   import {
     Map,
     Star,
@@ -47,6 +48,39 @@
   let modalOpen = false;
   let noticeVisible = true;
   let picked = '';
+  let copied = false;
+  let copyTimer = null;
+
+  const INSTALL = 'npm install github:aa-blinov/monos-ui';
+
+  async function copyInstall() {
+    let ok = false;
+    try {
+      await navigator.clipboard.writeText(INSTALL);
+      ok = true;
+    } catch {
+      // A clipboard permission can be refused; a selected field still copies in older browsers.
+      try {
+        const area = document.createElement('textarea');
+        area.value = INSTALL;
+        area.style.position = 'fixed';
+        area.style.opacity = '0';
+        document.body.appendChild(area);
+        area.select();
+        ok = document.execCommand('copy');
+        area.remove();
+      } catch {
+        ok = false;
+      }
+    }
+    copied = ok;
+    if (ok) {
+      clearTimeout(copyTimer);
+      copyTimer = setTimeout(() => (copied = false), 2000);
+    }
+  }
+
+  onDestroy(() => clearTimeout(copyTimer));
 
   const menuItems = [
     { value: 'map', label: 'Map', icon: Map },
@@ -67,13 +101,51 @@
   }
 </script>
 
-<div class="mx-auto max-w-5xl px-6 pb-24 pt-10">
+<nav class="sticky top-0 z-20 border-b border-line bg-canvas" aria-label="Monos UI">
+  <div class="mx-auto flex max-w-5xl items-center justify-between gap-4 px-6 py-3">
+    <a href="#top" class="text-sm font-bold tracking-tight">Monos UI</a>
+    <div class="flex items-center gap-5 text-whisper uppercase tracking-widest text-ink-faint">
+      <a href="https://github.com/aa-blinov/monos-ui" class="transition-colors duration-fast hover:text-ink">GitHub</a>
+      <a href="https://github.com/aa-blinov/monos-ui/releases" class="transition-colors duration-fast hover:text-ink">Release</a>
+      <a href="https://github.com/aa-blinov/monos-ui/tree/main/docs" class="transition-colors duration-fast hover:text-ink">Docs</a>
+    </div>
+  </div>
+</nav>
+
+<div id="top" class="mx-auto max-w-5xl px-6 pb-24 pt-10">
   <header class="flex flex-wrap items-end justify-between gap-6 border-b border-line pb-6">
     <div>
       <h1 class="text-3xl font-bold tracking-tight">The desk, as a kit</h1>
       <p class="mt-2 max-w-xl text-sm leading-relaxed text-ink-soft">
         Warm paper, one radius, text buttons and a quiet focus ring. Pick a palette and a mode;
         everything below is drawn from the same tokens.
+      </p>
+      <div class="mt-5 flex max-w-full items-center gap-2">
+        <code class="min-w-0 flex-1 overflow-x-auto whitespace-nowrap rounded-ui border border-line bg-surface px-3 py-2 font-mono text-xs text-ink-soft">{INSTALL}</code>
+        <IconButton
+          label={copied ? 'Copied' : 'Copy install command'}
+          tooltipText={copied ? 'Copied' : 'Copy install command'}
+          variant="outline"
+          size="sm"
+          on:click={copyInstall}
+        >
+          {#if copied}
+            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <polyline points="20 6 9 17 4 12" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          {:else}
+            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <rect x="9" y="9" width="11" height="11" rx="1.5" stroke="currentColor" stroke-width="1.7" />
+              <path d="M15 9V5.5A1.5 1.5 0 0 0 13.5 4h-8A1.5 1.5 0 0 0 4 5.5v8A1.5 1.5 0 0 0 5.5 15H9" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" />
+            </svg>
+          {/if}
+        </IconButton>
+      </div>
+      <p class="mt-5 flex flex-wrap gap-x-5 gap-y-1 text-whisper uppercase tracking-widest text-ink-faint">
+        <span>19 components</span>
+        <span>6 themes</span>
+        <span>2 modes</span>
+        <span>Svelte 4 and Tailwind 3</span>
       </p>
     </div>
     <div class="flex flex-wrap items-end gap-3">
@@ -84,7 +156,13 @@
     </div>
   </header>
 
-  <section class="mt-10">
+  <nav class="mt-6 flex flex-wrap gap-x-4 gap-y-2 text-whisper uppercase tracking-widest text-ink-faint" aria-label="Sections">
+    {#each [['palette', 'Palette'], ['type', 'Type'], ['buttons', 'Buttons'], ['fields', 'Fields'], ['marks', 'Chips'], ['surfaces', 'Surfaces'], ['menu', 'Menu'], ['notices', 'Notices'], ['empty', 'Empty state']] as [id, name]}
+      <a href="#{id}" class="transition-colors duration-fast hover:text-ink">{name}</a>
+    {/each}
+  </nav>
+
+  <section id="palette" class="mt-10 scroll-mt-20">
     <h2 class="text-lg font-bold tracking-tight">Palette</h2>
     <p class="mt-1 text-xs text-ink-soft">Semantic roles, not colour names. The same roles exist in every theme.</p>
     <div class="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-5">
@@ -98,7 +176,7 @@
     </div>
   </section>
 
-  <section class="mt-12">
+  <section id="type" class="mt-12 scroll-mt-20">
     <h2 class="text-lg font-bold tracking-tight">Type</h2>
     <div class="mt-4 space-y-2">
       <p class="text-3xl font-bold tracking-tight">Display 30</p>
@@ -109,7 +187,7 @@
     </div>
   </section>
 
-  <section class="mt-12">
+  <section id="buttons" class="mt-12 scroll-mt-20">
     <h2 class="text-lg font-bold tracking-tight">Buttons</h2>
     <p class="mt-1 text-xs text-ink-soft">Text is the button. The only filled thing is a toggle's chosen state.</p>
     <div class="mt-4 flex flex-wrap items-center gap-3">
@@ -139,7 +217,7 @@
     </div>
   </section>
 
-  <section class="mt-12">
+  <section id="fields" class="mt-12 scroll-mt-20">
     <h2 class="text-lg font-bold tracking-tight">Fields</h2>
     <div class="mt-4 grid gap-6 md:grid-cols-2">
       <TextField label="Title" bind:value={title} hint="The name on the card and in the file" />
@@ -160,7 +238,7 @@
     </div>
   </section>
 
-  <section class="mt-12">
+  <section id="marks" class="mt-12 scroll-mt-20">
     <h2 class="text-lg font-bold tracking-tight">Chips and badges</h2>
     <div class="mt-4 flex flex-wrap items-center gap-3">
       <Chip>#design</Chip>
@@ -175,7 +253,7 @@
     </div>
   </section>
 
-  <section class="mt-12">
+  <section id="surfaces" class="mt-12 scroll-mt-20">
     <h2 class="text-lg font-bold tracking-tight">Surfaces</h2>
     <div class="mt-4 grid gap-4 sm:grid-cols-2">
       <Card>
@@ -189,7 +267,7 @@
     </div>
   </section>
 
-  <section class="mt-12">
+  <section id="menu" class="mt-12 scroll-mt-20">
     <h2 class="text-lg font-bold tracking-tight">Menu and modal</h2>
     <div class="mt-4 flex flex-wrap items-center gap-4">
       <Menu items={menuItems} label="Actions" on:select={(event) => (picked = event.detail.label)}>
@@ -209,7 +287,7 @@
     </div>
   </section>
 
-  <section class="mt-12">
+  <section id="notices" class="mt-12 scroll-mt-20">
     <h2 class="text-lg font-bold tracking-tight">Notices</h2>
     <div class="mt-4 space-y-3">
       {#if noticeVisible}
@@ -222,7 +300,7 @@
     </div>
   </section>
 
-  <section class="mt-12 grid gap-6 md:grid-cols-2">
+  <section id="empty" class="mt-12 scroll-mt-20 grid gap-6 md:grid-cols-2">
     <div>
       <h2 class="text-lg font-bold tracking-tight">Empty state</h2>
       <Card padding="lg" class="mt-4">
@@ -253,6 +331,14 @@
       </div>
     </div>
   </section>
+
+  <footer class="mt-16 flex flex-wrap items-center justify-between gap-3 border-t border-line pt-6 text-xs text-ink-faint">
+    <p>MIT, Svelte 4, Tailwind 3</p>
+    <p>
+      <a href="https://github.com/aa-blinov/monos-ui" class="transition-colors duration-fast hover:text-ink">GitHub</a>,
+      <a href="https://github.com/aa-blinov/monos-ui/releases" class="transition-colors duration-fast hover:text-ink">Release</a>
+    </p>
+  </footer>
 </div>
 
 <Modal bind:open={modalOpen} title="Delete this note?" description="This cannot be undone.">
