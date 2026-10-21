@@ -1,5 +1,7 @@
 # @monos/ui
 
+[![test](https://github.com/aa-blinov/monos-ui/actions/workflows/test.yml/badge.svg)](https://github.com/aa-blinov/monos-ui/actions/workflows/test.yml) [![the gallery](https://img.shields.io/badge/gallery-live-7a9e9f)](https://aa-blinov.github.io/monos-ui/)
+
 The interface kit extracted from [Monos](https://github.com/aa-blinov/monos): warm paper, one radius, text buttons and a focus ring that belongs to the theme.
 
 It is a Svelte 4 component library with a Tailwind preset and a plain-CSS token layer. The tokens work without Svelte or Tailwind; the components are source files that your bundler compiles.

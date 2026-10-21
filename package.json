@@ -61,5 +61,13 @@
     "tailwindcss",
     "components",
     "monos"
-  ]
+  ],
+  "homepage": "https://aa-blinov.github.io/monos-ui/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aa-blinov/monos-ui.git"
+  },
+  "bugs": {
+    "url": "https://github.com/aa-blinov/monos-ui/issues"
+  }
 }
