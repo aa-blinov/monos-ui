@@ -40,7 +40,7 @@ A card has `shadow-rest` (`0 1px 2px / 3%`), which is paper texture rather than 
 
 - **Text buttons.** The word is the button: `primary` is bold ink, `secondary` is soft ink, `danger` is red. There is no filled call to action and no outlined action. The only frame is a toggle's chosen state.
 - **Icon buttons** are 28/36/44px squares with a required `label`. A tooltip repeats the name; it is never the only name.
-- **Fields** are underline rows (`h-9`, bottom border), with search fields as pills. Height is declared, not derived from padding.
+- **Fields** are underline rows (`h-9`, bottom border), with search fields as pills. Height is declared, not derived from padding. A choice whose list is part of the interface uses `Select`, a themed listbox; a long form may keep the native `SelectField`.
 - **Chips** are bordered labels, not filters; **badges** are uppercase status words, optionally with a dot.
 - **Cards** are `bg-surface`, one border and a resting shadow. `interactive` makes the card a button and adds the lift.
 - **Menus** are a trigger plus data items; arrows, Home/End, Escape and an outside click work; the first item takes focus when the menu opens.

@@ -24,6 +24,7 @@
     Notice,
     SearchField,
     SegmentedControl,
+    Select,
     SelectField,
     Spinner,
     Switch,
@@ -77,7 +78,7 @@
     </div>
     <div class="flex flex-wrap items-end gap-3">
       <div class="w-40">
-        <SelectField label="Theme" bind:value={theme} options={themeNames.map((id) => ({ value: id, label: themes[id].name }))} size="sm" />
+        <Select label="Theme" bind:value={theme} options={themeNames.map((id) => ({ value: id, label: themes[id].name }))} size="sm" />
       </div>
       <SegmentedControl label="Mode" bind:value={mode} options={[{ value: 'light', label: 'Light' }, { value: 'dark', label: 'Dark' }]} size="sm" />
     </div>

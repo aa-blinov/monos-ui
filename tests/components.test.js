@@ -10,6 +10,7 @@ import Modal from '../src/components/Modal.svelte';
 import Notice from '../src/components/Notice.svelte';
 import SearchField from '../src/components/SearchField.svelte';
 import SegmentedControl from '../src/components/SegmentedControl.svelte';
+import Select from '../src/components/Select.svelte';
 import SelectField from '../src/components/SelectField.svelte';
 import Switch from '../src/components/Switch.svelte';
 import TextField from '../src/components/TextField.svelte';
@@ -77,6 +78,36 @@ describe('SelectField', () => {
     await fireEvent.change(select, { target: { value: 'home' } });
     expect(select.value).toBe('home');
     expect(changed).toHaveBeenCalled();
+  });
+});
+
+describe('Select', () => {
+  test('opens a themed list, chooses and closes', async () => {
+    const { component } = render(Select, {
+      label: 'Theme',
+      value: 'gruvbox',
+      options: [{ value: 'gruvbox', label: 'Gruvbox' }, { value: 'nord', label: 'Nord' }],
+    });
+    const changed = vi.fn();
+    component.$on('change', changed);
+    await fireEvent.click(screen.getByRole('button', { name: 'Theme' }));
+    expect(screen.getByRole('listbox')).toBeTruthy();
+    expect(screen.getByRole('option', { name: 'Gruvbox' }).getAttribute('aria-selected')).toBe('true');
+    await fireEvent.click(screen.getByRole('option', { name: 'Nord' }));
+    expect(screen.getByRole('button', { name: 'Theme' }).textContent).toContain('Nord');
+    expect(changed).toHaveBeenCalledWith(expect.objectContaining({ detail: expect.objectContaining({ value: 'nord' }) }));
+    expect(screen.queryByRole('listbox')).toBeNull();
+  });
+
+  test('arrow keys move and Escape closes', async () => {
+    render(Select, { label: 'Theme', value: 'gruvbox', options: [{ value: 'gruvbox', label: 'Gruvbox' }, { value: 'nord', label: 'Nord' }] });
+    await fireEvent.click(screen.getByRole('button', { name: 'Theme' }));
+    const [first, second] = screen.getAllByRole('option');
+    expect(document.activeElement).toBe(first);
+    await fireEvent.keyDown(first, { key: 'ArrowDown' });
+    expect(document.activeElement).toBe(second);
+    await fireEvent.keyDown(second, { key: 'Escape' });
+    expect(screen.queryByRole('listbox')).toBeNull();
   });
 });
 

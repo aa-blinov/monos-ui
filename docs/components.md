@@ -52,6 +52,22 @@ Events: `input`, `change`, `keydown`, `focus`, `blur`.
 
 Same label, hint, error, `variant`, `disabled`, `required` and `class` props as TextField, plus `rows` (4), `name`, `placeholder`, `id`, `value` (bindable). Events: `input`, `change`, `keydown`, `focus`, `blur`.
 
+## Select
+
+A themed single choice: the trigger shows the current label, the popup is drawn by the kit. Use it where the choice is part of the interface (a theme picker, a toolbar mode). For a long form with many options, `SelectField` is the native control.
+
+| Prop | Type | Default |
+|---|---|---|
+| `value` | string | `''` (bindable) |
+| `options` | `{ value, label?, disabled? }[]` | `[]` |
+| `label` | string | `''` |
+| `placeholder` | string | `Select` |
+| `size` | `sm \| md \| lg` | `md` |
+| `disabled` | boolean | `false` |
+| `class` | string | `''` |
+
+Event: `change` with `{ value, option }`. The trigger opens with Enter/Space or ArrowDown/ArrowUp; arrows, Home and End move; Enter chooses; Escape closes and returns focus; an outside click closes. The list is a `role="listbox"` with `role="option"` rows and `aria-selected`.
+
 ## SelectField
 
 | Prop | Type | Default |

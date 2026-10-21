@@ -8,6 +8,8 @@ The design system itself, in one page: [DESIGN.md](DESIGN.md).
 
 > **Status:** 0.1.0, source distribution. Not on npm yet; install from this repository.
 
+![The kit's gallery: palette, type, buttons and fields](docs/preview.png)
+
 ## Install
 
 ```bash
@@ -86,7 +88,8 @@ Themes: `gruvbox`, `github`, `dracula`, `nord`, `solarized`, `catppuccin`. Modes
 | `IconButton` | 28/36/44px square, outline or ghost, always named by `label`; tooltip by default |
 | `TextField` | Underline or boxed input with label, hint, error |
 | `TextArea` | The same field, multi-line |
-| `SelectField` | Native select, themed closed control |
+| `Select` | Themed listbox: the popup is drawn by the kit |
+| `SelectField` | Native select for forms, themed closed control |
 | `SearchField` | Pill search with magnifier and clear |
 | `Checkbox` | 16px box, 24/44px row |
 | `Switch` | `role="switch"` row |

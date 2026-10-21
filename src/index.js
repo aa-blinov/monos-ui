@@ -11,6 +11,7 @@ export { default as Modal } from './components/Modal.svelte';
 export { default as Notice } from './components/Notice.svelte';
 export { default as SearchField } from './components/SearchField.svelte';
 export { default as SegmentedControl } from './components/SegmentedControl.svelte';
+export { default as Select } from './components/Select.svelte';
 export { default as SelectField } from './components/SelectField.svelte';
 export { default as Spinner } from './components/Spinner.svelte';
 export { default as Switch } from './components/Switch.svelte';
