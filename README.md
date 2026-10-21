@@ -8,7 +8,7 @@ It is a Svelte 4 component library with a Tailwind preset and a plain-CSS token 
 
 The design system itself, in one page: [DESIGN.md](DESIGN.md).
 
-> **Status:** 0.2.0, source distribution. Not on npm yet; install from this repository.
+> **Status:** 0.3.0, source distribution. Not on npm yet; install from this repository.
 
 **Live gallery:** [aa-blinov.github.io/monos-ui](https://aa-blinov.github.io/monos-ui/)
 
@@ -107,6 +107,16 @@ Themes: `gruvbox`, `github`, `dracula`, `nord`, `solarized`, `catppuccin`. Modes
 | `EmptyState` | Icon, title, sentence, actions |
 | `Kbd` | Key cap |
 | `Spinner` | Loading ring |
+| `Tabs` | WAI-ARIA tab list; line or pill; arrows, Home/End; panel slot |
+| `Accordion` | Disclosure stack; one or many open; heading buttons |
+| `Popover` | Anchored non-modal panel; trigger slot; flips, Escape, outside click |
+| `AlertDialog` | `role="alertdialog"` confirmation; focus starts on Cancel |
+| `RadioGroup` | Real radios, one name, custom circle |
+| `Progress` | Determinate and indeterminate bar; tones; reduced motion |
+| `Skeleton` | Reserves the size; pulse stops under reduce motion |
+| `Avatar` | Image or initials; five sizes; status dot |
+| `Table` | Sortable, selectable data table; cell slot; sticky header |
+| `Toaster` / `toast` | Queue, auto-dismiss, actions; danger is an alert |
 | `Tooltip` / `tooltip` | Hint on any element; one look, 450 ms, never on a phone |
 
 Full props, events and slots: [docs/components.md](docs/components.md). Tokens: [docs/tokens.md](docs/tokens.md). Moving Monos itself onto the kit: [docs/migrating-monos.md](docs/migrating-monos.md).

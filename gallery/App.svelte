@@ -12,6 +12,9 @@
     MoreHorizontal,
   } from 'lucide-svelte';
   import {
+    Accordion,
+    AlertDialog,
+    Avatar,
     Badge,
     Button,
     Card,
@@ -23,15 +26,23 @@
     Menu,
     Modal,
     Notice,
+    Popover,
+    Progress,
+    RadioGroup,
     SearchField,
     SegmentedControl,
     Select,
     SelectField,
+    Skeleton,
     Spinner,
     Switch,
+    Table,
+    Tabs,
     TextArea,
     TextField,
+    Toaster,
     Tooltip,
+    toast,
     themes,
     themeNames,
   } from '../src/index.js';
@@ -48,6 +59,14 @@
   let modalOpen = false;
   let noticeVisible = true;
   let picked = '';
+  let tab = 'write';
+  let accordionOpen = ['what'];
+  let popoverOpen = false;
+  let alertOpen = false;
+  let radio = 'board';
+  let progress = 62;
+  let tableSort = { key: 'name', direction: 'asc' };
+  let tableSelected = [];
   let copied = false;
   let copyTimer = null;
 
@@ -81,6 +100,36 @@
   }
 
   onDestroy(() => clearTimeout(copyTimer));
+
+  const tabItems = [
+    { id: 'write', label: 'Write' },
+    { id: 'read', label: 'Read' },
+    { id: 'history', label: 'History' },
+  ];
+
+  const accordionItems = [
+    { id: 'what', title: 'What is a token?', body: 'A named value: a colour, a radius, a size. A component reads the name, never the value.' },
+    { id: 'why', title: 'Why one radius?', body: 'A card, a menu and a field are the same kind of rectangle. Density changes their size, not their corner.' },
+    { id: 'how', title: 'How does a theme work?', body: 'A theme sets the semantic variables on an attribute. No JavaScript is needed to switch it.' },
+  ];
+
+  const radioOptions = [
+    { value: 'board', label: 'Board', description: 'Cards with a tint and a date' },
+    { value: 'list', label: 'List' },
+    { value: 'table', label: 'Table' },
+  ];
+
+  const tableColumns = [
+    { key: 'name', label: 'Name', sortable: true },
+    { key: 'kind', label: 'Kind' },
+    { key: 'size', label: 'Size', align: 'right', sortable: true },
+  ];
+
+  const tableRows = [
+    { id: 'board', name: 'Board', kind: 'View', size: 12 },
+    { id: 'today', name: 'Today', kind: 'View', size: 4 },
+    { id: 'archive', name: 'Archive', kind: 'Folder', size: 128 },
+  ];
 
   const menuItems = [
     { value: 'map', label: 'Map', icon: Map },
@@ -142,7 +191,7 @@
         </IconButton>
       </div>
       <p class="mt-5 flex flex-wrap gap-x-5 gap-y-1 text-whisper uppercase tracking-widest text-ink-faint">
-        <span>20 components</span>
+        <span>30 components</span>
         <span>6 themes</span>
         <span>2 modes</span>
         <span>Svelte 4 and Tailwind 3</span>
@@ -157,7 +206,7 @@
   </header>
 
   <nav class="mt-6 flex flex-wrap gap-x-4 gap-y-2 text-whisper uppercase tracking-widest text-ink-faint" aria-label="Sections">
-    {#each [['palette', 'Palette'], ['type', 'Type'], ['buttons', 'Buttons'], ['fields', 'Fields'], ['marks', 'Chips'], ['surfaces', 'Surfaces'], ['menu', 'Menu'], ['notices', 'Notices'], ['empty', 'Empty state']] as [id, name]}
+    {#each [['palette', 'Palette'], ['type', 'Type'], ['buttons', 'Buttons'], ['fields', 'Fields'], ['marks', 'Chips'], ['surfaces', 'Surfaces'], ['structure', 'Structure'], ['table', 'Table'], ['overlays', 'Overlays'], ['feedback', 'Feedback'], ['notices', 'Notices'], ['empty', 'Empty']] as [id, name]}
       <a href="#{id}" class="transition-colors duration-fast hover:text-ink">{name}</a>
     {/each}
   </nav>
@@ -236,6 +285,9 @@
         </div>
       </div>
     </div>
+    <div class="mt-6">
+      <RadioGroup label="Default view" bind:value={radio} orientation="horizontal" options={radioOptions} />
+    </div>
   </section>
 
   <section id="marks" class="mt-12 scroll-mt-20">
@@ -250,6 +302,12 @@
       <Badge tone="danger">Conflict</Badge>
       <Badge tone="success">Synced</Badge>
       <Badge tone="warning">Pending</Badge>
+    </div>
+    <div class="mt-6 flex flex-wrap items-center gap-4">
+      <Avatar name="Ada Lovelace" size="lg" status="online" />
+      <Avatar name="Grace Hopper" size="md" />
+      <Avatar name="Alan Turing" size="sm" status="away" />
+      <Avatar name="Katherine Johnson" size="xl" />
     </div>
   </section>
 
@@ -267,8 +325,54 @@
     </div>
   </section>
 
-  <section id="menu" class="mt-12 scroll-mt-20">
-    <h2 class="text-lg font-bold tracking-tight">Menu and modal</h2>
+  <section id="structure" class="mt-12 scroll-mt-20">
+    <h2 class="text-lg font-bold tracking-tight">Structure</h2>
+    <div class="mt-4 grid gap-8 md:grid-cols-2">
+      <div>
+        <Tabs items={tabItems} bind:value={tab} label="Note view">
+          <svelte:fragment slot="panel" let:active>
+            {#if active === 'write'}
+              <p class="text-sm leading-relaxed text-ink-soft">The desk is a calm place to write. The tabs hold the modes of one note, not three pages.</p>
+            {:else if active === 'read'}
+              <p class="text-sm leading-relaxed text-ink-soft">Reading hides the controls and keeps the text. The same tokens, a quieter surface.</p>
+            {:else}
+              <p class="text-sm leading-relaxed text-ink-soft">History lists the versions of the file: a timestamp, a diff, and a way back.</p>
+            {/if}
+          </svelte:fragment>
+        </Tabs>
+      </div>
+      <div>
+        <Accordion items={accordionItems} bind:open={accordionOpen} let:item>
+          <p>{item.body}</p>
+        </Accordion>
+      </div>
+    </div>
+  </section>
+
+  <section id="table" class="mt-12 scroll-mt-20">
+    <h2 class="text-lg font-bold tracking-tight">Table</h2>
+    <p class="mt-1 text-xs text-ink-soft">Sortable headers, selection, a sticky header. Cell content comes through one slot.</p>
+    <div class="mt-4">
+      <Table columns={tableColumns} rows={tableRows} bind:sort={tableSort} bind:selected={tableSelected} selectable caption="Files in this folder">
+        <svelte:fragment slot="cell" let:column let:value>
+          {#if column.key === 'name'}
+            <span class="font-bold text-ink">{value}</span>
+          {:else if column.key === 'size'}
+            {value} MB
+          {:else}
+            {value}
+          {/if}
+        </svelte:fragment>
+      </Table>
+    </div>
+    <p class="mt-2 text-whisper uppercase tracking-widest text-ink-faint">
+      {tableSelected.length} selected, sorted by {tableSort ? `${tableSort.key} ${tableSort.direction}` : 'nothing'}
+    </p>
+  </section>
+
+  <section id="overlays" class="mt-12 scroll-mt-20">
+    <h2 class="text-lg font-bold tracking-tight">Overlays</h2>
+    <p class="mt-1 text-xs text-ink-soft">A menu, a modal, a popover and a destructive confirmation share the same surface and z-layers.</p>
     <div class="mt-4 flex flex-wrap items-center gap-4">
       <Menu items={menuItems} label="Actions" on:select={(event) => (picked = event.detail.label)}>
         <svelte:fragment slot="trigger" let:open let:toggle let:triggerProps>
@@ -281,9 +385,54 @@
         </svelte:fragment>
       </Menu>
       <Button variant="secondary" on:click={() => (modalOpen = true)}>Open a modal</Button>
+      <Popover label="Filters" bind:open={popoverOpen}>
+        <svelte:fragment slot="trigger" let:toggle let:triggerProps>
+          <Button variant="secondary" on:click={toggle} {...triggerProps}>Filters</Button>
+        </svelte:fragment>
+        <p class="text-sm font-bold">Filter the board</p>
+        <p class="mt-1 text-xs leading-relaxed text-ink-soft">Any content can live here: a small form, a date, a set of toggles.</p>
+      </Popover>
+      <Button variant="danger" on:click={() => (alertOpen = true)}>Delete a note</Button>
       {#if picked}
         <span class="text-xs text-ink-faint">Picked: {picked}</span>
       {/if}
+    </div>
+    <AlertDialog
+      bind:open={alertOpen}
+      title="Delete this note?"
+      description="This cannot be undone."
+      confirmLabel="Delete"
+      on:confirm={() => toast({ title: 'Deleted', description: 'The note is in the trash.', tone: 'success' })}
+    />
+  </section>
+
+  <section id="feedback" class="mt-12 scroll-mt-20">
+    <h2 class="text-lg font-bold tracking-tight">Feedback and loading</h2>
+    <div class="mt-4 grid gap-8 md:grid-cols-2">
+      <div class="space-y-5">
+        <div>
+          <p class="mb-1.5 text-xs text-ink-soft">Upload, {progress}%</p>
+          <Progress value={progress} label="Upload progress" />
+        </div>
+        <div>
+          <p class="mb-1.5 text-xs text-ink-soft">Loading</p>
+          <Progress indeterminate label="Loading" />
+        </div>
+        <div class="flex flex-wrap gap-3">
+          <Button size="sm" on:click={() => toast({ title: 'Note saved', description: 'The file is on disk.', tone: 'success' })}>Show a toast</Button>
+          <Button
+            size="sm"
+            variant="secondary"
+            on:click={() => toast({ title: 'Sync waits', description: 'Review the agent changes before this device sends.', tone: 'warning', duration: 0, action: { label: 'Review', onClick: () => {} } })}
+          >Toast with an action</Button>
+        </div>
+      </div>
+      <div class="space-y-2" aria-hidden="true">
+        <Skeleton width="45%" height="1rem" />
+        <Skeleton width="100%" height="0.75rem" />
+        <Skeleton width="92%" height="0.75rem" />
+        <Skeleton width="70%" height="0.75rem" />
+      </div>
     </div>
   </section>
 
@@ -340,6 +489,8 @@
     </p>
   </footer>
 </div>
+
+<Toaster />
 
 <Modal bind:open={modalOpen} title="Delete this note?" description="This cannot be undone.">
   <p class="text-sm leading-relaxed text-ink-soft">

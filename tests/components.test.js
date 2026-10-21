@@ -1,6 +1,9 @@
 import { afterEach, describe, expect, test, vi } from 'vitest';
 import { cleanup, fireEvent, render, screen } from '@testing-library/svelte';
 import { tick } from 'svelte';
+import Accordion from '../src/components/Accordion.svelte';
+import AlertDialog from '../src/components/AlertDialog.svelte';
+import Avatar from '../src/components/Avatar.svelte';
 import Button from '../src/components/Button.svelte';
 import Card from '../src/components/Card.svelte';
 import Checkbox from '../src/components/Checkbox.svelte';
@@ -8,16 +11,28 @@ import Chip from '../src/components/Chip.svelte';
 import Menu from '../src/components/Menu.svelte';
 import Modal from '../src/components/Modal.svelte';
 import Notice from '../src/components/Notice.svelte';
+import Popover from '../src/components/Popover.svelte';
+import Progress from '../src/components/Progress.svelte';
+import RadioGroup from '../src/components/RadioGroup.svelte';
 import SearchField from '../src/components/SearchField.svelte';
+import Skeleton from '../src/components/Skeleton.svelte';
 import SegmentedControl from '../src/components/SegmentedControl.svelte';
 import Select from '../src/components/Select.svelte';
 import SelectField from '../src/components/SelectField.svelte';
 import Switch from '../src/components/Switch.svelte';
+import Table from '../src/components/Table.svelte';
+import Tabs from '../src/components/Tabs.svelte';
+import Toaster from '../src/components/Toaster.svelte';
+import { clearToasts, toast } from '../src/toast.js';
 import TextField from '../src/components/TextField.svelte';
 import FieldHarness from './fixtures/FieldHarness.svelte';
 import ModalHarness from './fixtures/ModalHarness.svelte';
 
-afterEach(cleanup);
+afterEach(() => {
+  cleanup();
+  clearToasts();
+  vi.useRealTimers();
+});
 
 describe('Button', () => {
   test('forwards a click and can be disabled or busy', async () => {
@@ -247,5 +262,171 @@ describe('surfaces and marks', () => {
     notice.component.$on('dismiss', dismissed);
     await fireEvent.click(screen.getByRole('button', { name: 'Dismiss' }));
     expect(dismissed).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe('Progress and Skeleton', () => {
+  test('Progress reports its value and hides it when indeterminate', () => {
+    render(Progress, { value: 25, label: 'Upload' });
+    const bar = screen.getByRole('progressbar', { name: 'Upload' });
+    expect(bar.getAttribute('aria-valuenow')).toBe('25');
+    expect(bar.getAttribute('aria-valuemax')).toBe('100');
+
+    cleanup();
+    render(Progress, { indeterminate: true, label: 'Loading' });
+    expect(screen.getByRole('progressbar', { name: 'Loading' }).getAttribute('aria-valuenow')).toBeNull();
+  });
+
+  test('Skeleton keeps its size and stays out of the accessibility tree', () => {
+    const { container } = render(Skeleton, { width: '12rem', height: '2rem' });
+    const block = container.querySelector('span');
+    expect(block.getAttribute('aria-hidden')).toBe('true');
+    expect(block.getAttribute('style')).toContain('width: 12rem');
+    expect(block.getAttribute('style')).toContain('height: 2rem');
+  });
+});
+
+describe('RadioGroup', () => {
+  test('chooses one option and reports the change', async () => {
+    const { component } = render(RadioGroup, {
+      label: 'View',
+      value: 'board',
+      options: [{ value: 'board', label: 'Board' }, { value: 'list', label: 'List' }],
+    });
+    const changed = vi.fn();
+    component.$on('change', changed);
+    expect(screen.getByRole('radiogroup', { name: 'View' })).toBeTruthy();
+    await fireEvent.click(screen.getByRole('radio', { name: 'List' }));
+    expect(screen.getByRole('radio', { name: 'List' }).checked).toBe(true);
+    expect(changed).toHaveBeenCalled();
+  });
+});
+
+describe('Tabs', () => {
+  const items = [{ id: 'write', label: 'Write' }, { id: 'read', label: 'Read' }, { id: 'history', label: 'History' }];
+
+  test('selects a tab and moves with the arrow keys', async () => {
+    const { component } = render(Tabs, { items, value: 'write', label: 'Note view' });
+    const changed = vi.fn();
+    component.$on('change', changed);
+    expect(screen.getByRole('tablist', { name: 'Note view' })).toBeTruthy();
+    expect(screen.getByRole('tab', { name: 'Write' }).getAttribute('aria-selected')).toBe('true');
+
+    await fireEvent.keyDown(screen.getByRole('tab', { name: 'Write' }), { key: 'ArrowRight' });
+    await tick();
+    expect(screen.getByRole('tab', { name: 'Read' }).getAttribute('aria-selected')).toBe('true');
+    expect(document.activeElement).toBe(screen.getByRole('tab', { name: 'Read' }));
+    expect(changed).toHaveBeenCalled();
+  });
+});
+
+describe('Accordion', () => {
+  const items = [
+    { id: 'one', title: 'One', content: 'First body' },
+    { id: 'two', title: 'Two', content: 'Second body' },
+  ];
+
+  test('opens one panel and closes it again', async () => {
+    const { component } = render(Accordion, { items, open: ['one'] });
+    const changed = vi.fn();
+    component.$on('change', changed);
+    const one = screen.getByRole('button', { name: 'One' });
+    expect(one.getAttribute('aria-expanded')).toBe('true');
+    expect(screen.getByText('First body').hidden).toBe(false);
+
+    await fireEvent.click(one);
+    const oneAfter = screen.getByRole('button', { name: 'One' });
+    expect(oneAfter.getAttribute('aria-expanded')).toBe('false');
+    expect(screen.getByText('First body').hidden).toBe(true);
+    expect(changed).toHaveBeenCalledWith(expect.objectContaining({ detail: [] }));
+  });
+});
+
+describe('Popover', () => {
+  test('opens a dialog and closes on Escape', async () => {
+    render(Popover, { label: 'Filters' });
+    await fireEvent.click(screen.getByRole('button', { name: 'Filters' }));
+    expect(screen.getByRole('dialog', { name: 'Filters' })).toBeTruthy();
+    await fireEvent.keyDown(window, { key: 'Escape' });
+    expect(screen.queryByRole('dialog')).toBeNull();
+  });
+});
+
+describe('Toast', () => {
+  test('shows a message, dismisses it on the button and clears the store', async () => {
+    vi.useFakeTimers();
+    render(Toaster);
+    toast({ title: 'Saved', description: 'The file is on disk.' });
+    await tick();
+    expect(screen.getByText('Saved')).toBeTruthy();
+    await fireEvent.click(screen.getByRole('button', { name: 'Dismiss' }));
+    expect(screen.queryByText('Saved')).toBeNull();
+    clearToasts();
+    vi.useRealTimers();
+  });
+
+  test('dismisses itself after its duration', async () => {
+    vi.useFakeTimers();
+    render(Toaster);
+    toast({ title: 'Brief', duration: 1000 });
+    await tick();
+    expect(screen.getByText('Brief')).toBeTruthy();
+    vi.advanceTimersByTime(1000);
+    await tick();
+    expect(screen.queryByText('Brief')).toBeNull();
+  });
+});
+
+describe('AlertDialog', () => {
+  test('is an alert dialog and closes on confirm', async () => {
+    const { component } = render(AlertDialog, { open: true, title: 'Delete this note?', confirmLabel: 'Delete' });
+    await tick();
+    expect(screen.getByRole('alertdialog', { name: 'Delete this note?' })).toBeTruthy();
+    const confirmed = vi.fn();
+    component.$on('confirm', confirmed);
+    await fireEvent.click(screen.getByRole('button', { name: 'Delete' }));
+    expect(confirmed).toHaveBeenCalledTimes(1);
+    expect(screen.queryByRole('alertdialog')).toBeNull();
+  });
+});
+
+describe('Avatar', () => {
+  test('shows initials and a status dot', () => {
+    render(Avatar, { name: 'Ada Lovelace', status: 'online' });
+    const mark = screen.getByRole('img', { name: 'Ada Lovelace' });
+    expect(mark.textContent).toBe('AL');
+  });
+});
+
+describe('Table', () => {
+  const columns = [
+    { key: 'name', label: 'Name', sortable: true },
+    { key: 'kind', label: 'Kind' },
+    { key: 'size', label: 'Size', align: 'right', sortable: true },
+  ];
+  const rows = [
+    { id: 'board', name: 'Board', kind: 'View', size: 12 },
+    { id: 'today', name: 'Today', kind: 'View', size: 4 },
+    { id: 'archive', name: 'Archive', kind: 'Folder', size: 128 },
+  ];
+
+  test('sorts by a header and emits the sort', async () => {
+    const { component } = render(Table, { columns, rows, caption: 'Files' });
+    const sorted = vi.fn();
+    component.$on('sort', sorted);
+    await fireEvent.click(screen.getByRole('button', { name: 'Size' }));
+    expect(sorted).toHaveBeenCalledWith(expect.objectContaining({ detail: { key: 'size', direction: 'asc' } }));
+    expect(screen.getByRole('columnheader', { name: /Size/ }).getAttribute('aria-sort')).toBe('ascending');
+    expect(screen.getAllByRole('row')[1].textContent).toContain('Today');
+  });
+
+  test('selects every row from the header', async () => {
+    const { component } = render(Table, { columns, rows, selectable: true });
+    const selected = vi.fn();
+    component.$on('select', selected);
+    await fireEvent.click(screen.getByRole('checkbox', { name: 'Select all rows' }));
+    expect(selected).toHaveBeenCalled();
+    expect(screen.getByRole('checkbox', { name: 'Select all rows' }).checked).toBe(true);
+    expect(screen.getByRole('checkbox', { name: 'Select row 2' }).checked).toBe(true);
   });
 });

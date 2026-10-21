@@ -46,11 +46,26 @@ A card has `shadow-rest` (`0 1px 2px / 3%`), which is paper texture rather than 
 - **Menus** are a trigger plus data items; arrows, Home/End, Escape and an outside click work; the first item takes focus when the menu opens.
 - **Modals** name themselves, trap Tab, lock the page, close on Escape or the backdrop, and return focus.
 - **Notices** are inline, one dot, a title and a sentence.
+- **Tabs** are a line under the word (`line`) or a frame around the chosen option (`pill`). One tab is in the tab order; arrows and Home/End move. A tab is navigation, not an action.
+- **Accordions** are heading buttons over a region. The chevron turns; the content is hidden, not removed; one open at a time unless `multiple`.
+- **Popovers** are anchored, non-modal panels. They flip when the page runs out of room and close on Escape or an outside click; the content is any markup.
+- **Alert dialogs** are the one dialog with no close cross and no backdrop dismissal. The focus starts on Cancel, because the safe choice should be the easy one.
+- **Radio groups** are real radios; the circle is round by nature. `Checkbox`, `Switch`, `RadioGroup` and `Select` are the four forms of a choice; do not use one where another is the honest control.
+- **Progress** is a thin bar with the one radius. Indeterminate is a sweep, not a spinner in disguise; `Skeleton` reserves the size the content will take, so the arrival does not move the page.
+- **Avatars** are circles, image or initials, with a status dot on the edge. The dot is the only place where a status colour is a dot, not a word; it is never the only signal (the name is there).
+- **Tables** are for data, not layout. Headers sort with a triangle and `aria-sort`; selection is a checkbox column; a row action belongs in a cell, because a clickable `<tr>` is not a keyboard control.
+- **Toasts** are transient and live in one region; `Notice` is inline and stays. A danger toast is an alert; the rest are status. Four at a time is enough.
 - **The tooltip** is one look and one delay (450ms; immediate on keyboard focus), and it does not exist below 640px.
+
+## States
+
+Every control has rest, hover, `:focus-visible`, disabled and, where it applies, selected or loading. A state never relies on colour alone: a checkbox has a check, a tab has an underline, a sort has a triangle, a toast has a word and a dot.
+
+The touch target is 44px on a phone for anything a finger presses. A desktop row may be 24 or 28px; the padding around it is what makes the target, not the glyph.
 
 ## Motion
 
-Only state changes move. `--ui-duration-fast` (150ms) for colour and focus, `--ui-duration-base` (200ms) for the larger transitions. The card lift is half a pixel. Under `prefers-reduced-motion`, the lift is removed and nothing jumps.
+Only state changes move. `--ui-duration-fast` (150ms) for colour and focus, `--ui-duration-base` (200ms) for the larger transitions. The card lift is half a pixel; a popover and a toast arrive in 200ms; an indeterminate bar sweeps. Under `prefers-reduced-motion`, the lift is removed, the popover does not slide, the skeleton stops pulsing and the sweep becomes a still, low-opacity bar. Nothing jumps.
 
 ## Rules
 
@@ -68,4 +83,4 @@ Only state changes move. `--ui-duration-fast` (150ms) for colour and focus, `--u
 
 ## What the kit does not own
 
-`NoteCard`, `NoteBoard`, `Sidebar`, `Editor`, `TerminalPanel`, the conflict screens and the command palette are product patterns. They may be assembled from these primitives, but their content and behaviour belong to the app. See [`docs/migrating-monos.md`](docs/migrating-monos.md) for the map.
+`NoteCard`, `NoteBoard`, `Sidebar`, `Editor`, `TerminalPanel`, the conflict screens, the command palette, charts, a date engine and a drag-and-drop board are product patterns. They may be assembled from these primitives, but their content and behaviour belong to the app. See [`docs/migrating-monos.md`](docs/migrating-monos.md) for the map.

@@ -11,6 +11,7 @@
   export let indeterminate = false;
   export let disabled = false;
   export let id = '';
+  export let ariaLabel = '';
 
   let className = '';
   export { className as class };
@@ -31,6 +32,7 @@
       bind:this={inputEl}
       id={fieldId}
       type="checkbox"
+      aria-label={ariaLabel || undefined}
       bind:checked
       {disabled}
       class="peer absolute inset-0 m-0 h-full w-full cursor-pointer appearance-none rounded-ui border border-line bg-canvas transition-colors duration-fast checked:border-ink checked:bg-ink group-hover:border-line-strong disabled:cursor-not-allowed"

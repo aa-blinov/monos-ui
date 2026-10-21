@@ -20,6 +20,9 @@
   export let closeLabel = 'Close';
   export let closeOnBackdrop = true;
   export let closeOnEscape = true;
+  export let showClose = true;
+  export let role = 'dialog';
+  export let initialFocus = null;
 
   let className = '';
   export { className as class };
@@ -69,8 +72,9 @@
     lastFocused = typeof document !== 'undefined' ? document.activeElement : null;
     lockScroll();
     await tick();
-    // Focus the dialog itself: the first control would show its tooltip the moment the dialog opens.
-    panel?.focus();
+    // Focus the requested control, or the dialog itself: the first control would show its tooltip the moment
+    // the dialog opens.
+    (initialFocus || panel)?.focus();
   }
 
   function deactivate() {
@@ -86,6 +90,12 @@
   $: if (!open && wasOpen) {
     wasOpen = false;
     deactivate();
+  }
+
+  // An AlertDialog passes its cancel button, which is bound after the dialog has mounted. Take the focus when
+  // that reference arrives, without stealing it later from something the person chose.
+  $: if (open && wasOpen && initialFocus && typeof document !== 'undefined' && document.activeElement === panel) {
+    initialFocus.focus();
   }
 
   onDestroy(() => {
@@ -127,34 +137,40 @@
 
 {#if open}
   <div class="fixed inset-0 z-modal flex items-center justify-center p-4">
-    <button
-      type="button"
-      tabindex="-1"
-      aria-label={closeLabel}
-      class="absolute inset-0 h-full w-full cursor-default bg-black/20 backdrop-blur-sm"
-      on:click={closeOnBackdrop ? requestClose : undefined}
-    ></button>
+    {#if closeOnBackdrop}
+      <button
+        type="button"
+        tabindex="-1"
+        aria-label={closeLabel}
+        class="absolute inset-0 h-full w-full cursor-default bg-black/20 backdrop-blur-sm"
+        on:click={requestClose}
+      ></button>
+    {:else}
+      <div class="absolute inset-0 h-full w-full bg-black/20 backdrop-blur-sm" aria-hidden="true"></div>
+    {/if}
     <section
       bind:this={panel}
-      role="dialog"
+      role={role}
       aria-modal="true"
       aria-labelledby={title ? titleId : undefined}
       aria-describedby={description ? descriptionId : undefined}
       tabindex="-1"
       class="relative z-10 max-h-[calc(100dvh-4rem)] w-full overflow-y-auto rounded-ui border border-line bg-canvas p-6 text-ink sm:p-8 shadow-overlay outline-none {sizes[size] || sizes.md} {className}"
     >
-      <IconButton
-        label={closeLabel}
-        variant="ghost"
-        size="sm"
-        tooltipText=""
-        class="absolute right-3 top-3"
-        on:click={requestClose}
-      >
-        <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path d="m6 6 12 12M18 6 6 18" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" />
-        </svg>
-      </IconButton>
+      {#if showClose}
+        <IconButton
+          label={closeLabel}
+          variant="ghost"
+          size="sm"
+          tooltipText=""
+          class="absolute right-3 top-3"
+          on:click={requestClose}
+        >
+          <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="m6 6 12 12M18 6 6 18" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" />
+          </svg>
+        </IconButton>
+      {/if}
 
       {#if title}
         <h2 id={titleId} class="pr-10 text-lg font-bold tracking-tight">{title}</h2>

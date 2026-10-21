@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.3.0
+
+- `Tabs`, `Accordion`, `Popover`, `AlertDialog`, `RadioGroup`, `Progress`, `Skeleton`, `Avatar`, `Table`, and `Toaster` / `toast`.
+- `Modal` takes `role`, `showClose` and `initialFocus`; `AlertDialog` is built on them.
+- `Button` exposes its DOM node as `buttonEl`; `Checkbox` takes `ariaLabel`.
+- The gallery has Structure, Table, Overlays, Feedback and People sections; 30 primitives.
+
 ## 0.2.0
 
 - `Select`: a themed listbox with a drawn popup, keyboard navigation and a selected check. The gallery theme picker uses it; `SelectField` stays native for forms.

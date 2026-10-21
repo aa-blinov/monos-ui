@@ -1,3 +1,5 @@
+<svelte:options accessors />
+
 <script>
   /**
    * A text button. The system has no filled or outlined action button: the
@@ -14,6 +16,9 @@
   export let disabled = false;
   export let loading = false;
   export let full = false;
+
+  // The DOM node, for a parent that has to give it focus (an alert dialog focuses Cancel).
+  export let buttonEl = null;
 
   let className = '';
   export { className as class };
@@ -39,6 +44,7 @@
 </script>
 
 <button
+  bind:this={buttonEl}
   {type}
   disabled={disabled || loading}
   aria-busy={loading ? 'true' : undefined}
