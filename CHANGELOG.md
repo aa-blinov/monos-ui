@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.5.1
+
+- `Tabs` no longer shows a stray vertical scrollbar. The line variant draws its active underline inside the tab, and the scroll container hides the vertical axis.
+
 ## 0.5.0
 
 - `Breadcrumbs`, `PageHeader`, `Pagination`, `Drawer` and `Prose`.

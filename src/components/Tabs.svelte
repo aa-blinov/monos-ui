@@ -45,7 +45,7 @@
     if (variant === 'pill') {
       return `min-h-7 rounded-ui px-3 ${base} ${value === item.id ? 'bg-canvas text-ink shadow-rest' : 'text-ink-soft hover:text-ink'}`;
     }
-    return `-mb-px border-b-2 px-0.5 pb-2 pt-1 ${base} ${value === item.id ? 'border-ink font-bold text-ink' : 'border-transparent text-ink-faint hover:text-ink'}`;
+    return `relative px-0.5 pb-2 pt-1 ${base} ${value === item.id ? 'font-bold text-ink' : 'text-ink-faint hover:text-ink'}`;
   }
 
   async function onKeydown(event, index) {
@@ -72,8 +72,8 @@
     role="tablist"
     aria-label={label || undefined}
     class={variant === 'pill'
-      ? 'inline-flex max-w-full overflow-x-auto rounded-ui border border-line bg-surface p-0.5'
-      : 'flex max-w-full gap-6 overflow-x-auto border-b border-line'}
+      ? 'inline-flex max-w-full overflow-x-auto overflow-y-hidden rounded-ui border border-line bg-surface p-0.5'
+      : 'flex max-w-full gap-6 overflow-x-auto overflow-y-hidden border-b border-line'}
   >
     {#each items as item, index}
       <button
@@ -89,6 +89,9 @@
         on:keydown={(event) => onKeydown(event, index)}
       >
         {item.label}
+        {#if variant !== 'pill' && value === item.id}
+          <span class="absolute inset-x-0 bottom-0 h-0.5 bg-ink" aria-hidden="true"></span>
+        {/if}
       </button>
     {/each}
   </div>

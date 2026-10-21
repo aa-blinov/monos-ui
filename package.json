@@ -1,6 +1,6 @@
 {
   "name": "@monos/ui",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "The Monos interface kit: warm paper, one radius, quiet controls, and themes that read in light and dark.",
   "type": "module",
   "license": "MIT",
