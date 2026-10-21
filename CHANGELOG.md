@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.2
+
+- Code hygiene: exports sorted, unused bindings and test imports removed, the gallery's section list defined once, the enabled-index wrap simplified.
+- `Portal` now survives a change of target correctly and cannot re-attach itself after destroy.
+- No public API change.
+
 ## 1.0.1
 
 - The indeterminate `Progress` bar now has two offset segments, so it never shows an empty track at a bad animation frame.

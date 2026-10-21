@@ -68,6 +68,6 @@
 
 <svelte:window on:keydown={onKeydown} />
 
-<div bind:this={host} tabindex="-1" role="group" class="{className}">
+<div bind:this={host} tabindex="-1" class="{className}">
   <slot />
 </div>

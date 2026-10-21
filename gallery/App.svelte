@@ -78,7 +78,6 @@
   let search = '';
   let checked = true;
   let switchOn = true;
-  let segment = 'grid';
   let modalOpen = false;
   let noticeVisible = true;
   let picked = '';
@@ -178,6 +177,26 @@
     { id: 'board', name: 'Board', kind: 'View', size: 12 },
     { id: 'today', name: 'Today', kind: 'View', size: 4 },
     { id: 'archive', name: 'Archive', kind: 'Folder', size: 128 },
+  ];
+
+  const sections = [
+    ['palette', 'Palette'],
+    ['type', 'Type'],
+    ['buttons', 'Buttons'],
+    ['fields', 'Fields'],
+    ['forms', 'Forms'],
+    ['marks', 'Chips'],
+    ['surfaces', 'Surfaces'],
+    ['layout', 'Layout'],
+    ['structure', 'Structure'],
+    ['table', 'Table'],
+    ['data', 'Data'],
+    ['navigation', 'Navigation'],
+    ['utilities', 'Utilities'],
+    ['overlays', 'Overlays'],
+    ['feedback', 'Feedback'],
+    ['notices', 'Notices'],
+    ['empty', 'Empty'],
   ];
 
   const stepItems = [
@@ -281,13 +300,13 @@
         </svg>
       </summary>
       <div class="mt-3 flex flex-wrap gap-x-4 gap-y-2 text-whisper uppercase tracking-widest text-ink-faint">
-        {#each [['palette', 'Palette'], ['type', 'Type'], ['buttons', 'Buttons'], ['fields', 'Fields'], ['forms', 'Forms'], ['marks', 'Chips'], ['surfaces', 'Surfaces'], ['layout', 'Layout'], ['structure', 'Structure'], ['table', 'Table'], ['data', 'Data'], ['navigation', 'Navigation'], ['utilities', 'Utilities'], ['overlays', 'Overlays'], ['feedback', 'Feedback'], ['notices', 'Notices'], ['empty', 'Empty']] as [id, name]}
+        {#each sections as [id, name]}
           <a href="#{id}" class="transition-colors duration-fast hover:text-ink">{name}</a>
         {/each}
       </div>
     </details>
     <div class="hidden flex-wrap gap-x-4 gap-y-2 text-whisper uppercase tracking-widest text-ink-faint sm:flex">
-      {#each [['palette', 'Palette'], ['type', 'Type'], ['buttons', 'Buttons'], ['fields', 'Fields'], ['forms', 'Forms'], ['marks', 'Chips'], ['surfaces', 'Surfaces'], ['layout', 'Layout'], ['structure', 'Structure'], ['table', 'Table'], ['data', 'Data'], ['navigation', 'Navigation'], ['utilities', 'Utilities'], ['overlays', 'Overlays'], ['feedback', 'Feedback'], ['notices', 'Notices'], ['empty', 'Empty']] as [id, name]}
+      {#each sections as [id, name]}
         <a href="#{id}" class="transition-colors duration-fast hover:text-ink">{name}</a>
       {/each}
     </div>

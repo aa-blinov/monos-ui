@@ -8,7 +8,7 @@ It is a Svelte 4 component library with a Tailwind preset and a plain-CSS token 
 
 The design system itself, in one page: [DESIGN.md](DESIGN.md).
 
-> **Status:** 1.0.1, source distribution. Not on npm yet; install from this repository.
+> **Status:** 1.0.2, source distribution. Not on npm yet; install from this repository.
 
 **Live gallery:** [aa-blinov.github.io/monos-ui](https://aa-blinov.github.io/monos-ui/)
 

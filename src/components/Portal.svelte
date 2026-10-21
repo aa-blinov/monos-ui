@@ -17,14 +17,21 @@
   }
 
   function portal(node, value) {
-    place(node, value);
+    let destroyed = false;
+    let latest = value;
+    const move = () => {
+      if (!destroyed) place(node, latest);
+    };
+    move();
     // The destination may come later in the same render tree.
-    queueMicrotask(() => place(node, value));
+    queueMicrotask(move);
     return {
       update(next) {
-        place(node, next);
+        latest = next;
+        if (!destroyed) place(node, next);
       },
       destroy() {
+        destroyed = true;
         node.remove();
       },
     };

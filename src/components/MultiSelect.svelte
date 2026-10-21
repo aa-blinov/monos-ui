@@ -51,7 +51,7 @@
   function firstEnabled(start = 0, direction = 1) {
     if (!filtered.length) return -1;
     for (let step = 0; step < filtered.length; step += 1) {
-      const index = (start + step * direction + filtered.length * filtered.length) % filtered.length;
+      const index = (start + step * direction + filtered.length) % filtered.length;
       if (!filtered[index]?.disabled) return index;
     }
     return -1;
