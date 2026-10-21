@@ -60,6 +60,10 @@ A card has `shadow-rest` (`0 1px 2px / 3%`), which is paper texture rather than 
 - **Progress** is a thin bar with the one radius. Indeterminate is a sweep, not a spinner in disguise; `Skeleton` reserves the size the content will take, so the arrival does not move the page.
 - **Avatars** are circles, image or initials, with a status dot on the edge. The dot is the only place where a status colour is a dot, not a word; it is never the only signal (the name is there).
 - **Tables** are for data, not layout. Headers sort with a triangle and `aria-sort`; selection is a checkbox column; a row action belongs in a cell, because a clickable `<tr>` is not a keyboard control.
+- **Layout** is a small set of primitives, not a CSS framework: `Container` owns the measure and gutters, `Stack` the one axis, `Grid` the tracks, `Section` the vertical rhythm, `Separator` the hairline. They read the same spacing scale as the controls.
+- **Stepper** is a sequence of steps, not a progress bar; the current step is `aria-current="step"` and earlier steps get a check. **NavItem** is one row of navigation: link when it goes somewhere, button when it acts.
+- **List** is rows with optional icon, description and meta; **DescriptionList** is a real `<dl>` for facts, stacked or inline.
+- **Portal** moves an overlay out of its parent's overflow; **FocusTrap** keeps Tab inside a custom overlay. They are utilities, not dialogs.
 - **Breadcrumbs** say where the page sits; the last item is the current page, not a link. The separator is a slash, never a middle dot.
 - **A page header** is a title, a sentence and the actions at the top right. It is a pattern, not an app shell.
 - **Pagination** keeps first, last and the current neighbourhood; a gap is an ellipsis, not a disabled button.

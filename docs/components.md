@@ -513,3 +513,56 @@ Events: `close`. Slots: default, `footer`. It locks the page, traps Tab, focuses
 ## Prose
 
 A reading column for Markdown or article content: 70ch measure, 14/1.7 body, headings, lists, links, inline code, code blocks, blockquotes, rules, tables and images in the kit's tokens. Slot: default; `class` for the wrapper. The component owns the rhythm, the product owns the words.
+
+## Container
+
+`as` (`div`), `size` (`sm | md | lg | xl | full`), `padded` (`true`), `class`. A centred page column with the kit's gutters; `size` is the maximum measure. It is a layout primitive, so pass `as="main"` when it is the page.
+
+## Stack
+
+`as`, `direction` (`column | row`), `gap` (`none | xs | sm | md | lg | xl`), `align` (`start | center | end | stretch | baseline`), `justify` (`start | center | end | between`), `wrap` (`false`), `class`. A one-dimensional flex; the gap comes from the spacing scale.
+
+## Grid
+
+`as`, `columns` (1–12, `2`), `gap` (`none | sm | md | lg | xl`), `min` (a CSS length), `class`. With `columns` the tracks are equal; with `min` the tracks auto-fit, so the number of columns follows the space instead of a breakpoint.
+
+## Section
+
+`as` (`section`), `spacing` (`none | sm | md | lg | xl`), `class`. Vertical rhythm only; put `PageHeader` inside when the section needs a heading.
+
+## Separator
+
+`orientation` (`horizontal | vertical`), `decorative` (`true`), `class`. Decorative is `aria-hidden`; `decorative={false}` renders `role="separator"` with the orientation. The line is one hairline in `--ui-line`.
+
+## Stepper
+
+| Prop | Type | Default |
+|---|---|---|
+| `steps` | `{ id, label, description?, disabled? }[]` | `[]` |
+| `value` | string | `''` (bindable) |
+| `orientation` | `horizontal \| vertical` | `horizontal` |
+| `clickable` | boolean | `false` |
+| `label` | string | `''` |
+| `class` | string | `''` |
+
+Event: `change` with the step id when `clickable`. The current step has `aria-current="step"`; earlier steps get a check. A horizontal stepper becomes a vertical list on a phone.
+
+## NavItem
+
+`href`, `active`, `disabled`, `label`, `class`. Slots: `icon`, default, `trailing`. With `href` it is a link (`aria-current="page"` when active); without it, a button. The active row takes `bg-surface` and ink; the rest stay soft.
+
+## List
+
+`items` (`{ id?, label, description?, meta?, href? }[]`), `divided` (`true`), `compact` (`false`), `class`. Slots: `icon`, default, `meta`, each receiving `item`. A row with `href` is a link; otherwise it is a div. The default slot replaces the label for arbitrary row content; the description and meta still render.
+
+## DescriptionList
+
+`items` (`{ term, description }[]`), `layout` (`stacked | inline`), `class`. `stacked` puts the term above the description; `inline` puts the term in a narrow left column from `sm` up. The markup is a real `<dl>`.
+
+## Portal
+
+`target` (a selector or an element; `document.body` by default), `class`. The default slot is moved into the target after mount and moved back out on destroy; the target can change. Use it for overlays that must leave a parent's overflow or stacking context.
+
+## FocusTrap
+
+`active` (`true`), `initialFocus` (an element), `returnFocus` (`true`), `class`. Keeps Tab inside the region while active, starts on `initialFocus` or the first control, and restores the previous focus when released or destroyed. It is a utility, not a dialog: the owner still handles Escape, the backdrop and the close.

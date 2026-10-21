@@ -22,31 +22,42 @@
     Checkbox,
     Combobox,
     Chip,
+    Container,
     DatePicker,
+    DescriptionList,
     Drawer,
     EmptyState,
+    FocusTrap,
     Fieldset,
     FileUpload,
     FormField,
+    Grid,
     IconButton,
     Kbd,
+    List,
     Menu,
     Modal,
     MultiSelect,
+    NavItem,
     Notice,
     PageHeader,
     Pagination,
+    Portal,
     Prose,
     Popover,
     Progress,
     RadioGroup,
     SearchField,
+    Section,
     SegmentedControl,
+    Separator,
     Slider,
     Select,
     SelectField,
     Skeleton,
     Spinner,
+    Stack,
+    Stepper,
     Switch,
     Table,
     Tabs,
@@ -83,6 +94,9 @@
   let uploads = [];
   let page = 4;
   let drawerOpen = false;
+  let step = 'details';
+  let navItem = 'overview';
+  let trapActive = false;
   let progress = 62;
   let tableSort = { key: 'name', direction: 'asc' };
   let tableSelected = [];
@@ -166,6 +180,24 @@
     { id: 'archive', name: 'Archive', kind: 'Folder', size: 128 },
   ];
 
+  const stepItems = [
+    { id: 'details', label: 'Details', description: 'Name and folder' },
+    { id: 'content', label: 'Content', description: 'Write the note' },
+    { id: 'review', label: 'Review', description: 'Check and save' },
+  ];
+
+  const listItems = [
+    { id: 'overview', label: 'Overview', description: 'The whole desk', meta: '12' },
+    { id: 'members', label: 'Members', meta: '3' },
+    { id: 'archive', label: 'Archive', href: '#empty', meta: '24' },
+  ];
+
+  const descriptionItems = [
+    { term: 'Owner', description: 'Ada Lovelace' },
+    { term: 'Status', description: 'Active' },
+    { term: 'Location', description: 'Work / Today' },
+  ];
+
   const menuItems = [
     { value: 'map', label: 'Map', icon: Map },
     { value: 'favorites', label: 'Favorites', icon: Star },
@@ -226,7 +258,7 @@
         </IconButton>
       </div>
       <p class="mt-5 flex flex-wrap gap-x-5 gap-y-1 text-whisper uppercase tracking-widest text-ink-faint">
-        <span>42 components</span>
+        <span>53 components</span>
         <span>6 themes</span>
         <span>2 modes</span>
         <span>Svelte 4 and Tailwind 3</span>
@@ -241,7 +273,7 @@
   </header>
 
   <nav class="mt-6 flex flex-wrap gap-x-4 gap-y-2 text-whisper uppercase tracking-widest text-ink-faint" aria-label="Sections">
-    {#each [['palette', 'Palette'], ['type', 'Type'], ['buttons', 'Buttons'], ['fields', 'Fields'], ['forms', 'Forms'], ['marks', 'Chips'], ['surfaces', 'Surfaces'], ['structure', 'Structure'], ['table', 'Table'], ['navigation', 'Navigation'], ['overlays', 'Overlays'], ['feedback', 'Feedback'], ['notices', 'Notices'], ['empty', 'Empty']] as [id, name]}
+    {#each [['palette', 'Palette'], ['type', 'Type'], ['buttons', 'Buttons'], ['fields', 'Fields'], ['forms', 'Forms'], ['marks', 'Chips'], ['surfaces', 'Surfaces'], ['layout', 'Layout'], ['structure', 'Structure'], ['table', 'Table'], ['data', 'Data'], ['navigation', 'Navigation'], ['utilities', 'Utilities'], ['overlays', 'Overlays'], ['feedback', 'Feedback'], ['notices', 'Notices'], ['empty', 'Empty']] as [id, name]}
       <a href="#{id}" class="transition-colors duration-fast hover:text-ink">{name}</a>
     {/each}
   </nav>
@@ -376,6 +408,48 @@
     </div>
   </section>
 
+  <section id="layout" class="mt-12 scroll-mt-20">
+    <h2 class="text-lg font-bold tracking-tight">Layout</h2>
+    <p class="mt-1 text-xs text-ink-soft">A container, a stack, a grid, a section and a hairline. The page structure, without a second design language.</p>
+    <div class="mt-4 space-y-6">
+      <Container size="sm" padded={false}>
+        <div class="rounded-ui border border-dashed border-line p-4 text-xs text-ink-faint">A narrow container (max-w-2xl), centred inside the page.</div>
+      </Container>
+
+      <div class="grid gap-4 md:grid-cols-2">
+        <Stack gap="sm" class="rounded-ui border border-line p-3">
+          <p class="text-whisper uppercase tracking-widest text-ink-faint">Stack, column</p>
+          <Stack direction="row" gap="sm" wrap>
+            <Chip>One</Chip>
+            <Chip>Two</Chip>
+            <Chip>Three</Chip>
+          </Stack>
+        </Stack>
+        <Grid columns={3} gap="sm" class="rounded-ui border border-line p-3 max-sm:grid-cols-1">
+          {#each [1, 2, 3] as number}
+            <div class="rounded-ui bg-surface p-3 text-center text-xs text-ink-soft">{number}</div>
+          {/each}
+        </Grid>
+      </div>
+
+      <Section spacing="sm" class="rounded-ui border border-line px-3">
+        <p class="text-xs text-ink-soft">Section with a small vertical rhythm.</p>
+      </Section>
+
+      <div class="space-y-2">
+        <p class="text-xs text-ink-soft">Above</p>
+        <Separator />
+        <p class="text-xs text-ink-soft">Below</p>
+      </div>
+
+      <div class="flex items-center gap-4 text-xs text-ink-soft">
+        <span>Left</span>
+        <Separator orientation="vertical" class="h-6" />
+        <span>Right</span>
+      </div>
+    </div>
+  </section>
+
   <section id="structure" class="mt-12 scroll-mt-20">
     <h2 class="text-lg font-bold tracking-tight">Structure</h2>
     <div class="mt-4 grid gap-8 md:grid-cols-2">
@@ -421,6 +495,21 @@
     </p>
   </section>
 
+  <section id="data" class="mt-12 scroll-mt-20">
+    <h2 class="text-lg font-bold tracking-tight">Data</h2>
+    <p class="mt-1 text-xs text-ink-soft">A list for rows and a definition list for facts. Both use the same hairline and the same measure.</p>
+    <div class="mt-4 grid gap-8 md:grid-cols-2">
+      <div>
+        <h3 class="text-sm font-bold">List</h3>
+        <List items={listItems} class="mt-3" />
+      </div>
+      <div>
+        <h3 class="text-sm font-bold">Description</h3>
+        <DescriptionList items={descriptionItems} layout="inline" class="mt-3" />
+      </div>
+    </div>
+  </section>
+
   <section id="navigation" class="mt-12 scroll-mt-20">
     <h2 class="text-lg font-bold tracking-tight">Navigation and content</h2>
     <div class="mt-4 space-y-8">
@@ -460,6 +549,46 @@
           <blockquote>One radius, one face, one accent at a time.</blockquote>
           <pre><code>npm install github:aa-blinov/monos-ui</code></pre>
         </Prose>
+      </div>
+      <div class="grid gap-8 md:grid-cols-2">
+        <div>
+          <p class="mb-3 text-whisper uppercase tracking-widest text-ink-faint">Stepper</p>
+          <Stepper steps={stepItems} bind:value={step} clickable label="Note setup" />
+        </div>
+        <div>
+          <p class="mb-3 text-whisper uppercase tracking-widest text-ink-faint">Nav item</p>
+          <div class="max-w-xs rounded-ui border border-line p-1">
+            <NavItem active={navItem === 'overview'} label="Overview" on:click={() => (navItem = 'overview')} />
+            <NavItem active={navItem === 'members'} label="Members" on:click={() => (navItem = 'members')} />
+            <NavItem active={navItem === 'settings'} label="Settings" on:click={() => (navItem = 'settings')} />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="utilities" class="mt-12 scroll-mt-20">
+    <h2 class="text-lg font-bold tracking-tight">Utilities</h2>
+    <p class="mt-1 text-xs text-ink-soft">A portal that leaves the parent's overflow, and a focus trap for a custom overlay.</p>
+    <div class="mt-4 grid gap-6 md:grid-cols-2">
+      <div>
+        <p class="text-whisper uppercase tracking-widest text-ink-faint">Portal</p>
+        <div id="portal-destination" class="mt-2 min-h-16 rounded-ui border border-dashed border-line p-4"></div>
+        <Portal target="#portal-destination">
+          <span class="block text-xs leading-relaxed text-ink-soft">This sentence was portaled into the box above, outside this layout flow.</span>
+        </Portal>
+      </div>
+      <div>
+        <p class="text-whisper uppercase tracking-widest text-ink-faint">Focus trap</p>
+        <Button variant="secondary" size="sm" class="mt-2" on:click={() => (trapActive = !trapActive)}>
+          {trapActive ? 'Release focus' : 'Trap focus'}
+        </Button>
+        <FocusTrap active={trapActive} class="mt-3 rounded-ui border border-line p-3">
+          <div class="flex flex-wrap gap-2">
+            <Button size="sm">First</Button>
+            <Button size="sm" variant="secondary">Second</Button>
+          </div>
+        </FocusTrap>
       </div>
     </div>
   </section>

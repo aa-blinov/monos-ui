@@ -5,7 +5,19 @@ import Accordion from '../src/components/Accordion.svelte';
 import AlertDialog from '../src/components/AlertDialog.svelte';
 import Avatar from '../src/components/Avatar.svelte';
 import Breadcrumbs from '../src/components/Breadcrumbs.svelte';
+import Breadcrumbs from '../src/components/Breadcrumbs.svelte';
 import Button from '../src/components/Button.svelte';
+import Container from '../src/components/Container.svelte';
+import DescriptionList from '../src/components/DescriptionList.svelte';
+import FocusTrap from '../src/components/FocusTrap.svelte';
+import Grid from '../src/components/Grid.svelte';
+import List from '../src/components/List.svelte';
+import NavItem from '../src/components/NavItem.svelte';
+import Portal from '../src/components/Portal.svelte';
+import Section from '../src/components/Section.svelte';
+import Separator from '../src/components/Separator.svelte';
+import Stack from '../src/components/Stack.svelte';
+import Stepper from '../src/components/Stepper.svelte';
 import Card from '../src/components/Card.svelte';
 import Checkbox from '../src/components/Checkbox.svelte';
 import Combobox from '../src/components/Combobox.svelte';
@@ -34,6 +46,8 @@ import { clearToasts, toast } from '../src/toast.js';
 import TextField from '../src/components/TextField.svelte';
 import FieldHarness from './fixtures/FieldHarness.svelte';
 import ModalHarness from './fixtures/ModalHarness.svelte';
+import FocusTrapHarness from './fixtures/FocusTrapHarness.svelte';
+import PortalHarness from './fixtures/PortalHarness.svelte';
 import PageHeader from '../src/components/PageHeader.svelte';
 import Pagination from '../src/components/Pagination.svelte';
 import Prose from '../src/components/Prose.svelte';
@@ -607,3 +621,123 @@ describe('Prose', () => {
     expect(container.querySelector('.ui-prose')).toBeTruthy();
   });
 });
+
+describe('Layout primitives', () => {
+  test('Container centres a page column', () => {
+    const { container } = render(Container, { as: 'main', size: 'sm', padded: false });
+    const main = screen.getByRole('main');
+    expect(main).toBe(container.firstChild);
+    expect(main.className).toContain('max-w-2xl');
+    expect(main.className).not.toContain('px-4');
+  });
+
+  test('Stack applies axis, gap and alignment', () => {
+    const { container } = render(Stack, { direction: 'row', gap: 'lg', align: 'center', justify: 'between', wrap: true });
+    const stack = container.firstChild;
+    expect(stack.className).toContain('flex-row');
+    expect(stack.className).toContain('gap-4');
+    expect(stack.className).toContain('items-center');
+    expect(stack.className).toContain('justify-between');
+    expect(stack.className).toContain('flex-wrap');
+  });
+
+  test('Grid takes equal tracks or an auto-fit minimum', () => {
+    const { container } = render(Grid, { columns: 3, gap: 'lg' });
+    expect(container.firstChild.className).toContain('grid-cols-3');
+    cleanup();
+    const second = render(Grid, { min: '12rem' });
+    expect(second.container.firstChild.getAttribute('style')).toContain('auto-fit');
+  });
+
+  test('Section carries vertical rhythm', () => {
+    const { container } = render(Section, { as: 'section', spacing: 'md' });
+    const section = container.querySelector('section');
+    expect(section.className).toContain('py-8');
+  });
+
+  test('Separator is decorative or semantic', () => {
+    const first = render(Separator);
+    expect(first.container.firstChild.getAttribute('aria-hidden')).toBe('true');
+    cleanup();
+    const second = render(Separator, { decorative: false, orientation: 'vertical' });
+    expect(second.container.firstChild.getAttribute('role')).toBe('separator');
+    expect(second.container.firstChild.getAttribute('aria-orientation')).toBe('vertical');
+  });
+});
+
+describe('Stepper and NavItem', () => {
+  test('Stepper marks the current step and changes when clickable', async () => {
+    const { component } = render(Stepper, {
+      value: 'two',
+      clickable: true,
+      steps: [
+        { id: 'one', label: 'One' },
+        { id: 'two', label: 'Two' },
+        { id: 'three', label: 'Three' },
+      ],
+    });
+    const changed = vi.fn();
+    component.$on('change', changed);
+    expect(screen.getByText('Two').getAttribute('aria-current')).toBe('step');
+    await fireEvent.click(screen.getByRole('button', { name: 'Three' }));
+    expect(changed).toHaveBeenCalledWith(expect.objectContaining({ detail: 'three' }));
+    expect(screen.getByText('Three').getAttribute('aria-current')).toBe('step');
+  });
+
+  test('NavItem is a link with href and a button without', () => {
+    render(NavItem, { href: '/notes', label: 'Notes', active: true });
+    const link = screen.getByRole('link', { name: 'Notes' });
+    expect(link.getAttribute('href')).toBe('/notes');
+    expect(link.getAttribute('aria-current')).toBe('page');
+    cleanup();
+    render(NavItem, { label: 'Settings' });
+    expect(screen.getByRole('button', { name: 'Settings' })).toBeTruthy();
+  });
+});
+
+describe('List and DescriptionList', () => {
+  test('List renders text, meta and links', () => {
+    render(List, {
+      items: [
+        { id: 'a', label: 'Alpha', description: 'First', meta: '12' },
+        { id: 'b', label: 'Beta', href: '/beta' },
+      ],
+    });
+    expect(screen.getByText('Alpha')).toBeTruthy();
+    expect(screen.getByText('First')).toBeTruthy();
+    expect(screen.getByText('12')).toBeTruthy();
+    expect(screen.getByRole('link', { name: /Beta/ }).getAttribute('href')).toBe('/beta');
+  });
+
+  test('DescriptionList pairs terms and descriptions', () => {
+    render(DescriptionList, {
+      items: [{ term: 'Owner', description: 'Ada' }, { term: 'Status', description: 'Active' }],
+    });
+    expect(screen.getByText('Owner')).toBeTruthy();
+    expect(screen.getByText('Ada')).toBeTruthy();
+  });
+});
+
+describe('Portal and FocusTrap', () => {
+  test('Portal moves its content into the target', async () => {
+    const target = document.createElement('div');
+    target.id = 'portal-target';
+    document.body.appendChild(target);
+    const { container } = render(PortalHarness, { destination: '#portal-target' });
+    await tick();
+    expect(target.textContent).toContain('Portaled');
+    expect(container.textContent).not.toContain('Portaled');
+    target.remove();
+  });
+
+  test('FocusTrap starts on the first control and wraps Tab', async () => {
+    render(FocusTrapHarness);
+    await tick();
+    await tick();
+    expect(document.activeElement.textContent).toBe('One');
+    screen.getByRole('button', { name: 'Two' }).focus();
+    await fireEvent.keyDown(window, { key: 'Tab' });
+    expect(document.activeElement.textContent).toBe('One');
+  });
+});
+

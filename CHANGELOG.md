@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.0
+
+- Layout primitives: `Container`, `Stack`, `Grid`, `Section`, `Separator`.
+- Navigation: `Stepper`, `NavItem`.
+- Data: `List`, `DescriptionList`.
+- Utilities: `Portal`, `FocusTrap`.
+- 53 primitives; 61 tests; the gallery has Layout, Data, Utilities and the final navigation controls.
+
 ## 0.6.0
 
 - Status **words** now use generated AA text roles (`--ui-*-text`); status dots and fills keep the vivid signal.

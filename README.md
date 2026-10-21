@@ -8,7 +8,7 @@ It is a Svelte 4 component library with a Tailwind preset and a plain-CSS token 
 
 The design system itself, in one page: [DESIGN.md](DESIGN.md).
 
-> **Status:** 0.6.0, source distribution. Not on npm yet; install from this repository.
+> **Status:** 1.0.0, source distribution. Not on npm yet; install from this repository.
 
 **Live gallery:** [aa-blinov.github.io/monos-ui](https://aa-blinov.github.io/monos-ui/)
 
@@ -128,6 +128,12 @@ Themes: `gruvbox`, `github`, `dracula`, `nord`, `solarized`, `catppuccin`. Modes
 | `Pagination` | First, last and the current neighbourhood; real ellipsis |
 | `Drawer` | Modal side panel with focus trap, scroll lock and focus return |
 | `Prose` | Reading column for Markdown: measure, rhythm, code, tables |
+| `Container` / `Stack` / `Grid` | Page column; one-dimensional stack; equal or auto-fit tracks |
+| `Section` / `Separator` | Vertical rhythm; a hairline, decorative or semantic |
+| `Stepper` | Step sequence, current check and optional clicking |
+| `NavItem` | One navigation row; link or button, active state |
+| `List` / `DescriptionList` | Rows with icon/meta; term and description |
+| `Portal` / `FocusTrap` | Move an overlay out of its parent; keep Tab inside a region |
 | `Tooltip` / `tooltip` | Hint on any element; one look, 450 ms, never on a phone |
 
 Full props, events and slots: [docs/components.md](docs/components.md). Tokens: [docs/tokens.md](docs/tokens.md). Moving Monos itself onto the kit: [docs/migrating-monos.md](docs/migrating-monos.md).
