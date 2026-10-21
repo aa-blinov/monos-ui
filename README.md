@@ -15,8 +15,8 @@ The design system itself, in one page: [DESIGN.md](DESIGN.md).
 ## Install
 
 ```bash
-# from this repository, until it is published
-npm install file:../monos-ui svelte tailwindcss
+# from GitHub, until it is published on npm
+npm install github:aa-blinov/monos-ui svelte tailwindcss
 ```
 
 Peer dependencies: `svelte@^4` and `tailwindcss@^3.4`.
