@@ -9,7 +9,8 @@ It is a Svelte 4 component library with a Tailwind preset and a plain-CSS token 
 ## Install
 
 ```bash
-npm install @monos/ui svelte tailwindcss
+# from this repository, until it is published
+npm install file:../monos-ui svelte tailwindcss
 ```
 
 Peer dependencies: `svelte@^4` and `tailwindcss@^3.4`.
