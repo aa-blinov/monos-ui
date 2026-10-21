@@ -66,14 +66,17 @@ describe('TextField', () => {
 
 describe('SelectField', () => {
   test('renders options and changes its value', async () => {
-    render(SelectField, {
+    const field = render(SelectField, {
       label: 'Folder',
       value: 'work',
       options: [{ value: 'work', label: 'Work' }, { value: 'home', label: 'Home' }],
     });
+    const changed = vi.fn();
+    field.component.$on('change', changed);
     const select = screen.getByLabelText('Folder');
     await fireEvent.change(select, { target: { value: 'home' } });
     expect(select.value).toBe('home');
+    expect(changed).toHaveBeenCalled();
   });
 });
 
@@ -88,11 +91,14 @@ describe('search and choices', () => {
   });
 
   test('Checkbox toggles and Switch reports its state', async () => {
-    render(Checkbox);
+    const checkbox = render(Checkbox);
+    const changed = vi.fn();
+    checkbox.component.$on('change', changed);
     const box = screen.getByRole('checkbox');
     await fireEvent.click(box);
     await tick();
     expect(box.checked).toBe(true);
+    expect(changed).toHaveBeenCalled();
 
     cleanup();
     render(Switch);
@@ -185,9 +191,13 @@ describe('binding', () => {
 });
 
 describe('surfaces and marks', () => {
-  test('Card is a button only when interactive', () => {
-    render(Card, { interactive: true });
+  test('Card is a button only when interactive', async () => {
+    const card = render(Card, { interactive: true });
+    const clicked = vi.fn();
+    card.component.$on('click', clicked);
     expect(screen.getByRole('button')).toBeTruthy();
+    await fireEvent.click(screen.getByRole('button'));
+    expect(clicked).toHaveBeenCalled();
     cleanup();
     render(Card);
     expect(screen.queryByRole('button')).toBeNull();
