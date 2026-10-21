@@ -21,6 +21,14 @@
     xl: 'h-16 w-16 text-base',
   };
 
+  const statusSizes = {
+    xs: 'h-1.5 w-1.5 border',
+    sm: 'h-2 w-2 border',
+    md: 'h-2.5 w-2.5 border-2',
+    lg: 'h-2.5 w-2.5 border-2',
+    xl: 'h-3 w-3 border-2',
+  };
+
   const statuses = {
     online: 'bg-success',
     away: 'bg-warning',
@@ -49,6 +57,6 @@
     {/if}
   </span>
   {#if status}
-    <span class="absolute bottom-0 right-0 h-2.5 w-2.5 rounded-full border-2 border-canvas {statuses[status] || statuses.offline}" aria-hidden="true"></span>
+    <span class="absolute bottom-0 right-0 rounded-full border-canvas {statusSizes[size] || statusSizes.md} {statuses[status] || statuses.offline}" aria-hidden="true"></span>
   {/if}
 </span>

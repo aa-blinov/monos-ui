@@ -34,7 +34,7 @@
     secondary: 'font-normal text-ink-soft hover:text-ink',
     text: 'font-bold text-ink hover:opacity-60 active:opacity-50',
     quiet: 'font-medium normal-case tracking-normal text-ink-soft hover:text-ink',
-    danger: 'font-bold text-danger hover:opacity-70 active:opacity-60',
+    danger: 'font-bold text-danger-text hover:opacity-70 active:opacity-60',
   };
 
   $: base = 'inline-flex items-center justify-center gap-2 rounded-ui uppercase tracking-widest transition-colors duration-fast max-sm:min-h-11';

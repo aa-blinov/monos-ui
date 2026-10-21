@@ -80,7 +80,7 @@
     {...$$restProps}
   />
   {#if error}
-    <p id="{fieldId}-error" class="mt-1.5 text-xs text-danger">{error}</p>
+    <p id="{fieldId}-error" class="mt-1.5 text-xs text-danger-text">{error}</p>
   {:else if hint}
     <p id="{fieldId}-hint" class="mt-1.5 text-xs text-ink-faint">{hint}</p>
   {/if}

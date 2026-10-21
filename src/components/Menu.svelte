@@ -126,7 +126,7 @@
             type="button"
             role="menuitem"
             disabled={item.disabled}
-            class="flex min-h-8 w-full items-center max-sm:min-h-11 gap-2.5 rounded-ui px-3 text-left text-sm outline-none transition-colors duration-fast focus:bg-surface focus:text-ink {item.danger ? 'text-danger hover:bg-[color-mix(in_srgb,var(--ui-danger)_10%,transparent)] hover:text-danger' : 'text-ink-soft hover:bg-surface hover:text-ink'} disabled:cursor-not-allowed disabled:opacity-30"
+            class="flex min-h-8 w-full items-center max-sm:min-h-11 gap-2.5 rounded-ui px-3 text-left text-sm outline-none transition-colors duration-fast focus:bg-surface focus:text-ink {item.danger ? 'text-danger-text hover:bg-[color-mix(in_srgb,var(--ui-danger)_10%,transparent)] hover:text-danger-text' : 'text-ink-soft hover:bg-surface hover:text-ink'} disabled:cursor-not-allowed disabled:opacity-30"
             on:click={() => choose(item)}
           >
             {#if item.icon}

@@ -35,6 +35,11 @@ export default {
         warning: 'var(--ui-warning)',
         success: 'var(--ui-success)',
         info: 'var(--ui-info)',
+        'accent-text': 'var(--ui-accent-text)',
+        'danger-text': 'var(--ui-danger-text)',
+        'warning-text': 'var(--ui-warning-text)',
+        'success-text': 'var(--ui-success-text)',
+        'info-text': 'var(--ui-info-text)',
       },
       borderRadius: {
         ui: 'var(--ui-radius)',

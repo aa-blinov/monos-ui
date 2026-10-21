@@ -68,7 +68,7 @@
     on:change={onChange}
   />
   {#if error}
-    <p id={errorId} class="mt-1 text-xs text-danger" role="alert">{error}</p>
+    <p id={errorId} class="mt-1 text-xs text-danger-text" role="alert">{error}</p>
   {:else if hint}
     <p id={hintId} class="mt-1 text-xs text-ink-faint">{hint}</p>
   {/if}

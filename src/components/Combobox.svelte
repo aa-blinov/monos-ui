@@ -222,7 +222,7 @@
     {/if}
   </div>
   {#if error}
-    <p id={errorId} class="mt-1.5 text-xs text-danger">{error}</p>
+    <p id={errorId} class="mt-1.5 text-xs text-danger-text">{error}</p>
   {:else if hint}
     <p id={hintId} class="mt-1.5 text-xs text-ink-faint">{hint}</p>
   {/if}

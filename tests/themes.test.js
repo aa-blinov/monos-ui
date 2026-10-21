@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 import { test } from 'vitest';
 import assert from 'node:assert/strict';
 import { themes, modes, themeNames } from '../src/themes.js';
-import { THEME_VAR, renderThemesCss } from '../src/theme-css.js';
+import { THEME_VAR, renderThemesCss, readableStatus } from '../src/theme-css.js';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 
@@ -57,6 +57,23 @@ test('readable text clears AA on the page and on a card', () => {
         for (const key of ['ink', 'inkSoft', 'inkFaint']) {
           const ratio = contrast(p[key], surface);
           if (ratio < 4.5) offenders.push(`${name}.${mode}.${key} on ${surface}: ${ratio.toFixed(2)}`);
+        }
+      }
+    }
+  }
+  assert.deepEqual(offenders, []);
+});
+
+test('status words clear AA on the page and on a card', () => {
+  const offenders = [];
+  for (const name of themeNames) {
+    for (const mode of modes) {
+      const p = themes[name][mode];
+      for (const role of ['accent', 'danger', 'warning', 'success', 'info']) {
+        const color = readableStatus(p[role], p);
+        for (const surface of [p.bg, p.surface]) {
+          const ratio = contrast(color, surface);
+          if (ratio < 4.5) offenders.push(`${name}.${mode}.${role} on ${surface}: ${ratio.toFixed(2)}`);
         }
       }
     }

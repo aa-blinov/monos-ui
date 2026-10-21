@@ -8,7 +8,7 @@ It is a Svelte 4 component library with a Tailwind preset and a plain-CSS token 
 
 The design system itself, in one page: [DESIGN.md](DESIGN.md).
 
-> **Status:** 0.5.1, source distribution. Not on npm yet; install from this repository.
+> **Status:** 0.6.0, source distribution. Not on npm yet; install from this repository.
 
 **Live gallery:** [aa-blinov.github.io/monos-ui](https://aa-blinov.github.io/monos-ui/)
 
@@ -134,7 +134,7 @@ Full props, events and slots: [docs/components.md](docs/components.md). Tokens: 
 
 ## What it believes
 
-- **Colour is a role, not a value.** Components read `var(--ui-…)`; a theme changes values, never components.
+- **Colour is a role, not a value.** Components read `var(--ui-…)`; a theme changes values, never components. Status words use the AA `*-text` roles; dots keep the signal.
 - **One radius.** Every rectangle is `--ui-radius` (6px). Circles are only things that are round by nature.
 - **Text is the button.** No filled CTA, no outlined action button; the only frame is a toggle's chosen state.
 - **Flat at rest.** Cards carry a 3%-black shadow; only hover and overlays lift.

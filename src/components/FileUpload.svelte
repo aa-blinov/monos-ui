@@ -76,7 +76,7 @@
     tabindex={disabled ? -1 : 0}
     aria-disabled={disabled ? 'true' : undefined}
     aria-describedby={describedBy}
-    class="rounded-ui border border-dashed p-4 text-center transition-colors duration-fast focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink {dragging ? 'border-ink bg-surface-2' : 'border-line bg-surface'} {disabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer hover:border-line-strong hover:bg-surface-2'}"
+    class="rounded-ui border border-dashed p-4 text-center transition-colors duration-fast focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink {dragging ? 'border-ink bg-surface-2' : 'border-line bg-surface'} {disabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer hover:border-line-strong'}"
     on:click={openPicker}
     on:keydown={onKeydown}
     on:dragover|preventDefault={() => { if (!disabled) dragging = true; }}
@@ -127,7 +127,7 @@
   {/if}
 
   {#if error}
-    <p id={errorId} class="mt-1.5 text-xs text-danger">{error}</p>
+    <p id={errorId} class="mt-1.5 text-xs text-danger-text">{error}</p>
   {:else if hint}
     <p id={hintId} class="mt-1.5 text-xs text-ink-faint">{hint}</p>
   {/if}

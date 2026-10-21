@@ -15,6 +15,11 @@
   --ui-warning: #d65d0e;
   --ui-success: #98971a;
   --ui-info: #458588;
+  --ui-accent-text: #37696b;
+  --ui-danger-text: #bc211b;
+  --ui-warning-text: #a1460b;
+  --ui-success-text: #646411;
+  --ui-info-text: #37696b;
 }
 
 :root[data-mode="dark"]:not([data-theme]) {
@@ -32,6 +37,11 @@
   --ui-warning: #fe8019;
   --ui-success: #b8bb26;
   --ui-info: #83a598;
+  --ui-accent-text: #88a99c;
+  --ui-danger-text: #fc7c6d;
+  --ui-warning-text: #fe8019;
+  --ui-success-text: #b8bb26;
+  --ui-info-text: #88a99c;
 }
 
 [data-theme="gruvbox"][data-mode="light"] {
@@ -49,6 +59,11 @@
   --ui-warning: #d65d0e;
   --ui-success: #98971a;
   --ui-info: #458588;
+  --ui-accent-text: #37696b;
+  --ui-danger-text: #bc211b;
+  --ui-warning-text: #a1460b;
+  --ui-success-text: #646411;
+  --ui-info-text: #37696b;
 }
 
 [data-theme="gruvbox"][data-mode="dark"] {
@@ -66,6 +81,11 @@
   --ui-warning: #fe8019;
   --ui-success: #b8bb26;
   --ui-info: #83a598;
+  --ui-accent-text: #88a99c;
+  --ui-danger-text: #fc7c6d;
+  --ui-warning-text: #fe8019;
+  --ui-success-text: #b8bb26;
+  --ui-info-text: #88a99c;
 }
 
 [data-theme="github"][data-mode="light"] {
@@ -83,6 +103,11 @@
   --ui-warning: #bc4c00;
   --ui-success: #1a7f37;
   --ui-info: #0969da;
+  --ui-accent-text: #0969da;
+  --ui-danger-text: #cf222e;
+  --ui-warning-text: #bc4c00;
+  --ui-success-text: #1a7f37;
+  --ui-info-text: #0969da;
 }
 
 [data-theme="github"][data-mode="dark"] {
@@ -100,6 +125,11 @@
   --ui-warning: #db6d28;
   --ui-success: #3fb950;
   --ui-info: #58a6ff;
+  --ui-accent-text: #58a6ff;
+  --ui-danger-text: #f85149;
+  --ui-warning-text: #db6d28;
+  --ui-success-text: #3fb950;
+  --ui-info-text: #58a6ff;
 }
 
 [data-theme="dracula"][data-mode="light"] {
@@ -117,6 +147,11 @@
   --ui-warning: #ad6e1b;
   --ui-success: #4d8240;
   --ui-info: #036a96;
+  --ui-accent-text: #036a96;
+  --ui-danger-text: #c9392a;
+  --ui-warning-text: #9a6218;
+  --ui-success-text: #487a3c;
+  --ui-info-text: #036a96;
 }
 
 [data-theme="dracula"][data-mode="dark"] {
@@ -134,6 +169,11 @@
   --ui-warning: #ffb86c;
   --ui-success: #50fa7b;
   --ui-info: #8be9fd;
+  --ui-accent-text: #8be9fd;
+  --ui-danger-text: #ff7575;
+  --ui-warning-text: #ffb86c;
+  --ui-success-text: #50fa7b;
+  --ui-info-text: #8be9fd;
 }
 
 [data-theme="nord"][data-mode="light"] {
@@ -151,6 +191,11 @@
   --ui-warning: #d08770;
   --ui-success: #a3be8c;
   --ui-info: #5e81ac;
+  --ui-accent-text: #4e6b8f;
+  --ui-danger-text: #a05159;
+  --ui-warning-text: #8d5c4c;
+  --ui-success-text: #5d6c50;
+  --ui-info-text: #4e6b8f;
 }
 
 [data-theme="nord"][data-mode="dark"] {
@@ -168,6 +213,11 @@
   --ui-warning: #d08770;
   --ui-success: #a3be8c;
   --ui-info: #81a1c1;
+  --ui-accent-text: #96b1cc;
+  --ui-danger-text: #d89fa4;
+  --ui-warning-text: #daa08e;
+  --ui-success-text: #a3be8c;
+  --ui-info-text: #96b1cc;
 }
 
 [data-theme="solarized"][data-mode="light"] {
@@ -185,6 +235,11 @@
   --ui-warning: #cb4b16;
   --ui-success: #859900;
   --ui-info: #268bd2;
+  --ui-accent-text: #1e6ca4;
+  --ui-danger-text: #c42d2a;
+  --ui-warning-text: #b54314;
+  --ui-success-text: #606e00;
+  --ui-info-text: #1e6ca4;
 }
 
 [data-theme="solarized"][data-mode="dark"] {
@@ -202,6 +257,11 @@
   --ui-warning: #cb4b16;
   --ui-success: #859900;
   --ui-info: #268bd2;
+  --ui-accent-text: #4b9fda;
+  --ui-danger-text: #e87674;
+  --ui-warning-text: #db815c;
+  --ui-success-text: #8fa114;
+  --ui-info-text: #4b9fda;
 }
 
 [data-theme="catppuccin"][data-mode="light"] {
@@ -219,6 +279,11 @@
   --ui-warning: #fe640b;
   --ui-success: #40a02b;
   --ui-info: #1e66f5;
+  --ui-accent-text: #1c5fe4;
+  --ui-danger-text: #d00f38;
+  --ui-warning-text: #b24608;
+  --ui-success-text: #307820;
+  --ui-info-text: #1c5fe4;
 }
 
 [data-theme="catppuccin"][data-mode="dark"] {
@@ -236,4 +301,9 @@
   --ui-warning: #fab387;
   --ui-success: #a6e3a1;
   --ui-info: #89b4fa;
+  --ui-accent-text: #89b4fa;
+  --ui-danger-text: #f38ba8;
+  --ui-warning-text: #fab387;
+  --ui-success-text: #a6e3a1;
+  --ui-info-text: #89b4fa;
 }

@@ -1,4 +1,51 @@
 /** The CSS a theme contract compiles to. Shared by the build script and the tests. */
+/** A status word is not a dot: the word must clear AA on the page and on a card. */
+export const STATUS_TEXT_VAR = {
+  accent: '--ui-accent-text',
+  danger: '--ui-danger-text',
+  warning: '--ui-warning-text',
+  success: '--ui-success-text',
+  info: '--ui-info-text',
+};
+
+function rgb(hex) {
+  const value = hex.replace('#', '');
+  return [0, 2, 4].map((index) => parseInt(value.slice(index, index + 2), 16));
+}
+
+function luminance(hex) {
+  const [r, g, b] = rgb(hex).map((value) => {
+    const v = value / 255;
+    return v <= 0.04045 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4;
+  });
+  return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+}
+
+function contrast(a, b) {
+  const [hi, lo] = [luminance(a), luminance(b)].sort((x, y) => y - x);
+  return (hi + 0.05) / (lo + 0.05);
+}
+
+function mix(a, b, weight) {
+  const left = rgb(a);
+  const right = rgb(b);
+  const channels = left.map((value, index) => Math.round(value + (right[index] - value) * weight));
+  return `#${channels.map((value) => value.toString(16).padStart(2, '0')).join('')}`;
+}
+
+/** Darken on a light theme, lighten on a dark one, keeping the hue. */
+export function readableStatus(signal, palette) {
+  const surfaces = [palette.bg, palette.surface];
+  const passes = (color) => surfaces.every((surface) => contrast(color, surface) >= 4.5);
+  if (passes(signal)) return signal;
+  const target = luminance(palette.bg) > 0.5 ? '#000000' : '#ffffff';
+  for (let step = 1; step <= 100; step += 1) {
+    const candidate = mix(signal, target, step / 100);
+    if (passes(candidate)) return candidate;
+  }
+  return target;
+}
+
 export const THEME_VAR = {
   bg: '--ui-bg',
   surface: '--ui-surface',
@@ -17,7 +64,10 @@ export const THEME_VAR = {
 
 function block(selector, palette, mode) {
   const lines = Object.entries(THEME_VAR).map(([key, variable]) => `  ${variable}: ${palette[key]};`);
-  return `${selector} {\n  color-scheme: ${mode};\n${lines.join('\n')}\n}\n`;
+  const words = Object.entries(STATUS_TEXT_VAR).map(
+    ([key, variable]) => `  ${variable}: ${readableStatus(palette[key], palette)};`,
+  );
+  return `${selector} {\n  color-scheme: ${mode};\n${lines.join('\n')}\n${words.join('\n')}\n}\n`;
 }
 
 /** The complete themes.css for the given palettes. */

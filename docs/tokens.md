@@ -23,15 +23,20 @@ Every theme/mode pair sets all of them. Components never name a palette colour.
 | `--ui-ink-muted` | `text-ink-muted` | decoration, disabled, placeholders; not a sentence |
 | `--ui-line` | `border-line` | every hairline |
 | `--ui-line-strong` | `border-line-strong` | hover and focus borders (derived) |
-| `--ui-accent` | `text-accent`, `bg-accent` | selection and links |
-| `--ui-danger` | `text-danger`, `bg-danger` | destructive and error |
-| `--ui-warning` | `text-warning`, `bg-warning` | attention |
-| `--ui-success` | `text-success`, `bg-success` | done |
-| `--ui-info` | `text-info`, `bg-info` | information |
+| `--ui-accent` | `bg-accent` | selection, dots and fills |
+| `--ui-danger` | `bg-danger` | destructive fills and dots |
+| `--ui-warning` | `bg-warning` | attention dots and fills |
+| `--ui-success` | `bg-success` | done dots and fills |
+| `--ui-info` | `bg-info` | information dots and fills |
+| `--ui-accent-text` | `text-accent-text` | the accent as a word, AA on bg and surface |
+| `--ui-danger-text` | `text-danger-text` | the destructive word, AA on bg and surface |
+| `--ui-warning-text` | `text-warning-text` | the attention word, AA on bg and surface |
+| `--ui-success-text` | `text-success-text` | the done word, AA on bg and surface |
+| `--ui-info-text` | `text-info-text` | the information word, AA on bg and surface |
 | `--ui-focus` | — | 2px focus line (derived) |
 | `--ui-selection` | — | text selection (derived) |
 
-Derived tokens are `color-mix()` over `--ui-ink` / `--ui-ink-soft` / `--ui-accent`; a theme does not set them.
+Derived tokens are `color-mix()` over `--ui-ink` / `--ui-ink-soft` / `--ui-accent`; a theme does not set them. The `*-text` status roles are generated from the signal by darkening it on a light theme (or lightening it on a dark one) until the word clears AA on both `--ui-bg` and `--ui-surface`; the hue stays.
 
 ## Typography
 
@@ -108,3 +113,4 @@ Solarized's ink is walked slightly darker/lighter than the upstream ramp so body
 2. A new colour is a role, not a shade. If a new role is needed, add it to `src/themes.js` for every theme and mode, regenerate, and update the contract test.
 3. A new geometry step is added to `tokens.css` and, when useful, to the preset; no arbitrary `h-[…]` in a component.
 4. Text roles are AA on `--ui-bg` and `--ui-surface`; `--ui-ink-muted` is not a text role.
+5. A status **word** uses `text-*-text`; a **dot, fill or border** uses the signal (`bg-*`). They are not interchangeable.

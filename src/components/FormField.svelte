@@ -26,11 +26,11 @@
   {#if label}
     {#if forId}
       <label for={forId} class="mb-1.5 block text-xs uppercase tracking-widest text-ink-soft">
-        {label}{#if required}<span class="text-danger" aria-hidden="true"> *</span>{/if}
+        {label}{#if required}<span class="text-danger-text" aria-hidden="true"> *</span>{/if}
       </label>
     {:else}
       <span class="mb-1.5 block text-xs uppercase tracking-widest text-ink-soft">
-        {label}{#if required}<span class="text-danger" aria-hidden="true"> *</span>{/if}
+        {label}{#if required}<span class="text-danger-text" aria-hidden="true"> *</span>{/if}
       </span>
     {/if}
   {/if}
@@ -38,7 +38,7 @@
     <slot {describedBy} />
   </div>
   {#if error}
-    <p id={errorId} class="mt-1.5 text-xs text-danger" role="alert">{error}</p>
+    <p id={errorId} class="mt-1.5 text-xs text-danger-text" role="alert">{error}</p>
   {:else if hint}
     <p id={hintId} class="mt-1.5 text-xs text-ink-faint">{hint}</p>
   {/if}

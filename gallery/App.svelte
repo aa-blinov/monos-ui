@@ -198,13 +198,13 @@
 
 <div id="top" class="mx-auto max-w-5xl px-6 pb-24 pt-10">
   <header class="flex flex-wrap items-end justify-between gap-6 border-b border-line pb-6">
-    <div>
+    <div class="min-w-0">
       <h1 class="text-3xl font-bold tracking-tight">The desk, as a kit</h1>
       <p class="mt-2 max-w-xl text-sm leading-relaxed text-ink-soft">
         Warm paper, one radius, text buttons and a quiet focus ring. Pick a palette and a mode;
         everything below is drawn from the same tokens.
       </p>
-      <div class="mt-5 flex max-w-full items-center gap-2">
+      <div class="mt-5 flex min-w-0 max-w-full items-center gap-2">
         <code class="min-w-0 flex-1 overflow-x-auto whitespace-nowrap rounded-ui border border-line bg-surface px-3 py-2 font-mono text-xs text-ink-soft">{INSTALL}</code>
         <IconButton
           label={copied ? 'Copied' : 'Copy install command'}
@@ -321,7 +321,7 @@
       </div>
     </div>
     <div class="mt-6">
-      <RadioGroup label="Default view" bind:value={radio} orientation="horizontal" options={radioOptions} />
+      <RadioGroup label="Default view" bind:value={radio} orientation="horizontal" class="max-sm:flex-col max-sm:gap-y-3" options={radioOptions} />
     </div>
   </section>
 
@@ -431,7 +431,7 @@
       </PageHeader>
 
       <div class="grid gap-8 md:grid-cols-2">
-        <div class="space-y-8">
+        <div class="min-w-0 space-y-8">
           <div>
             <Breadcrumbs items={[{ label: 'Notes', href: '#' }, { label: 'Work', href: '#' }, { label: 'Today' }]} />
           </div>
@@ -450,7 +450,7 @@
           </div>
         </div>
 
-        <Prose>
+        <Prose class="min-w-0">
           <h3>Reading a note</h3>
           <p>A reading column is a measure, a rhythm and a quiet place for links. The prose wrapper owns the space between the elements; the product owns the words.</p>
           <ul>

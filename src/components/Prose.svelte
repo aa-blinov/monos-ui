@@ -13,6 +13,7 @@
 
 <style>
   :global(.ui-prose) {
+    min-width: 0;
     max-width: 70ch;
     color: var(--ui-ink);
     font-size: 0.875rem;

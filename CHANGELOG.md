@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.6.0
+
+- Status **words** now use generated AA text roles (`--ui-*-text`); status dots and fills keep the vivid signal.
+- Every theme/mode passes AA for badge words, destructive labels and field errors on the page and on a card.
+- Smaller polish: mobile chip remove targets, status-dot sizes per avatar size, vertical radio group on a phone, no horizontal overflow at 320px.
+
 ## 0.5.1
 
 - `Tabs` no longer shows a stray vertical scrollbar. The line variant draws its active underline inside the tab, and the scroll container hides the vertical axis.

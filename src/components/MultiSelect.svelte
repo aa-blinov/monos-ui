@@ -183,7 +183,7 @@
           <button
             type="button"
             aria-label="{removeLabel} {option.label ?? option.value}"
-            class="inline-flex h-4 w-4 shrink-0 items-center justify-center rounded-ui text-ink-faint transition-colors duration-fast hover:text-ink"
+            class="inline-flex h-4 w-4 shrink-0 items-center justify-center rounded-ui text-ink-faint max-sm:h-6 max-sm:w-6 transition-colors duration-fast hover:text-ink"
             on:click|stopPropagation={() => remove(option.value)}
           >
             <svg class="h-3 w-3" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -260,7 +260,7 @@
     {/if}
   </div>
   {#if error}
-    <p id={errorId} class="mt-1.5 text-xs text-danger">{error}</p>
+    <p id={errorId} class="mt-1.5 text-xs text-danger-text">{error}</p>
   {:else if hint}
     <p id={hintId} class="mt-1.5 text-xs text-ink-faint">{hint}</p>
   {/if}

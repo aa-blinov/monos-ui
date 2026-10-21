@@ -10,8 +10,9 @@ Six palettes ship in a light and a dark mode: Gruvbox (the reference), GitHub, D
 
 - `--ui-bg` / `--ui-surface` / `--ui-surface-2` are three tonal steps, not three colours.
 - `--ui-ink` is body text; `--ui-ink-soft` supports it; `--ui-ink-faint` is metadata; `--ui-ink-muted` is decoration and disabled, never a sentence.
-- `--ui-accent`, `--ui-danger`, `--ui-warning`, `--ui-success`, `--ui-info` are state signals. They are not decoration.
-- The text roles clear WCAG AA on the page and on a card in all twelve theme/mode pairs; the Solarized ink is walked slightly darker/lighter than the upstream ramp for that reason.
+- `--ui-accent`, `--ui-danger`, `--ui-warning`, `--ui-success`, `--ui-info` are state signals for dots, fills and borders. They are not decoration.
+- A status **word** reads its `*-text` sibling (`--ui-danger-text`, and so on), which is darkened on light (or lightened on dark) until it clears AA on the page and on a card; the hue stays. The signal stays vivid in the dot; the word stays readable.
+- The text roles clear WCAG AA on the page and on a card in all twelve theme/mode pairs; the Solarized ink is walked slightly darker/lighter than the upstream ramp for that reason. Status words carry their own contrast pass.
 
 The full contract and the theme names are in [`docs/tokens.md`](docs/tokens.md).
 
