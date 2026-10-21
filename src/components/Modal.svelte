@@ -64,8 +64,11 @@
 
   function focusables() {
     if (!panel) return [];
-    return [...panel.querySelectorAll('a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])')]
-      .filter((element) => element.offsetParent !== null || element === document.activeElement);
+    return [
+      ...panel.querySelectorAll(
+        'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
+      ),
+    ].filter((element) => element.offsetParent !== null || element === document.activeElement);
   }
 
   async function activate() {
@@ -150,12 +153,14 @@
     {/if}
     <section
       bind:this={panel}
-      role={role}
+      {role}
       aria-modal="true"
       aria-labelledby={title ? titleId : undefined}
       aria-describedby={description ? descriptionId : undefined}
       tabindex="-1"
-      class="relative z-10 max-h-[calc(100dvh-4rem)] w-full overflow-y-auto rounded-ui border border-line bg-canvas p-6 text-ink sm:p-8 shadow-overlay outline-none {sizes[size] || sizes.md} {className}"
+      class="relative z-10 max-h-[calc(100dvh-4rem)] w-full overflow-y-auto rounded-ui border border-line bg-canvas p-6 text-ink sm:p-8 shadow-overlay outline-none {sizes[
+        size
+      ] || sizes.md} {className}"
     >
       {#if showClose}
         <IconButton

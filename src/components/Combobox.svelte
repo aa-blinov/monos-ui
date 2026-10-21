@@ -40,12 +40,16 @@
   let inputEl;
 
   $: selected = options.find((option) => option.value === value) || null;
-  $: display = open ? query : selected?.label ?? '';
+  $: display = open ? query : (selected?.label ?? '');
   $: placeholderText = selected?.label ?? placeholder;
   $: normalized = query.trim().toLowerCase();
   $: filtered = options.filter((option) => {
     if (!normalized) return true;
-    return String(option.label ?? option.value).toLowerCase().includes(normalized) || String(option.value).toLowerCase().includes(normalized);
+    return (
+      String(option.label ?? option.value)
+        .toLowerCase()
+        .includes(normalized) || String(option.value).toLowerCase().includes(normalized)
+    );
   });
   $: if (highlighted >= filtered.length) highlighted = filtered.length - 1;
 
@@ -151,7 +155,9 @@
 
 <div class="relative {className}" bind:this={wrapper}>
   {#if label}
-    <label id={labelId} for={fieldId} class="mb-1.5 block text-xs uppercase tracking-widest text-ink-soft">{label}</label>
+    <label id={labelId} for={fieldId} class="mb-1.5 block text-xs uppercase tracking-widest text-ink-soft"
+      >{label}</label
+    >
   {/if}
   <div class="relative">
     <input
@@ -169,8 +175,12 @@
       {disabled}
       value={display}
       placeholder={placeholderText}
-      class="h-9 w-full border-b bg-transparent px-1 pr-8 text-sm text-ink outline-none transition-colors duration-fast placeholder:text-ink-faint focus:border-ink-soft disabled:cursor-not-allowed disabled:opacity-50 max-sm:h-11 {error ? 'border-danger' : 'border-line'}"
-      on:focus={() => { if (!open) void openList(); }}
+      class="h-9 w-full border-b bg-transparent px-1 pr-8 text-sm text-ink outline-none transition-colors duration-fast placeholder:text-ink-faint focus:border-ink-soft disabled:cursor-not-allowed disabled:opacity-50 max-sm:h-11 {error
+        ? 'border-danger'
+        : 'border-line'}"
+      on:focus={() => {
+        if (!open) void openList();
+      }}
       on:input={onInput}
       on:keydown={onKeydown}
     />
@@ -208,7 +218,13 @@
             <span class="min-w-0 truncate">{option.label ?? option.value}</span>
             {#if option.value === value}
               <svg class="h-3.5 w-3.5 shrink-0 text-ink" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <polyline points="20 6 9 17 4 12" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
+                <polyline
+                  points="20 6 9 17 4 12"
+                  stroke="currentColor"
+                  stroke-width="1.7"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
               </svg>
             {/if}
           </button>

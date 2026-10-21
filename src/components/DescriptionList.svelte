@@ -12,7 +12,11 @@
 
 <dl class="space-y-3 {className}">
   {#each items as item, index (item.term + index)}
-    <div class="grid gap-1 {layout === 'inline' ? 'sm:grid-cols-[minmax(7rem,0.35fr)_1fr] sm:items-baseline sm:gap-4' : ''}">
+    <div
+      class="grid gap-1 {layout === 'inline'
+        ? 'sm:grid-cols-[minmax(7rem,0.35fr)_1fr] sm:items-baseline sm:gap-4'
+        : ''}"
+    >
       <dt class="text-whisper uppercase tracking-widest text-ink-faint">{item.term}</dt>
       <dd class="m-0 text-sm leading-relaxed text-ink-soft">{item.description}</dd>
     </div>

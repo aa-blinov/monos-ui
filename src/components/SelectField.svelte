@@ -26,7 +26,8 @@
 
   const fallbackId = `ui-select-${++counter}`;
   $: fieldId = id || fallbackId;
-  $: describedBy = [hint ? `${fieldId}-hint` : '', error ? `${fieldId}-error` : ''].filter(Boolean).join(' ') || undefined;
+  $: describedBy =
+    [hint ? `${fieldId}-hint` : '', error ? `${fieldId}-error` : ''].filter(Boolean).join(' ') || undefined;
 
   const sizes = {
     sm: 'h-7 text-xs',
@@ -34,9 +35,10 @@
     lg: 'h-11 text-sm',
   };
 
-  $: shape = variant === 'boxed'
-    ? `rounded-ui border bg-surface pl-3 pr-9 ${error ? 'border-danger focus:border-danger' : 'border-line focus:border-ink-soft'}`
-    : `border-b bg-transparent pl-1 pr-8 ${error ? 'border-danger focus:border-danger' : 'border-line focus:border-ink-soft'}`;
+  $: shape =
+    variant === 'boxed'
+      ? `rounded-ui border bg-surface pl-3 pr-9 ${error ? 'border-danger focus:border-danger' : 'border-line focus:border-ink-soft'}`
+      : `border-b bg-transparent pl-1 pr-8 ${error ? 'border-danger focus:border-danger' : 'border-line focus:border-ink-soft'}`;
 </script>
 
 <div class={className}>
@@ -52,7 +54,9 @@
       bind:value
       aria-invalid={error ? 'true' : undefined}
       aria-describedby={describedBy}
-      class="w-full appearance-none text-ink outline-none transition-colors duration-fast disabled:cursor-not-allowed disabled:opacity-50 {sizes[size] || sizes.md} max-sm:h-11 {shape}"
+      class="w-full appearance-none text-ink outline-none transition-colors duration-fast disabled:cursor-not-allowed disabled:opacity-50 {sizes[
+        size
+      ] || sizes.md} max-sm:h-11 {shape}"
       on:change
       on:focus
       on:blur
@@ -65,8 +69,19 @@
         <option value={option.value} disabled={option.disabled}>{option.label ?? option.value}</option>
       {/each}
     </select>
-    <svg class="pointer-events-none absolute right-2 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-ink-muted" viewBox="0 0 12 12" fill="none" aria-hidden="true">
-      <path d="M3 4.5 6 7.5 9 4.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" />
+    <svg
+      class="pointer-events-none absolute right-2 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-ink-muted"
+      viewBox="0 0 12 12"
+      fill="none"
+      aria-hidden="true"
+    >
+      <path
+        d="M3 4.5 6 7.5 9 4.5"
+        stroke="currentColor"
+        stroke-width="1.4"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
     </svg>
   </div>
   {#if error}

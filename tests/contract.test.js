@@ -10,7 +10,9 @@ const components = fs.readdirSync(componentsDir).filter((name) => name.endsWith(
 
 test('no component reaches into an application', () => {
   const forbidden = /from\s+['"](?:\.\.\/)+(?:stores|strings|lib\/api|lib\/app-shell)/;
-  const offenders = components.filter((name) => forbidden.test(fs.readFileSync(path.join(componentsDir, name), 'utf-8')));
+  const offenders = components.filter((name) =>
+    forbidden.test(fs.readFileSync(path.join(componentsDir, name), 'utf-8')),
+  );
   expect(offenders).toEqual([]);
 });
 
@@ -27,15 +29,17 @@ test('no component carries a literal colour', () => {
 test('every component is exported from the package', () => {
   const index = fs.readFileSync(path.join(root, 'src', 'index.js'), 'utf-8');
   for (const name of components) {
-    expect(index, `${name} is missing from src/index.js`).toContain(`components/${name.replace(/\.svelte$/, '')}.svelte`);
+    expect(index, `${name} is missing from src/index.js`).toContain(
+      `components/${name.replace(/\.svelte$/, '')}.svelte`,
+    );
   }
 });
 
 test('the styles entry brings tokens, themes and base together', () => {
   const index = fs.readFileSync(path.join(root, 'src', 'styles', 'index.css'), 'utf-8');
-  expect(index).toContain("./tokens.css");
-  expect(index).toContain("./themes.css");
-  expect(index).toContain("./base.css");
+  expect(index).toContain('./tokens.css');
+  expect(index).toContain('./themes.css');
+  expect(index).toContain('./base.css');
 });
 
 test('the package exposes source, styles and the Tailwind preset', () => {

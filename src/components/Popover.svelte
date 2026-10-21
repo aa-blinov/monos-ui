@@ -62,12 +62,15 @@
     const trigger = triggerNode();
     if (trigger && panelEl) {
       const rect = trigger.getBoundingClientRect();
-      flipped = placement === 'bottom'
-        ? rect.bottom + panelEl.offsetHeight + 8 > window.innerHeight
-        : rect.top - panelEl.offsetHeight - 8 < 0;
+      flipped =
+        placement === 'bottom'
+          ? rect.bottom + panelEl.offsetHeight + 8 > window.innerHeight
+          : rect.top - panelEl.offsetHeight - 8 < 0;
     }
     if (focusOnOpen) {
-      const first = panelEl?.querySelector('a[href], button:not([disabled]), input:not([disabled]), select, textarea, [tabindex]:not([tabindex="-1"])');
+      const first = panelEl?.querySelector(
+        'a[href], button:not([disabled]), input:not([disabled]), select, textarea, [tabindex]:not([tabindex="-1"])',
+      );
       (first || panelEl)?.focus();
     }
     dispatch('open');
@@ -112,8 +115,19 @@
       class="inline-flex min-h-9 items-center gap-2 rounded-ui px-3 text-sm max-sm:min-h-11 text-ink-soft transition-colors duration-fast hover:text-ink"
     >
       {label || 'Open'}
-      <svg class="h-3.5 w-3.5 transition-transform duration-fast {open ? 'rotate-180' : ''}" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path d="m6 9 6 6 6-6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
+      <svg
+        class="h-3.5 w-3.5 transition-transform duration-fast {open ? 'rotate-180' : ''}"
+        viewBox="0 0 24 24"
+        fill="none"
+        aria-hidden="true"
+      >
+        <path
+          d="m6 9 6 6 6-6"
+          stroke="currentColor"
+          stroke-width="1.7"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
       </svg>
     </button>
   {/if}
@@ -125,7 +139,9 @@
       role="dialog"
       aria-label={label || undefined}
       tabindex="-1"
-      class="absolute z-menu max-h-[min(24rem,calc(100dvh-6rem))] max-w-[calc(100vw-2rem)] overflow-y-auto rounded-ui border border-line bg-canvas p-4 shadow-overlay {widths[width] || widths.md} {positionClass} {alignClass}"
+      class="absolute z-menu max-h-[min(24rem,calc(100dvh-6rem))] max-w-[calc(100vw-2rem)] overflow-y-auto rounded-ui border border-line bg-canvas p-4 shadow-overlay {widths[
+        width
+      ] || widths.md} {positionClass} {alignClass}"
     >
       <slot />
     </div>

@@ -41,7 +41,8 @@
   }
 
   function tabClass(item) {
-    const base = 'inline-flex items-center whitespace-nowrap text-xs uppercase tracking-widest max-sm:min-h-11 transition-colors duration-fast disabled:cursor-not-allowed disabled:opacity-30';
+    const base =
+      'inline-flex items-center whitespace-nowrap text-xs uppercase tracking-widest max-sm:min-h-11 transition-colors duration-fast disabled:cursor-not-allowed disabled:opacity-30';
     if (variant === 'pill') {
       return `min-h-7 rounded-ui px-3 ${base} ${value === item.id ? 'bg-canvas text-ink shadow-rest' : 'text-ink-soft hover:text-ink'}`;
     }

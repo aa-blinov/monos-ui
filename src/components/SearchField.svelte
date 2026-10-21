@@ -44,7 +44,12 @@
 </script>
 
 <div class="relative {className}">
-  <svg class="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-ink-muted" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+  <svg
+    class="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-ink-muted"
+    viewBox="0 0 24 24"
+    fill="none"
+    aria-hidden="true"
+  >
     <circle cx="11" cy="11" r="6.5" stroke="currentColor" stroke-width="1.7" />
     <path d="m16 16 4 4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" />
   </svg>
@@ -52,9 +57,11 @@
     type="search"
     {placeholder}
     {disabled}
-    value={value}
+    {value}
     aria-label={label}
-    class="w-full rounded-ui border border-line bg-surface text-ink outline-none transition-colors duration-fast placeholder:text-ink-faint focus:border-ink-soft disabled:cursor-not-allowed disabled:opacity-50 [&::-webkit-search-cancel-button]:hidden {sizes[size] || sizes.md} max-sm:h-11"
+    class="w-full rounded-ui border border-line bg-surface text-ink outline-none transition-colors duration-fast placeholder:text-ink-faint focus:border-ink-soft disabled:cursor-not-allowed disabled:opacity-50 [&::-webkit-search-cancel-button]:hidden {sizes[
+      size
+    ] || sizes.md} max-sm:h-11"
     on:input={onInput}
     on:keydown={onKeydown}
     on:focus={(event) => dispatch('focus', event)}

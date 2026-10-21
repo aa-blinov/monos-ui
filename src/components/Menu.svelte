@@ -103,8 +103,19 @@
       class="inline-flex min-h-9 items-center gap-2 rounded-ui px-3 text-sm text-ink-soft transition-colors duration-fast hover:text-ink"
     >
       {label}
-      <svg class="h-3.5 w-3.5 transition-transform duration-fast {open ? '-rotate-90' : ''}" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path d="m9 6 6 6-6 6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
+      <svg
+        class="h-3.5 w-3.5 transition-transform duration-fast {open ? '-rotate-90' : ''}"
+        viewBox="0 0 24 24"
+        fill="none"
+        aria-hidden="true"
+      >
+        <path
+          d="m9 6 6 6-6 6"
+          stroke="currentColor"
+          stroke-width="1.7"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
       </svg>
     </button>
   {/if}
@@ -115,7 +126,9 @@
       role="menu"
       aria-label={label}
       tabindex="-1"
-      class="absolute z-menu overflow-y-auto rounded-ui border border-line bg-canvas p-1 shadow-overlay {align === 'end' ? 'right-0' : 'left-0'} {placement === 'top' ? 'bottom-full mb-1' : 'top-full mt-1'} {widthClass}"
+      class="absolute z-menu overflow-y-auto rounded-ui border border-line bg-canvas p-1 shadow-overlay {align === 'end'
+        ? 'right-0'
+        : 'left-0'} {placement === 'top' ? 'bottom-full mb-1' : 'top-full mt-1'} {widthClass}"
       on:keydown={onMenuKeydown}
     >
       {#each items as item, index (item.value ?? item.label ?? index)}
@@ -126,7 +139,9 @@
             type="button"
             role="menuitem"
             disabled={item.disabled}
-            class="flex min-h-8 w-full items-center max-sm:min-h-11 gap-2.5 rounded-ui px-3 text-left text-sm outline-none transition-colors duration-fast focus:bg-surface focus:text-ink {item.danger ? 'text-danger-text hover:bg-[color-mix(in_srgb,var(--ui-danger)_10%,transparent)] hover:text-danger-text' : 'text-ink-soft hover:bg-surface hover:text-ink'} disabled:cursor-not-allowed disabled:opacity-30"
+            class="flex min-h-8 w-full items-center max-sm:min-h-11 gap-2.5 rounded-ui px-3 text-left text-sm outline-none transition-colors duration-fast focus:bg-surface focus:text-ink {item.danger
+              ? 'text-danger-text hover:bg-[color-mix(in_srgb,var(--ui-danger)_10%,transparent)] hover:text-danger-text'
+              : 'text-ink-soft hover:bg-surface hover:text-ink'} disabled:cursor-not-allowed disabled:opacity-30"
             on:click={() => choose(item)}
           >
             {#if item.icon}

@@ -32,7 +32,8 @@
 </script>
 
 <div
-  class="pointer-events-none fixed z-tooltip flex w-full max-w-sm flex-col gap-2 p-4 {positions[position] || positions['bottom-right']} {className}"
+  class="pointer-events-none fixed z-tooltip flex w-full max-w-sm flex-col gap-2 p-4 {positions[position] ||
+    positions['bottom-right']} {className}"
   aria-live="polite"
   aria-atomic="false"
 >
@@ -53,7 +54,10 @@
           <button
             type="button"
             class="mt-2 inline-flex items-center text-xs font-bold uppercase tracking-widest text-ink transition-opacity duration-fast hover:opacity-60 max-sm:min-h-11"
-            on:click={() => { item.action.onClick?.(); dismissToast(item.id); }}
+            on:click={() => {
+              item.action.onClick?.();
+              dismissToast(item.id);
+            }}
           >
             {item.action.label}
           </button>

@@ -17,7 +17,9 @@
       <svelte:element
         this={item.href ? 'a' : 'div'}
         href={item.href || undefined}
-        class="flex min-h-9 items-start gap-3 px-3 max-sm:min-h-11 {compact ? 'py-1.5' : 'py-2.5'} {item.href ? 'transition-colors duration-fast hover:bg-surface' : ''}"
+        class="flex min-h-9 items-start gap-3 px-3 max-sm:min-h-11 {compact ? 'py-1.5' : 'py-2.5'} {item.href
+          ? 'transition-colors duration-fast hover:bg-surface'
+          : ''}"
       >
         <slot name="icon" {item} />
         <span class="min-w-0 flex-1">

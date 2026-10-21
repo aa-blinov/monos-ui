@@ -104,9 +104,7 @@
     });
   })();
 
-  $: display = selected
-    ? new Intl.DateTimeFormat(locale, { dateStyle: 'medium' }).format(selected)
-    : '';
+  $: display = selected ? new Intl.DateTimeFormat(locale, { dateStyle: 'medium' }).format(selected) : '';
 
   $: if (open && !wasOpen) {
     wasOpen = true;
@@ -149,11 +147,23 @@
     if (!current) return;
     let next = null;
     if (event.key === 'ArrowLeft') next = new Date(current.getFullYear(), current.getMonth(), current.getDate() - 1);
-    else if (event.key === 'ArrowRight') next = new Date(current.getFullYear(), current.getMonth(), current.getDate() + 1);
+    else if (event.key === 'ArrowRight')
+      next = new Date(current.getFullYear(), current.getMonth(), current.getDate() + 1);
     else if (event.key === 'ArrowUp') next = new Date(current.getFullYear(), current.getMonth(), current.getDate() - 7);
-    else if (event.key === 'ArrowDown') next = new Date(current.getFullYear(), current.getMonth(), current.getDate() + 7);
-    else if (event.key === 'Home') next = new Date(current.getFullYear(), current.getMonth(), current.getDate() - ((current.getDay() - firstDay + 7) % 7));
-    else if (event.key === 'End') next = new Date(current.getFullYear(), current.getMonth(), current.getDate() + 6 - ((current.getDay() - firstDay + 7) % 7));
+    else if (event.key === 'ArrowDown')
+      next = new Date(current.getFullYear(), current.getMonth(), current.getDate() + 7);
+    else if (event.key === 'Home')
+      next = new Date(
+        current.getFullYear(),
+        current.getMonth(),
+        current.getDate() - ((current.getDay() - firstDay + 7) % 7),
+      );
+    else if (event.key === 'End')
+      next = new Date(
+        current.getFullYear(),
+        current.getMonth(),
+        current.getDate() + 6 - ((current.getDay() - firstDay + 7) % 7),
+      );
     else if (event.key === 'PageUp' || event.key === 'PageDown') {
       const delta = event.key === 'PageUp' ? -1 : 1;
       const nextMonth = new Date(current.getFullYear(), current.getMonth() + delta, 1);
@@ -187,7 +197,9 @@
         {...triggerProps}
         {disabled}
         aria-describedby={describedBy}
-        class="flex h-9 w-full items-center justify-between gap-2 border-b bg-transparent px-1 text-left text-sm outline-none transition-colors duration-fast focus:border-ink-soft disabled:cursor-not-allowed disabled:opacity-50 max-sm:h-11 {error ? 'border-danger' : 'border-line'} {display ? 'text-ink' : 'text-ink-faint'}"
+        class="flex h-9 w-full items-center justify-between gap-2 border-b bg-transparent px-1 text-left text-sm outline-none transition-colors duration-fast focus:border-ink-soft disabled:cursor-not-allowed disabled:opacity-50 max-sm:h-11 {error
+          ? 'border-danger'
+          : 'border-line'} {display ? 'text-ink' : 'text-ink-faint'}"
         on:click={toggle}
       >
         <span class="truncate">{display || placeholder}</span>
@@ -202,18 +214,34 @@
       <div class="flex items-center justify-between gap-2">
         <IconButton label={previousLabel} variant="ghost" size="sm" tooltipText="" on:click={() => shiftMonth(-1)}>
           <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="m14 6-6 6 6 6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
+            <path
+              d="m14 6-6 6 6 6"
+              stroke="currentColor"
+              stroke-width="1.7"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
           </svg>
         </IconButton>
         <p class="text-xs font-bold uppercase tracking-widest text-ink" aria-live="polite">{monthLabel}</p>
         <IconButton label={nextLabel} variant="ghost" size="sm" tooltipText="" on:click={() => shiftMonth(1)}>
           <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="m10 6 6 6-6 6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
+            <path
+              d="m10 6 6 6-6 6"
+              stroke="currentColor"
+              stroke-width="1.7"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
           </svg>
         </IconButton>
       </div>
 
-      <div class="mt-4 grid grid-cols-7 gap-0.5 text-center justify-items-center max-[380px]:gap-0" role="group" aria-label={monthLabel}>
+      <div
+        class="mt-4 grid grid-cols-7 gap-0.5 text-center justify-items-center max-[380px]:gap-0"
+        role="group"
+        aria-label={monthLabel}
+      >
         {#each weekdayLabels as day}
           <span class="pb-1 text-whisper uppercase tracking-widest text-ink-faint" aria-hidden="true">{day}</span>
         {/each}
@@ -227,7 +255,12 @@
               aria-label={cell.label}
               aria-pressed={value === cell.iso}
               aria-current={cell.iso === todayIso() ? 'date' : undefined}
-              class="inline-flex h-8 w-8 items-center justify-center rounded-ui text-xs tabular-nums max-sm:h-11 max-sm:w-11 max-[380px]:h-9 max-[380px]:w-9 max-[340px]:h-8 max-[340px]:w-8 transition-colors duration-fast focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink disabled:cursor-not-allowed disabled:opacity-25 {value === cell.iso ? 'bg-ink font-bold text-canvas' : cell.iso === todayIso() ? 'border border-line text-ink' : 'text-ink-soft hover:bg-surface hover:text-ink'}"
+              class="inline-flex h-8 w-8 items-center justify-center rounded-ui text-xs tabular-nums max-sm:h-11 max-sm:w-11 max-[380px]:h-9 max-[380px]:w-9 max-[340px]:h-8 max-[340px]:w-8 transition-colors duration-fast focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink disabled:cursor-not-allowed disabled:opacity-25 {value ===
+              cell.iso
+                ? 'bg-ink font-bold text-canvas'
+                : cell.iso === todayIso()
+                  ? 'border border-line text-ink'
+                  : 'text-ink-soft hover:bg-surface hover:text-ink'}"
               on:click={() => choose(cell.iso)}
               on:keydown={(event) => onDayKeydown(event, cell.iso)}
             >

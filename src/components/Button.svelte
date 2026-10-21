@@ -37,10 +37,9 @@
     danger: 'font-bold text-danger-text hover:opacity-70 active:opacity-60',
   };
 
-  $: base = 'inline-flex items-center justify-center gap-2 rounded-ui uppercase tracking-widest transition-colors duration-fast max-sm:min-h-11';
-  $: state = loading
-    ? 'cursor-wait opacity-70'
-    : 'disabled:cursor-not-allowed disabled:opacity-30';
+  $: base =
+    'inline-flex items-center justify-center gap-2 rounded-ui uppercase tracking-widest transition-colors duration-fast max-sm:min-h-11';
+  $: state = loading ? 'cursor-wait opacity-70' : 'disabled:cursor-not-allowed disabled:opacity-30';
 </script>
 
 <button
@@ -48,7 +47,9 @@
   {type}
   disabled={disabled || loading}
   aria-busy={loading ? 'true' : undefined}
-  class="{base} {sizes[size] || sizes.md} {variants[variant] || variants.primary} {state} {full ? 'w-full' : ''} {className}"
+  class="{base} {sizes[size] || sizes.md} {variants[variant] || variants.primary} {state} {full
+    ? 'w-full'
+    : ''} {className}"
   on:click
   on:focus
   on:blur

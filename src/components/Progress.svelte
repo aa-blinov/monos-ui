@@ -40,9 +40,7 @@
     <span class="ui-progress-indeterminate {tones[tone] || tones.accent}"></span>
     <span class="ui-progress-indeterminate ui-progress-delay {tones[tone] || tones.accent}"></span>
   {:else}
-    <span
-      class="block h-full rounded-ui {tones[tone] || tones.accent} ui-progress-fill"
-      style={`width: ${percent}%`}
+    <span class="block h-full rounded-ui {tones[tone] || tones.accent} ui-progress-fill" style={`width: ${percent}%`}
     ></span>
   {/if}
 </div>

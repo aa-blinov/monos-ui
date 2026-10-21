@@ -21,7 +21,9 @@
   tabindex={href && disabled ? -1 : undefined}
   aria-current={active ? 'page' : undefined}
   role={href ? 'link' : 'button'}
-  class="group flex min-h-9 w-full items-center gap-2.5 text-left rounded-ui px-2.5 text-sm transition-colors duration-fast max-sm:min-h-11 {active ? 'bg-surface font-bold text-ink' : 'text-ink-soft hover:bg-surface hover:text-ink'} {disabled ? 'cursor-not-allowed opacity-50' : ''} {className}"
+  class="group flex min-h-9 w-full items-center gap-2.5 text-left rounded-ui px-2.5 text-sm transition-colors duration-fast max-sm:min-h-11 {active
+    ? 'bg-surface font-bold text-ink'
+    : 'text-ink-soft hover:bg-surface hover:text-ink'} {disabled ? 'cursor-not-allowed opacity-50' : ''} {className}"
   on:click
   {...$$restProps}
 >

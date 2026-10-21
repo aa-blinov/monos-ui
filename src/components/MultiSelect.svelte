@@ -44,7 +44,11 @@
   $: normalized = query.trim().toLowerCase();
   $: filtered = options.filter((option) => {
     if (!normalized) return true;
-    return String(option.label ?? option.value).toLowerCase().includes(normalized) || String(option.value).toLowerCase().includes(normalized);
+    return (
+      String(option.label ?? option.value)
+        .toLowerCase()
+        .includes(normalized) || String(option.value).toLowerCase().includes(normalized)
+    );
   });
   $: if (highlighted >= filtered.length) highlighted = filtered.length - 1;
 
@@ -169,16 +173,24 @@
 
 <div class="relative {className}" bind:this={wrapper}>
   {#if label}
-    <label id={labelId} for={fieldId} class="mb-1.5 block text-xs uppercase tracking-widest text-ink-soft">{label}</label>
+    <label id={labelId} for={fieldId} class="mb-1.5 block text-xs uppercase tracking-widest text-ink-soft"
+      >{label}</label
+    >
   {/if}
   <div class="relative">
     <div
-      class="flex min-h-9 w-full flex-wrap items-center gap-1.5 border-b bg-transparent px-1 py-1.5 transition-colors duration-fast focus-within:border-ink-soft max-sm:min-h-11 {error ? 'border-danger' : 'border-line'} {disabled ? 'cursor-not-allowed opacity-50' : 'cursor-text'}"
+      class="flex min-h-9 w-full flex-wrap items-center gap-1.5 border-b bg-transparent px-1 py-1.5 transition-colors duration-fast focus-within:border-ink-soft max-sm:min-h-11 {error
+        ? 'border-danger'
+        : 'border-line'} {disabled ? 'cursor-not-allowed opacity-50' : 'cursor-text'}"
       role="presentation"
-      on:click={(event) => { if (event.target === event.currentTarget) focusInput(); }}
+      on:click={(event) => {
+        if (event.target === event.currentTarget) focusInput();
+      }}
     >
       {#each selectedOptions as option (option.value)}
-        <span class="inline-flex max-w-full items-center gap-1 rounded-ui border border-line bg-surface px-1.5 py-0.5 text-xs text-ink-soft">
+        <span
+          class="inline-flex max-w-full items-center gap-1 rounded-ui border border-line bg-surface px-1.5 py-0.5 text-xs text-ink-soft"
+        >
           <span class="truncate">{option.label ?? option.value}</span>
           <button
             type="button"
@@ -208,7 +220,9 @@
         value={query}
         placeholder={selectedOptions.length ? '' : placeholder}
         class="min-w-24 flex-1 bg-transparent px-1 text-sm text-ink outline-none placeholder:text-ink-faint disabled:cursor-not-allowed max-sm:min-h-9"
-        on:focus={() => { if (!open) void openList(); }}
+        on:focus={() => {
+          if (!open) void openList();
+        }}
         on:input={onInput}
         on:keydown={onKeydown}
       />
@@ -248,7 +262,13 @@
             <span class="min-w-0 truncate">{option.label ?? option.value}</span>
             {#if values.includes(option.value)}
               <svg class="h-3.5 w-3.5 shrink-0 text-ink" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <polyline points="20 6 9 17 4 12" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
+                <polyline
+                  points="20 6 9 17 4 12"
+                  stroke="currentColor"
+                  stroke-width="1.7"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
               </svg>
             {/if}
           </button>

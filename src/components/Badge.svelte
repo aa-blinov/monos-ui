@@ -26,7 +26,10 @@
   };
 </script>
 
-<span class="inline-flex items-center gap-1.5 text-whisper font-bold uppercase tracking-widest {tones[tone] || tones.neutral} {className}">
+<span
+  class="inline-flex items-center gap-1.5 text-whisper font-bold uppercase tracking-widest {tones[tone] ||
+    tones.neutral} {className}"
+>
   {#if dot}
     <span class="h-2 w-2 shrink-0 rounded-full {dots[tone] || dots.neutral}" aria-hidden="true"></span>
   {/if}

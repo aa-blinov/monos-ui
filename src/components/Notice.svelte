@@ -20,7 +20,10 @@
   };
 </script>
 
-<div class="flex items-start gap-3 rounded-ui border border-line bg-surface p-3 text-sm text-ink {className}" role={tone === 'danger' ? 'alert' : 'status'}>
+<div
+  class="flex items-start gap-3 rounded-ui border border-line bg-surface p-3 text-sm text-ink {className}"
+  role={tone === 'danger' ? 'alert' : 'status'}
+>
   <span class="mt-1.5 h-2 w-2 shrink-0 rounded-full {tones[tone] || tones.info}" aria-hidden="true"></span>
   <div class="min-w-0 flex-1">
     {#if title}

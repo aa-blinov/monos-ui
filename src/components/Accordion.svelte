@@ -31,21 +31,13 @@
 
   function toggle(item) {
     if (item.disabled) return;
-    const next = isOpen(item.id)
-      ? open.filter((id) => id !== item.id)
-      : multiple
-        ? [...open, item.id]
-        : [item.id];
+    const next = isOpen(item.id) ? open.filter((id) => id !== item.id) : multiple ? [...open, item.id] : [item.id];
     open = next;
     dispatch('change', next);
   }
 </script>
 
-<div
-  class="border-y border-line {className}"
-  role={label ? 'group' : undefined}
-  aria-label={label || undefined}
->
+<div class="border-y border-line {className}" role={label ? 'group' : undefined} aria-label={label || undefined}>
   {#each items as item}
     <div class="border-b border-line last:border-b-0">
       <svelte:element this={heading}>
@@ -60,12 +52,20 @@
         >
           <span class="min-w-0">{item.title}</span>
           <svg
-            class="h-4 w-4 shrink-0 text-ink-muted transition-transform duration-fast {open.includes(item.id) ? 'rotate-180' : ''}"
+            class="h-4 w-4 shrink-0 text-ink-muted transition-transform duration-fast {open.includes(item.id)
+              ? 'rotate-180'
+              : ''}"
             viewBox="0 0 24 24"
             fill="none"
             aria-hidden="true"
           >
-            <path d="m6 9 6 6 6-6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
+            <path
+              d="m6 9 6 6 6-6"
+              stroke="currentColor"
+              stroke-width="1.7"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
           </svg>
         </button>
       </svelte:element>

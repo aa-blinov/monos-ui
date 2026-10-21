@@ -43,7 +43,8 @@
 
   const fallbackId = `ui-field-${++counter}`;
   $: fieldId = id || fallbackId;
-  $: describedBy = [hint ? `${fieldId}-hint` : '', error ? `${fieldId}-error` : ''].filter(Boolean).join(' ') || undefined;
+  $: describedBy =
+    [hint ? `${fieldId}-hint` : '', error ? `${fieldId}-error` : ''].filter(Boolean).join(' ') || undefined;
 
   const sizes = {
     sm: 'h-7 text-xs',
@@ -51,9 +52,10 @@
     lg: 'h-11 text-sm',
   };
 
-  $: shape = variant === 'boxed'
-    ? `rounded-ui border bg-surface px-3 ${error ? 'border-danger focus:border-danger' : 'border-line focus:border-ink-soft'}`
-    : `border-b bg-transparent px-1 ${error ? 'border-danger focus:border-danger' : 'border-line focus:border-ink-soft'}`;
+  $: shape =
+    variant === 'boxed'
+      ? `rounded-ui border bg-surface px-3 ${error ? 'border-danger focus:border-danger' : 'border-line focus:border-ink-soft'}`
+      : `border-b bg-transparent px-1 ${error ? 'border-danger focus:border-danger' : 'border-line focus:border-ink-soft'}`;
 </script>
 
 <div class={className}>
@@ -68,10 +70,12 @@
     {disabled}
     {required}
     {autocomplete}
-    value={value}
+    {value}
     aria-invalid={error ? 'true' : undefined}
     aria-describedby={describedBy}
-    class="w-full text-ink outline-none transition-colors duration-fast placeholder:text-ink-faint disabled:cursor-not-allowed disabled:opacity-50 {sizes[size] || sizes.md} max-sm:h-11 {shape}"
+    class="w-full text-ink outline-none transition-colors duration-fast placeholder:text-ink-faint disabled:cursor-not-allowed disabled:opacity-50 {sizes[
+      size
+    ] || sizes.md} max-sm:h-11 {shape}"
     on:input={onInput}
     on:change={(event) => forward('change', event)}
     on:keydown={(event) => forward('keydown', event)}

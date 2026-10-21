@@ -33,7 +33,8 @@
     ghost: 'text-ink-soft hover:bg-surface hover:text-ink',
   };
 
-  $: base = 'inline-flex items-center justify-center rounded-ui transition-colors duration-fast disabled:cursor-not-allowed disabled:opacity-30 max-sm:h-11 max-sm:w-11';
+  $: base =
+    'inline-flex items-center justify-center rounded-ui transition-colors duration-fast disabled:cursor-not-allowed disabled:opacity-30 max-sm:h-11 max-sm:w-11';
   $: active = pressed ? 'bg-surface text-ink' : '';
 </script>
 

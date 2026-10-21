@@ -18,7 +18,11 @@
 
   function focusables() {
     if (!host) return [];
-    const candidates = [...host.querySelectorAll('a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])')];
+    const candidates = [
+      ...host.querySelectorAll(
+        'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
+      ),
+    ];
     const visible = candidates.filter((element) => element.offsetParent !== null);
     return visible.length ? visible : candidates;
   }
@@ -68,6 +72,6 @@
 
 <svelte:window on:keydown={onKeydown} />
 
-<div bind:this={host} tabindex="-1" class="{className}">
+<div bind:this={host} tabindex="-1" class={className}>
   <slot />
 </div>

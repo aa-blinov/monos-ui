@@ -8,7 +8,7 @@ It is a Svelte 4 component library with a Tailwind preset and a plain-CSS token 
 
 The design system itself, in one page: [DESIGN.md](DESIGN.md).
 
-> **Status:** 1.0.2, source distribution. Not on npm yet; install from this repository.
+> **Status:** 1.0.3, source distribution. Not on npm yet; install from this repository.
 
 **Live gallery:** [aa-blinov.github.io/monos-ui](https://aa-blinov.github.io/monos-ui/)
 
@@ -33,10 +33,7 @@ import ui from '@monos/ui/tailwind-preset';
 
 export default {
   presets: [ui],
-  content: [
-    './src/**/*.{svelte,js}',
-    './node_modules/@monos/ui/src/**/*.svelte',
-  ],
+  content: ['./src/**/*.{svelte,js}', './node_modules/@monos/ui/src/**/*.svelte'],
 };
 ```
 
@@ -55,7 +52,7 @@ import '@monos/ui/styles.css';
 No JavaScript needed:
 
 ```html
-<html data-theme="gruvbox" data-mode="dark">
+<html data-theme="gruvbox" data-mode="dark"></html>
 ```
 
 Themes: `gruvbox`, `github`, `dracula`, `nord`, `solarized`, `catppuccin`. Modes: `light`, `dark`. Without attributes the page is Gruvbox light; `data-mode="dark"` alone is Gruvbox dark.
@@ -86,55 +83,55 @@ Themes: `gruvbox`, `github`, `dracula`, `nord`, `solarized`, `catppuccin`. Modes
 
 ## Components
 
-| Component | What it is |
-|---|---|
-| `Button` | Text-only action: `primary`, `secondary`, `text`, `quiet`, `danger`; sizes `sm`, `md`, `lg`; `loading`, `full` |
-| `IconButton` | 28/36/44px square, outline or ghost, always named by `label`; tooltip by default |
-| `TextField` | Underline or boxed input with label, hint, error |
-| `TextArea` | The same field, multi-line |
-| `Select` | Themed listbox: the popup is drawn by the kit |
-| `SelectField` | Native select for forms, themed closed control |
-| `Combobox` | Searchable single choice; typed filter, listbox, active descendant |
-| `MultiSelect` | Searchable multiple choice; chips inside the field |
-| `DatePicker` | ISO string + drawn calendar; `Intl` month and weekday names |
-| `Slider` | Native range, themed track and thumb |
-| `FileUpload` | Drop zone and file list; `files` is data, not a transport |
-| `Fieldset` / `FormField` | Named group; label, hint and error around any control |
-| `SearchField` | Pill search with magnifier and clear |
-| `Checkbox` | 16px box, 24/44px row |
-| `Switch` | `role="switch"` row |
-| `Chip` | Quiet bordered label; optional remove |
-| `Badge` | Uppercase status word with optional dot |
-| `Card` | Surface; `interactive` makes it a button, `selected` marks it |
-| `Menu` | Trigger slot + data items; keyboard, outside click, Escape |
-| `Modal` | Focus trap, Escape, backdrop, scroll lock, focus return |
-| `Notice` | Inline status, warning, success or error |
-| `SegmentedControl` | Pressed choice in a group |
-| `EmptyState` | Icon, title, sentence, actions |
-| `Kbd` | Key cap |
-| `Spinner` | Loading ring |
-| `Tabs` | WAI-ARIA tab list; line or pill; arrows, Home/End; panel slot |
-| `Accordion` | Disclosure stack; one or many open; heading buttons |
-| `Popover` | Anchored non-modal panel; trigger slot; flips, Escape, outside click |
-| `AlertDialog` | `role="alertdialog"` confirmation; focus starts on Cancel |
-| `RadioGroup` | Real radios, one name, custom circle |
-| `Progress` | Determinate and indeterminate bar; tones; reduced motion |
-| `Skeleton` | Reserves the size; pulse stops under reduce motion |
-| `Avatar` | Image or initials; five sizes; status dot |
-| `Table` | Sortable, selectable data table; cell slot; sticky header |
-| `Toaster` / `toast` | Queue, auto-dismiss, actions; danger is an alert |
-| `Breadcrumbs` | Path back up; the last item is the current page |
-| `PageHeader` | Title, sentence and actions; heading level is a prop |
-| `Pagination` | First, last and the current neighbourhood; real ellipsis |
-| `Drawer` | Modal side panel with focus trap, scroll lock and focus return |
-| `Prose` | Reading column for Markdown: measure, rhythm, code, tables |
-| `Container` / `Stack` / `Grid` | Page column; one-dimensional stack; equal or auto-fit tracks |
-| `Section` / `Separator` | Vertical rhythm; a hairline, decorative or semantic |
-| `Stepper` | Step sequence, current check and optional clicking |
-| `NavItem` | One navigation row; link or button, active state |
-| `List` / `DescriptionList` | Rows with icon/meta; term and description |
-| `Portal` / `FocusTrap` | Move an overlay out of its parent; keep Tab inside a region |
-| `Tooltip` / `tooltip` | Hint on any element; one look, 450 ms, never on a phone |
+| Component                      | What it is                                                                                                     |
+| ------------------------------ | -------------------------------------------------------------------------------------------------------------- |
+| `Button`                       | Text-only action: `primary`, `secondary`, `text`, `quiet`, `danger`; sizes `sm`, `md`, `lg`; `loading`, `full` |
+| `IconButton`                   | 28/36/44px square, outline or ghost, always named by `label`; tooltip by default                               |
+| `TextField`                    | Underline or boxed input with label, hint, error                                                               |
+| `TextArea`                     | The same field, multi-line                                                                                     |
+| `Select`                       | Themed listbox: the popup is drawn by the kit                                                                  |
+| `SelectField`                  | Native select for forms, themed closed control                                                                 |
+| `Combobox`                     | Searchable single choice; typed filter, listbox, active descendant                                             |
+| `MultiSelect`                  | Searchable multiple choice; chips inside the field                                                             |
+| `DatePicker`                   | ISO string + drawn calendar; `Intl` month and weekday names                                                    |
+| `Slider`                       | Native range, themed track and thumb                                                                           |
+| `FileUpload`                   | Drop zone and file list; `files` is data, not a transport                                                      |
+| `Fieldset` / `FormField`       | Named group; label, hint and error around any control                                                          |
+| `SearchField`                  | Pill search with magnifier and clear                                                                           |
+| `Checkbox`                     | 16px box, 24/44px row                                                                                          |
+| `Switch`                       | `role="switch"` row                                                                                            |
+| `Chip`                         | Quiet bordered label; optional remove                                                                          |
+| `Badge`                        | Uppercase status word with optional dot                                                                        |
+| `Card`                         | Surface; `interactive` makes it a button, `selected` marks it                                                  |
+| `Menu`                         | Trigger slot + data items; keyboard, outside click, Escape                                                     |
+| `Modal`                        | Focus trap, Escape, backdrop, scroll lock, focus return                                                        |
+| `Notice`                       | Inline status, warning, success or error                                                                       |
+| `SegmentedControl`             | Pressed choice in a group                                                                                      |
+| `EmptyState`                   | Icon, title, sentence, actions                                                                                 |
+| `Kbd`                          | Key cap                                                                                                        |
+| `Spinner`                      | Loading ring                                                                                                   |
+| `Tabs`                         | WAI-ARIA tab list; line or pill; arrows, Home/End; panel slot                                                  |
+| `Accordion`                    | Disclosure stack; one or many open; heading buttons                                                            |
+| `Popover`                      | Anchored non-modal panel; trigger slot; flips, Escape, outside click                                           |
+| `AlertDialog`                  | `role="alertdialog"` confirmation; focus starts on Cancel                                                      |
+| `RadioGroup`                   | Real radios, one name, custom circle                                                                           |
+| `Progress`                     | Determinate and indeterminate bar; tones; reduced motion                                                       |
+| `Skeleton`                     | Reserves the size; pulse stops under reduce motion                                                             |
+| `Avatar`                       | Image or initials; five sizes; status dot                                                                      |
+| `Table`                        | Sortable, selectable data table; cell slot; sticky header                                                      |
+| `Toaster` / `toast`            | Queue, auto-dismiss, actions; danger is an alert                                                               |
+| `Breadcrumbs`                  | Path back up; the last item is the current page                                                                |
+| `PageHeader`                   | Title, sentence and actions; heading level is a prop                                                           |
+| `Pagination`                   | First, last and the current neighbourhood; real ellipsis                                                       |
+| `Drawer`                       | Modal side panel with focus trap, scroll lock and focus return                                                 |
+| `Prose`                        | Reading column for Markdown: measure, rhythm, code, tables                                                     |
+| `Container` / `Stack` / `Grid` | Page column; one-dimensional stack; equal or auto-fit tracks                                                   |
+| `Section` / `Separator`        | Vertical rhythm; a hairline, decorative or semantic                                                            |
+| `Stepper`                      | Step sequence, current check and optional clicking                                                             |
+| `NavItem`                      | One navigation row; link or button, active state                                                               |
+| `List` / `DescriptionList`     | Rows with icon/meta; term and description                                                                      |
+| `Portal` / `FocusTrap`         | Move an overlay out of its parent; keep Tab inside a region                                                    |
+| `Tooltip` / `tooltip`          | Hint on any element; one look, 450 ms, never on a phone                                                        |
 
 Full props, events and slots: [docs/components.md](docs/components.md). Tokens: [docs/tokens.md](docs/tokens.md). Moving Monos itself onto the kit: [docs/migrating-monos.md](docs/migrating-monos.md).
 
@@ -161,6 +158,8 @@ npm install
 npm run dev            # gallery at http://127.0.0.1:5180
 npm run test           # theme contract + component behaviour
 npm run check          # svelte-check
+npm run lint           # ESLint (JS + Svelte)
+npm run format:check   # Prettier, including Svelte
 npm run build:gallery  # production build of the gallery
 npm run build:themes   # regenerate src/styles/themes.css after editing src/themes.js
 ```
@@ -183,6 +182,7 @@ src/
   tooltip.js           the shared tooltip action
   index.js             the public surface
 gallery/               the visual reference
+gallery/sections/      one component per gallery section
 tests/                 contract, contrast and behaviour tests
 ```
 

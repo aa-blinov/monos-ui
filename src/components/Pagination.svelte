@@ -56,12 +56,17 @@
   <span class="hidden items-center gap-1 sm:flex">
     {#each numbers as number}
       {#if number === 'gap'}
-        <span class="inline-flex h-9 min-w-9 items-center justify-center text-xs text-ink-muted" aria-hidden="true">…</span>
+        <span class="inline-flex h-9 min-w-9 items-center justify-center text-xs text-ink-muted" aria-hidden="true"
+          >…</span
+        >
       {:else}
         <button
           type="button"
           aria-current={number === current ? 'page' : undefined}
-          class="inline-flex h-9 min-w-9 items-center justify-center rounded-ui px-1 text-xs tabular-nums transition-colors duration-fast max-sm:h-11 max-sm:min-w-11 {number === current ? 'font-bold text-ink' : 'text-ink-soft hover:text-ink'}"
+          class="inline-flex h-9 min-w-9 items-center justify-center rounded-ui px-1 text-xs tabular-nums transition-colors duration-fast max-sm:h-11 max-sm:min-w-11 {number ===
+          current
+            ? 'font-bold text-ink'
+            : 'text-ink-soft hover:text-ink'}"
           on:click={() => go(number)}
         >
           {number}
@@ -70,7 +75,9 @@
     {/each}
   </span>
 
-  <span class="inline-flex min-h-9 items-center px-2 text-xs tabular-nums text-ink-soft sm:hidden">{current} / {total}</span>
+  <span class="inline-flex min-h-9 items-center px-2 text-xs tabular-nums text-ink-soft sm:hidden"
+    >{current} / {total}</span
+  >
 
   <button
     type="button"

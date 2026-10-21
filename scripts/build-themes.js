@@ -15,4 +15,6 @@ const here = path.dirname(fileURLToPath(import.meta.url));
 const out = path.resolve(here, '../src/styles/themes.css');
 
 fs.writeFileSync(out, renderThemesCss(themes, modes));
-console.log(`themes.css: ${Object.keys(themes).length} themes, ${Object.keys(themes).length * modes.length + 2} blocks`);
+console.log(
+  `themes.css: ${Object.keys(themes).length} themes, ${Object.keys(themes).length * modes.length + 2} blocks`,
+);

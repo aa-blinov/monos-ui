@@ -28,13 +28,19 @@
   }
 </script>
 
-<div class="inline-flex rounded-ui border border-line bg-surface p-0.5 {className}" role="group" aria-label={label || undefined}>
+<div
+  class="inline-flex rounded-ui border border-line bg-surface p-0.5 {className}"
+  role="group"
+  aria-label={label || undefined}
+>
   {#each options as option}
     <button
       type="button"
       aria-pressed={value === option.value}
       disabled={disabled || option.disabled}
-      class="inline-flex items-center justify-center rounded-ui uppercase tracking-widest transition-colors duration-fast disabled:cursor-not-allowed disabled:opacity-30 max-sm:min-h-11 {sizes[size] || sizes.md} {value === option.value ? 'bg-canvas text-ink shadow-rest' : 'text-ink-soft hover:text-ink'}"
+      class="inline-flex items-center justify-center rounded-ui uppercase tracking-widest transition-colors duration-fast disabled:cursor-not-allowed disabled:opacity-30 max-sm:min-h-11 {sizes[
+        size
+      ] || sizes.md} {value === option.value ? 'bg-canvas text-ink shadow-rest' : 'text-ink-soft hover:text-ink'}"
       on:click={() => pick(option)}
     >
       {option.label ?? option.value}

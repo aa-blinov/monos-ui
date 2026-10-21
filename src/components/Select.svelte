@@ -42,7 +42,8 @@
     if (focus === 'last') focusOption(-1, true);
     else if (focus === 'first') focusOption(0, true);
     else {
-      const current = menuEl?.querySelector('[role="option"][aria-selected="true"]') || menuEl?.querySelector('[role="option"]');
+      const current =
+        menuEl?.querySelector('[role="option"][aria-selected="true"]') || menuEl?.querySelector('[role="option"]');
       current?.focus();
     }
   }
@@ -125,13 +126,26 @@
     aria-expanded={open}
     aria-label={label || placeholder}
     {disabled}
-    class="flex w-full items-center justify-between gap-2 rounded-ui border border-line bg-surface text-left text-ink outline-none transition-colors duration-fast hover:border-line-strong focus:border-ink-soft disabled:cursor-not-allowed disabled:opacity-50 max-sm:h-11 {sizes[size] || sizes.md}"
+    class="flex w-full items-center justify-between gap-2 rounded-ui border border-line bg-surface text-left text-ink outline-none transition-colors duration-fast hover:border-line-strong focus:border-ink-soft disabled:cursor-not-allowed disabled:opacity-50 max-sm:h-11 {sizes[
+      size
+    ] || sizes.md}"
     on:click={() => (open ? close() : openMenu())}
     on:keydown={onTriggerKeydown}
   >
     <span class="truncate {selected ? '' : 'text-ink-faint'}">{display}</span>
-    <svg class="h-3.5 w-3.5 shrink-0 text-ink-muted transition-transform duration-fast {open ? 'rotate-180' : ''}" viewBox="0 0 12 12" fill="none" aria-hidden="true">
-      <path d="M3 4.5 6 7.5 9 4.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" />
+    <svg
+      class="h-3.5 w-3.5 shrink-0 text-ink-muted transition-transform duration-fast {open ? 'rotate-180' : ''}"
+      viewBox="0 0 12 12"
+      fill="none"
+      aria-hidden="true"
+    >
+      <path
+        d="M3 4.5 6 7.5 9 4.5"
+        stroke="currentColor"
+        stroke-width="1.4"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
     </svg>
   </button>
 
@@ -141,7 +155,10 @@
       role="listbox"
       aria-label={label || placeholder}
       tabindex="-1"
-      class="absolute z-menu max-h-72 w-full overflow-y-auto rounded-ui border border-line bg-canvas p-1 shadow-overlay {placement === 'top' ? 'bottom-full mb-1' : 'top-full mt-1'}"
+      class="absolute z-menu max-h-72 w-full overflow-y-auto rounded-ui border border-line bg-canvas p-1 shadow-overlay {placement ===
+      'top'
+        ? 'bottom-full mb-1'
+        : 'top-full mt-1'}"
       on:keydown={onMenuKeydown}
     >
       {#each options as option (option.value)}
@@ -150,13 +167,22 @@
           role="option"
           aria-selected={option.value === value}
           disabled={option.disabled}
-          class="flex min-h-8 w-full items-center gap-2 rounded-ui px-2.5 text-left text-sm outline-none transition-colors duration-fast hover:bg-surface hover:text-ink focus:bg-surface focus:text-ink disabled:cursor-not-allowed disabled:opacity-30 max-sm:min-h-11 {option.value === value ? 'text-ink' : 'text-ink-soft'}"
+          class="flex min-h-8 w-full items-center gap-2 rounded-ui px-2.5 text-left text-sm outline-none transition-colors duration-fast hover:bg-surface hover:text-ink focus:bg-surface focus:text-ink disabled:cursor-not-allowed disabled:opacity-30 max-sm:min-h-11 {option.value ===
+          value
+            ? 'text-ink'
+            : 'text-ink-soft'}"
           on:click={() => choose(option)}
         >
           <span class="truncate">{option.label ?? option.value}</span>
           {#if option.value === value}
             <svg class="ml-auto h-3.5 w-3.5 shrink-0" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <polyline points="20 6 9 17 4 12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+              <polyline
+                points="20 6 9 17 4 12"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
             </svg>
           {/if}
         </button>

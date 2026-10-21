@@ -6,42 +6,42 @@ The kit is a separate package on purpose: Monos can keep shipping while the prim
 
 `@monos/ui` prefixes its variables with `--ui-` so a host can keep its own names during the move.
 
-| Monos | Kit |
-|---|---|
-| `--bg-primary` | `--ui-bg` |
-| `--bg-secondary` | `--ui-surface` |
-| `--bg-tertiary` | `--ui-surface-2` |
-| `--text-primary` | `--ui-ink` |
-| `--text-secondary` | `--ui-ink-soft` |
-| `--text-tertiary` | `--ui-ink-faint` |
-| `--text-muted` | `--ui-ink-muted` |
-| `--border-subtle` | `--ui-line` |
-| `--red` | `--ui-danger` |
-| `--orange`, `--yellow` | `--ui-warning` |
-| `--green` | `--ui-success` |
-| `--blue` | `--ui-accent`, `--ui-info` |
-| `--radius` | `--ui-radius` |
-| `--text-whisper` | `--ui-text-whisper` |
+| Monos                  | Kit                        |
+| ---------------------- | -------------------------- |
+| `--bg-primary`         | `--ui-bg`                  |
+| `--bg-secondary`       | `--ui-surface`             |
+| `--bg-tertiary`        | `--ui-surface-2`           |
+| `--text-primary`       | `--ui-ink`                 |
+| `--text-secondary`     | `--ui-ink-soft`            |
+| `--text-tertiary`      | `--ui-ink-faint`           |
+| `--text-muted`         | `--ui-ink-muted`           |
+| `--border-subtle`      | `--ui-line`                |
+| `--red`                | `--ui-danger`              |
+| `--orange`, `--yellow` | `--ui-warning`             |
+| `--green`              | `--ui-success`             |
+| `--blue`               | `--ui-accent`, `--ui-info` |
+| `--radius`             | `--ui-radius`              |
+| `--text-whisper`       | `--ui-text-whisper`        |
 
 Monos has six palettes and both modes; the kit ships the same six as `[data-theme][data-mode]`. The Solarized ink is a little darker/lighter than Monos's to clear AA on the second surface; the contrast test records it.
 
 ## Components
 
-| Monos | Kit | Note |
-|---|---|---|
-| `TooltipIconButton` | `IconButton` | `label` is required; `tooltipText=""` removes the hint |
-| `getModalButtonClass('primary')` | `Button variant="primary"` | the kit does not stretch by default; use `full` |
-| `getModalButtonClass('secondary')` | `Button variant="secondary"` | |
-| `formFieldClass()` input | `TextField` | underline is the default; `boxed` for the pill fields |
-| underline `<select>` | `SelectField` | native option list stays |
-| `SearchField` | `SearchField` | same look, now with the clear event and mobile size |
-| `Checkbox` | `Checkbox` | 24px row, 44px on a phone |
-| `ModalShell` | `Modal` | `open` is bindable; the close label is a prop |
-| sidebar "More" menu | `Menu` | items are data; the trigger is a slot |
-| tag / `+N` | `Chip` | optional remove |
-| agent and conflict marks | `Badge` | `dot`, `tone` |
-| note card surface | `Card` | `interactive` is the note card's hover; the note content stays Monos |
-| page/panel surface | `Card` or a plain `bg-surface` | no nested cards |
+| Monos                              | Kit                            | Note                                                                 |
+| ---------------------------------- | ------------------------------ | -------------------------------------------------------------------- |
+| `TooltipIconButton`                | `IconButton`                   | `label` is required; `tooltipText=""` removes the hint               |
+| `getModalButtonClass('primary')`   | `Button variant="primary"`     | the kit does not stretch by default; use `full`                      |
+| `getModalButtonClass('secondary')` | `Button variant="secondary"`   |                                                                      |
+| `formFieldClass()` input           | `TextField`                    | underline is the default; `boxed` for the pill fields                |
+| underline `<select>`               | `SelectField`                  | native option list stays                                             |
+| `SearchField`                      | `SearchField`                  | same look, now with the clear event and mobile size                  |
+| `Checkbox`                         | `Checkbox`                     | 24px row, 44px on a phone                                            |
+| `ModalShell`                       | `Modal`                        | `open` is bindable; the close label is a prop                        |
+| sidebar "More" menu                | `Menu`                         | items are data; the trigger is a slot                                |
+| tag / `+N`                         | `Chip`                         | optional remove                                                      |
+| agent and conflict marks           | `Badge`                        | `dot`, `tone`                                                        |
+| note card surface                  | `Card`                         | `interactive` is the note card's hover; the note content stays Monos |
+| page/panel surface                 | `Card` or a plain `bg-surface` | no nested cards                                                      |
 
 Not extracted: `NoteCard`, `NoteBoard`, `Sidebar`, `Editor`, `TerminalPanel`, `ConflictNoteView` and the rest of the product. They stay in Monos and can be rebuilt from the primitives later.
 

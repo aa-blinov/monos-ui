@@ -5,7 +5,6 @@ import Accordion from '../src/components/Accordion.svelte';
 import AlertDialog from '../src/components/AlertDialog.svelte';
 import Avatar from '../src/components/Avatar.svelte';
 import Breadcrumbs from '../src/components/Breadcrumbs.svelte';
-import Breadcrumbs from '../src/components/Breadcrumbs.svelte';
 import Button from '../src/components/Button.svelte';
 import Container from '../src/components/Container.svelte';
 import DescriptionList from '../src/components/DescriptionList.svelte';
@@ -109,7 +108,10 @@ describe('SelectField', () => {
     const field = render(SelectField, {
       label: 'Folder',
       value: 'work',
-      options: [{ value: 'work', label: 'Work' }, { value: 'home', label: 'Home' }],
+      options: [
+        { value: 'work', label: 'Work' },
+        { value: 'home', label: 'Home' },
+      ],
     });
     const changed = vi.fn();
     field.component.$on('change', changed);
@@ -125,7 +127,10 @@ describe('Select', () => {
     const { component } = render(Select, {
       label: 'Theme',
       value: 'gruvbox',
-      options: [{ value: 'gruvbox', label: 'Gruvbox' }, { value: 'nord', label: 'Nord' }],
+      options: [
+        { value: 'gruvbox', label: 'Gruvbox' },
+        { value: 'nord', label: 'Nord' },
+      ],
     });
     const changed = vi.fn();
     component.$on('change', changed);
@@ -134,12 +139,21 @@ describe('Select', () => {
     expect(screen.getByRole('option', { name: 'Gruvbox' }).getAttribute('aria-selected')).toBe('true');
     await fireEvent.click(screen.getByRole('option', { name: 'Nord' }));
     expect(screen.getByRole('button', { name: 'Theme' }).textContent).toContain('Nord');
-    expect(changed).toHaveBeenCalledWith(expect.objectContaining({ detail: expect.objectContaining({ value: 'nord' }) }));
+    expect(changed).toHaveBeenCalledWith(
+      expect.objectContaining({ detail: expect.objectContaining({ value: 'nord' }) }),
+    );
     expect(screen.queryByRole('listbox')).toBeNull();
   });
 
   test('arrow keys move and Escape closes', async () => {
-    render(Select, { label: 'Theme', value: 'gruvbox', options: [{ value: 'gruvbox', label: 'Gruvbox' }, { value: 'nord', label: 'Nord' }] });
+    render(Select, {
+      label: 'Theme',
+      value: 'gruvbox',
+      options: [
+        { value: 'gruvbox', label: 'Gruvbox' },
+        { value: 'nord', label: 'Nord' },
+      ],
+    });
     await fireEvent.click(screen.getByRole('button', { name: 'Theme' }));
     const [first, second] = screen.getAllByRole('option');
     expect(document.activeElement).toBe(first);
@@ -183,7 +197,10 @@ describe('search and choices', () => {
     const { component } = render(SegmentedControl, {
       label: 'Mode',
       value: 'light',
-      options: [{ value: 'light', label: 'Light' }, { value: 'dark', label: 'Dark' }],
+      options: [
+        { value: 'light', label: 'Light' },
+        { value: 'dark', label: 'Dark' },
+      ],
     });
     const changed = vi.fn();
     component.$on('change', changed);
@@ -207,10 +224,16 @@ describe('Menu', () => {
     component.$on('select', selected);
 
     await fireEvent.click(screen.getByRole('button', { name: 'Actions' }));
-    expect(screen.getAllByRole('menuitem').map((item) => item.textContent.trim())).toEqual(['Map', 'Favorites', 'Delete']);
+    expect(screen.getAllByRole('menuitem').map((item) => item.textContent.trim())).toEqual([
+      'Map',
+      'Favorites',
+      'Delete',
+    ]);
 
     await fireEvent.click(screen.getByRole('menuitem', { name: 'Map' }));
-    expect(selected).toHaveBeenCalledWith(expect.objectContaining({ detail: expect.objectContaining({ value: 'map' }) }));
+    expect(selected).toHaveBeenCalledWith(
+      expect.objectContaining({ detail: expect.objectContaining({ value: 'map' }) }),
+    );
     expect(screen.queryByRole('menu')).toBeNull();
   });
 
@@ -315,7 +338,10 @@ describe('RadioGroup', () => {
     const { component } = render(RadioGroup, {
       label: 'View',
       value: 'board',
-      options: [{ value: 'board', label: 'Board' }, { value: 'list', label: 'List' }],
+      options: [
+        { value: 'board', label: 'Board' },
+        { value: 'list', label: 'List' },
+      ],
     });
     const changed = vi.fn();
     component.$on('change', changed);
@@ -327,7 +353,11 @@ describe('RadioGroup', () => {
 });
 
 describe('Tabs', () => {
-  const items = [{ id: 'write', label: 'Write' }, { id: 'read', label: 'Read' }, { id: 'history', label: 'History' }];
+  const items = [
+    { id: 'write', label: 'Write' },
+    { id: 'read', label: 'Read' },
+    { id: 'history', label: 'History' },
+  ];
 
   test('selects a tab and moves with the arrow keys', async () => {
     const { component } = render(Tabs, { items, value: 'write', label: 'Note view' });
@@ -501,7 +531,9 @@ describe('Combobox', () => {
     await tick();
     expect(screen.getAllByRole('option')).toHaveLength(1);
     await fireEvent.keyDown(input, { key: 'Enter' });
-    expect(changed).toHaveBeenCalledWith(expect.objectContaining({ detail: expect.objectContaining({ value: 'home' }) }));
+    expect(changed).toHaveBeenCalledWith(
+      expect.objectContaining({ detail: expect.objectContaining({ value: 'home' }) }),
+    );
     expect(screen.queryByRole('listbox')).toBeNull();
   });
 });
@@ -569,11 +601,7 @@ describe('FileUpload', () => {
 describe('Breadcrumbs and PageHeader', () => {
   test('Breadcrumbs mark the current page', () => {
     render(Breadcrumbs, {
-      items: [
-        { label: 'Notes', href: '/notes' },
-        { label: 'Work', href: '/notes/work' },
-        { label: 'Today' },
-      ],
+      items: [{ label: 'Notes', href: '/notes' }, { label: 'Work', href: '/notes/work' }, { label: 'Today' }],
     });
     expect(screen.getByRole('navigation', { name: 'Breadcrumb' })).toBeTruthy();
     expect(screen.getByRole('link', { name: 'Notes' }).getAttribute('href')).toBe('/notes');
@@ -630,7 +658,13 @@ describe('Layout primitives', () => {
   });
 
   test('Stack applies axis, gap and alignment', () => {
-    const { container } = render(Stack, { direction: 'row', gap: 'lg', align: 'center', justify: 'between', wrap: true });
+    const { container } = render(Stack, {
+      direction: 'row',
+      gap: 'lg',
+      align: 'center',
+      justify: 'between',
+      wrap: true,
+    });
     const stack = container.firstChild;
     expect(stack.className).toContain('flex-row');
     expect(stack.className).toContain('gap-4');
@@ -709,7 +743,10 @@ describe('List and DescriptionList', () => {
 
   test('DescriptionList pairs terms and descriptions', () => {
     render(DescriptionList, {
-      items: [{ term: 'Owner', description: 'Ada' }, { term: 'Status', description: 'Active' }],
+      items: [
+        { term: 'Owner', description: 'Ada' },
+        { term: 'Status', description: 'Active' },
+      ],
     });
     expect(screen.getByText('Owner')).toBeTruthy();
     expect(screen.getByText('Ada')).toBeTruthy();
@@ -738,4 +775,3 @@ describe('Portal and FocusTrap', () => {
     expect(document.activeElement.textContent).toBe('One');
   });
 });
-

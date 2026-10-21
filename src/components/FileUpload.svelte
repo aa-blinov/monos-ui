@@ -76,10 +76,16 @@
     tabindex={disabled ? -1 : 0}
     aria-disabled={disabled ? 'true' : undefined}
     aria-describedby={describedBy}
-    class="rounded-ui border border-dashed p-4 text-center transition-colors duration-fast focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink {dragging ? 'border-ink bg-surface-2' : 'border-line bg-surface'} {disabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer hover:border-line-strong'}"
+    class="rounded-ui border border-dashed p-4 text-center transition-colors duration-fast focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink {dragging
+      ? 'border-ink bg-surface-2'
+      : 'border-line bg-surface'} {disabled
+      ? 'cursor-not-allowed opacity-50'
+      : 'cursor-pointer hover:border-line-strong'}"
     on:click={openPicker}
     on:keydown={onKeydown}
-    on:dragover|preventDefault={() => { if (!disabled) dragging = true; }}
+    on:dragover|preventDefault={() => {
+      if (!disabled) dragging = true;
+    }}
     on:dragleave={() => (dragging = false)}
     on:drop|preventDefault={onDrop}
   >
@@ -97,7 +103,13 @@
       on:change={(event) => addFiles(event.currentTarget.files)}
     />
     <svg class="mx-auto h-5 w-5 text-ink-muted" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path d="M12 16V4m0 0L8 8m4-4 4 4M5 16v2.5A1.5 1.5 0 0 0 6.5 20h11a1.5 1.5 0 0 0 1.5-1.5V16" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
+      <path
+        d="M12 16V4m0 0L8 8m4-4 4 4M5 16v2.5A1.5 1.5 0 0 0 6.5 20h11a1.5 1.5 0 0 0 1.5-1.5V16"
+        stroke="currentColor"
+        stroke-width="1.7"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
     </svg>
     <p class="mt-2 text-sm font-bold text-ink">{label}</p>
     <p class="mt-0.5 text-xs text-ink-soft">{chooseLabel}</p>
@@ -109,7 +121,9 @@
         <li class="flex items-center justify-between gap-3 py-2">
           <span class="min-w-0">
             <span class="block truncate text-xs text-ink">{file.name}</span>
-            <span class="mt-0.5 block text-whisper uppercase tracking-widest text-ink-faint">{formatSize(file.size)}</span>
+            <span class="mt-0.5 block text-whisper uppercase tracking-widest text-ink-faint"
+              >{formatSize(file.size)}</span
+            >
           </span>
           <button
             type="button"

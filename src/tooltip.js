@@ -16,7 +16,8 @@ export const HOVER_DELAY = 450;
 const GAP = 8;
 const MARGIN = 12;
 
-const BASE = 'pointer-events-none fixed z-tooltip max-w-xs rounded-ui border border-line bg-canvas px-3 py-2 text-ink shadow-overlay';
+const BASE =
+  'pointer-events-none fixed z-tooltip max-w-xs rounded-ui border border-line bg-canvas px-3 py-2 text-ink shadow-overlay';
 const SHORT = 'whitespace-nowrap text-whisper font-bold uppercase tracking-[0.14em]';
 const LONG = 'whitespace-normal text-xs font-normal normal-case tracking-normal leading-relaxed';
 

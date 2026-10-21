@@ -50,7 +50,10 @@ export function toast(options) {
   });
 
   if (item.duration > 0 && typeof window !== 'undefined') {
-    timers.set(id, setTimeout(() => remove(id), item.duration));
+    timers.set(
+      id,
+      setTimeout(() => remove(id), item.duration),
+    );
   }
   return id;
 }

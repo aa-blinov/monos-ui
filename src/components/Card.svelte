@@ -34,8 +34,8 @@
 {#if interactive}
   <svelte:element
     this={as}
-    role={as === "button" || as === "a" ? undefined : "button"}
-    tabindex={as === "button" || as === "a" ? undefined : 0}
+    role={as === 'button' || as === 'a' ? undefined : 'button'}
+    tabindex={as === 'button' || as === 'a' ? undefined : 0}
     class={classes}
     on:click
     on:keydown={onKeydown}

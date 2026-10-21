@@ -21,11 +21,13 @@
 
   const fallbackId = `ui-textarea-${++counter}`;
   $: fieldId = id || fallbackId;
-  $: describedBy = [hint ? `${fieldId}-hint` : '', error ? `${fieldId}-error` : ''].filter(Boolean).join(' ') || undefined;
+  $: describedBy =
+    [hint ? `${fieldId}-hint` : '', error ? `${fieldId}-error` : ''].filter(Boolean).join(' ') || undefined;
 
-  $: shape = variant === 'boxed'
-    ? `rounded-ui border bg-surface px-3 py-2 ${error ? 'border-danger focus:border-danger' : 'border-line focus:border-ink-soft'}`
-    : `border-b bg-transparent px-1 py-2 ${error ? 'border-danger focus:border-danger' : 'border-line focus:border-ink-soft'}`;
+  $: shape =
+    variant === 'boxed'
+      ? `rounded-ui border bg-surface px-3 py-2 ${error ? 'border-danger focus:border-danger' : 'border-line focus:border-ink-soft'}`
+      : `border-b bg-transparent px-1 py-2 ${error ? 'border-danger focus:border-danger' : 'border-line focus:border-ink-soft'}`;
 </script>
 
 <div class={className}>

@@ -97,9 +97,9 @@
     dispatch('select', selected);
   }
 
-  function ariaSort(column) {
-    if (!sort || sort.key !== column.key) return 'none';
-    return sort.direction === 'desc' ? 'descending' : 'ascending';
+  function ariaSort(column, current) {
+    if (!current || current.key !== column.key) return 'none';
+    return current.direction === 'desc' ? 'descending' : 'ascending';
   }
 </script>
 
@@ -123,9 +123,11 @@
         {#each columns as column}
           <th
             scope="col"
-            aria-sort={column.sortable ? (sort?.key === column.key ? (sort.direction === 'desc' ? 'descending' : 'ascending') : 'none') : undefined}
+            aria-sort={column.sortable ? ariaSort(column, sort) : undefined}
             style={column.width ? `width: ${column.width}` : undefined}
-            class="px-3 {pads[density] || pads.comfortable} text-whisper font-bold uppercase tracking-widest text-ink-faint {aligns[column.align] || aligns.left}"
+            class="px-3 {pads[density] ||
+              pads.comfortable} text-whisper font-bold uppercase tracking-widest text-ink-faint {aligns[column.align] ||
+              aligns.left}"
           >
             {#if column.sortable}
               <button
@@ -135,12 +137,21 @@
               >
                 {column.label}
                 <svg
-                  class="h-3 w-3 shrink-0 {sort?.key === column.key ? 'opacity-100' : 'opacity-30'} {sort?.key === column.key && sort.direction === 'desc' ? '-rotate-180' : ''}"
+                  class="h-3 w-3 shrink-0 {sort?.key === column.key ? 'opacity-100' : 'opacity-30'} {sort?.key ===
+                    column.key && sort.direction === 'desc'
+                    ? '-rotate-180'
+                    : ''}"
                   viewBox="0 0 24 24"
                   fill="none"
                   aria-hidden="true"
                 >
-                  <path d="m6 14 6-6 6 6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
+                  <path
+                    d="m6 14 6-6 6 6"
+                    stroke="currentColor"
+                    stroke-width="1.7"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
                 </svg>
               </button>
             {:else}

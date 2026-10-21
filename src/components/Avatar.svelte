@@ -37,19 +37,22 @@
 
   let failed = false;
   $: if (src) failed = false;
-  $: initials = String(name || alt || '')
-    .trim()
-    .split(/\s+/)
-    .filter(Boolean)
-    .slice(0, 2)
-    .map((part) => part[0])
-    .join('')
-    .toUpperCase() || '?';
+  $: initials =
+    String(name || alt || '')
+      .trim()
+      .split(/\s+/)
+      .filter(Boolean)
+      .slice(0, 2)
+      .map((part) => part[0])
+      .join('')
+      .toUpperCase() || '?';
   $: label = alt || name || 'Avatar';
 </script>
 
 <span class="relative inline-flex shrink-0 items-center justify-center {sizes[size] || sizes.md} {className}">
-  <span class="inline-flex h-full w-full items-center justify-center overflow-hidden rounded-full border border-line bg-surface-2 text-ink-soft">
+  <span
+    class="inline-flex h-full w-full items-center justify-center overflow-hidden rounded-full border border-line bg-surface-2 text-ink-soft"
+  >
     {#if src && !failed}
       <img {src} alt={alt || name} class="h-full w-full object-cover" on:error={() => (failed = true)} />
     {:else}
@@ -57,6 +60,11 @@
     {/if}
   </span>
   {#if status}
-    <span class="absolute bottom-0 right-0 rounded-full border-canvas {statusSizes[size] || statusSizes.md} {statuses[status] || statuses.offline}" aria-hidden="true"></span>
+    <span
+      class="absolute bottom-0 right-0 rounded-full border-canvas {statusSizes[size] || statusSizes.md} {statuses[
+        status
+      ] || statuses.offline}"
+      aria-hidden="true"
+    ></span>
   {/if}
 </span>

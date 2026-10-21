@@ -40,7 +40,8 @@
 
 <svelte:element
   this={as}
-  class="flex {direction === 'row' ? 'flex-row' : 'flex-col'} {gaps[gap] || gaps.md} {aligns[align] || aligns.stretch} {justifies[justify] || justifies.start} {wrap ? 'flex-wrap' : 'flex-nowrap'} {className}"
+  class="flex {direction === 'row' ? 'flex-row' : 'flex-col'} {gaps[gap] || gaps.md} {aligns[align] ||
+    aligns.stretch} {justifies[justify] || justifies.start} {wrap ? 'flex-wrap' : 'flex-nowrap'} {className}"
   {...$$restProps}
 >
   <slot />

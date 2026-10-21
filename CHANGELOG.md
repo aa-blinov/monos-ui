@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.3
+
+- Added ESLint and Prettier gates for JavaScript and Svelte; CI now runs `lint` and `format:check`.
+- Split the gallery into one component per section under `gallery/sections/`; `App.svelte` keeps the shell, theme state and header.
+- Fixed a duplicate `Breadcrumbs` import and kept `Table`'s `aria-sort` reactive after extracting its helper.
+
 ## 1.0.2
 
 - Code hygiene: exports sorted, unused bindings and test imports removed, the gallery's section list defined once, the enabled-index wrap simplified.

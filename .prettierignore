@@ -1,0 +1,4 @@
+dist-gallery/
+node_modules/
+package-lock.json
+src/styles/themes.css

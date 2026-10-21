@@ -16,7 +16,10 @@
 
   const dispatch = createEventDispatcher();
 
-  $: current = Math.max(0, steps.findIndex((step) => step.id === value));
+  $: current = Math.max(
+    0,
+    steps.findIndex((step) => step.id === value),
+  );
 
   function select(step) {
     if (!clickable || step.disabled) return;
@@ -27,18 +30,35 @@
 
 <ol
   aria-label={label || undefined}
-  class="flex {orientation === 'horizontal' ? 'flex-col gap-5 sm:flex-row sm:items-start sm:gap-0' : 'flex-col gap-5'} {className}"
+  class="flex {orientation === 'horizontal'
+    ? 'flex-col gap-5 sm:flex-row sm:items-start sm:gap-0'
+    : 'flex-col gap-5'} {className}"
 >
   {#each steps as step, index}
-    <li class="relative flex min-w-0 flex-1 gap-3 {orientation === 'horizontal' ? 'sm:flex-col sm:gap-2' : ''} {step.disabled ? 'opacity-40' : ''}">
+    <li
+      class="relative flex min-w-0 flex-1 gap-3 {orientation === 'horizontal'
+        ? 'sm:flex-col sm:gap-2'
+        : ''} {step.disabled ? 'opacity-40' : ''}"
+    >
       <div class="flex items-center gap-2 {orientation === 'horizontal' ? 'sm:w-full' : ''}">
         <span
-          class="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full border text-xs font-bold {index === current ? 'border-ink bg-ink text-canvas' : index < current ? 'border-ink text-ink' : 'border-line text-ink-faint'}"
+          class="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full border text-xs font-bold {index ===
+          current
+            ? 'border-ink bg-ink text-canvas'
+            : index < current
+              ? 'border-ink text-ink'
+              : 'border-line text-ink-faint'}"
           aria-hidden="true"
         >
           {#if index < current}
             <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none">
-              <polyline points="20 6 9 17 4 12" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
+              <polyline
+                points="20 6 9 17 4 12"
+                stroke="currentColor"
+                stroke-width="1.7"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
             </svg>
           {:else}
             {index + 1}
@@ -52,7 +72,10 @@
         {#if clickable}
           <button
             type="button"
-            class="flex min-h-6 max-w-full items-center text-left text-sm font-bold transition-colors max-sm:min-h-11 duration-fast disabled:cursor-not-allowed {index === current ? 'text-ink' : 'text-ink-soft hover:text-ink'}"
+            class="flex min-h-6 max-w-full items-center text-left text-sm font-bold transition-colors max-sm:min-h-11 duration-fast disabled:cursor-not-allowed {index ===
+            current
+              ? 'text-ink'
+              : 'text-ink-soft hover:text-ink'}"
             aria-current={index === current ? 'step' : undefined}
             disabled={step.disabled}
             on:click={() => select(step)}
@@ -60,7 +83,10 @@
             {step.label}
           </button>
         {:else}
-          <p class="text-sm font-bold {index === current ? 'text-ink' : 'text-ink-soft'}" aria-current={index === current ? 'step' : undefined}>
+          <p
+            class="text-sm font-bold {index === current ? 'text-ink' : 'text-ink-soft'}"
+            aria-current={index === current ? 'step' : undefined}
+          >
             {step.label}
           </p>
         {/if}

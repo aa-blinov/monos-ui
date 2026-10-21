@@ -18,9 +18,16 @@
           <span class="text-ink-muted" aria-hidden="true">/</span>
         {/if}
         {#if item.href && index < items.length - 1}
-          <a href={item.href} class="min-w-0 truncate rounded-ui px-0.5 transition-colors duration-fast hover:text-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink">{item.label}</a>
+          <a
+            href={item.href}
+            class="min-w-0 truncate rounded-ui px-0.5 transition-colors duration-fast hover:text-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
+            >{item.label}</a
+          >
         {:else}
-          <span aria-current={index === items.length - 1 ? 'page' : undefined} class="min-w-0 truncate {index === items.length - 1 ? 'text-ink' : ''}">{item.label}</span>
+          <span
+            aria-current={index === items.length - 1 ? 'page' : undefined}
+            class="min-w-0 truncate {index === items.length - 1 ? 'text-ink' : ''}">{item.label}</span
+          >
         {/if}
       </li>
     {/each}
