@@ -141,7 +141,7 @@
       aria-labelledby={title ? titleId : undefined}
       aria-describedby={description ? descriptionId : undefined}
       tabindex="-1"
-      class="relative z-10 max-h-[calc(100dvh-4rem)] w-full overflow-y-auto rounded-ui border border-line bg-canvas p-6 text-ink shadow-overlay outline-none {sizes[size] || sizes.md} {className}"
+      class="relative z-10 max-h-[calc(100dvh-4rem)] w-full overflow-y-auto rounded-ui border border-line bg-canvas p-6 text-ink sm:p-8 shadow-overlay outline-none {sizes[size] || sizes.md} {className}"
     >
       <IconButton
         label={closeLabel}

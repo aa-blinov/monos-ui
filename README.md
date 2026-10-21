@@ -99,7 +99,7 @@ Themes: `gruvbox`, `github`, `dracula`, `nord`, `solarized`, `catppuccin`. Modes
 | `Spinner` | Loading ring |
 | `Tooltip` / `tooltip` | Hint on any element; one look, 450 ms, never on a phone |
 
-Full props, events and slots: [docs/components.md](docs/components.md). Tokens: [docs/tokens.md](docs/tokens.md).
+Full props, events and slots: [docs/components.md](docs/components.md). Tokens: [docs/tokens.md](docs/tokens.md). Moving Monos itself onto the kit: [docs/migrating-monos.md](docs/migrating-monos.md).
 
 ## What it believes
 
