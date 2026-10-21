@@ -1,0 +1,55 @@
+/**
+ * Optional base. It gives the page the kit's warm ground, its face and one
+ * focus ring. A product that already owns `body` can import tokens.css and
+ * themes.css only and style its own page.
+ */
+body {
+  background: var(--ui-bg);
+  caret-color: var(--ui-ink);
+  color: var(--ui-ink);
+  font-family: var(--ui-font);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+:focus-visible {
+  outline: 2px solid var(--ui-focus);
+  outline-offset: 2px;
+}
+
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+::selection {
+  background: var(--ui-selection);
+  color: var(--ui-ink);
+}
+
+:where(a) {
+  text-underline-offset: 2px;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--ui-ink-faint);
+  opacity: 1;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--ui-line);
+  border-radius: var(--ui-radius);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--ui-ink-muted);
+}

@@ -1,0 +1,52 @@
+/**
+ * Geometry, type and motion. These are the same in every theme; a theme only
+ * changes colour. Values are rem so a host that scales its root font size
+ * scales the kit with it.
+ */
+:root {
+  --ui-font: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --ui-radius: 6px;
+
+  --ui-text-whisper: 0.6875rem;   /* 11px */
+  --ui-text-whisper-lg: 0.75rem;  /* 12px */
+
+  --ui-control-xs: 1.5rem;        /* 24px */
+  --ui-control-sm: 1.75rem;       /* 28px */
+  --ui-control-md: 2rem;          /* 32px */
+  --ui-control-lg: 2.25rem;       /* 36px */
+  --ui-control-xl: 2.5rem;        /* 40px */
+  --ui-control-touch: 2.75rem;    /* 44px */
+
+  --ui-icon-xs: 0.75rem;          /* 12px */
+  --ui-icon-sm: 0.875rem;         /* 14px */
+  --ui-icon-md: 1rem;             /* 16px */
+  --ui-icon-lg: 1.25rem;          /* 20px */
+  --ui-icon-xl: 1.5rem;           /* 24px */
+
+  --ui-space-hair: 2px;
+  --ui-space-tight: 4px;
+  --ui-space-field: 6px;
+  --ui-space-snug: 8px;
+  --ui-space-input: 10px;
+  --ui-space-base: 12px;
+  --ui-space-comfortable: 16px;
+  --ui-space-roomy: 24px;
+  --ui-space-section: 32px;
+
+  --ui-shadow-rest: 0 1px 2px rgb(0 0 0 / 0.03);
+  --ui-shadow-lift: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+  --ui-shadow-overlay: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+
+  --ui-duration-fast: 150ms;
+  --ui-duration-base: 200ms;
+
+  --ui-z-menu: 40;
+  --ui-z-modal: 50;
+  --ui-z-tooltip: 60;
+
+  /* Derived from the theme; they follow --ui-ink and --ui-ink-soft lazily. */
+  --ui-line-strong: color-mix(in srgb, var(--ui-ink-soft) 40%, transparent);
+  --ui-focus: color-mix(in srgb, var(--ui-ink) 85%, transparent);
+  --ui-selection: color-mix(in srgb, var(--ui-accent) 22%, transparent);
+}
