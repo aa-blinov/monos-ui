@@ -19,6 +19,7 @@
   "files": [
     "src",
     "docs",
+    "DESIGN.md",
     "README.md",
     "CHANGELOG.md",
     "LICENSE"
