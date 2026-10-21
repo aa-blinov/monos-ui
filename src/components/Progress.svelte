@@ -34,12 +34,17 @@
   aria-valuemin="0"
   aria-valuemax={max}
   aria-valuenow={indeterminate ? undefined : clamped}
-  class="w-full overflow-hidden rounded-ui bg-surface-2 {sizes[size] || sizes.md} {className}"
+  class="relative w-full overflow-hidden rounded-ui bg-surface-2 {sizes[size] || sizes.md} {className}"
 >
-  <span
-    class="block h-full rounded-ui {tones[tone] || tones.accent} {indeterminate ? 'ui-progress-indeterminate' : 'ui-progress-fill'}"
-    style={indeterminate ? undefined : `width: ${percent}%`}
-  ></span>
+  {#if indeterminate}
+    <span class="ui-progress-indeterminate {tones[tone] || tones.accent}"></span>
+    <span class="ui-progress-indeterminate ui-progress-delay {tones[tone] || tones.accent}"></span>
+  {:else}
+    <span
+      class="block h-full rounded-ui {tones[tone] || tones.accent} ui-progress-fill"
+      style={`width: ${percent}%`}
+    ></span>
+  {/if}
 </div>
 
 <style>
@@ -47,8 +52,15 @@
     transition: width 200ms ease;
   }
   .ui-progress-indeterminate {
+    position: absolute;
+    inset-block: 0;
+    left: 0;
     width: 35%;
-    animation: ui-progress 1.4s ease-in-out infinite;
+    border-radius: var(--ui-radius);
+    animation: ui-progress 1.6s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  }
+  .ui-progress-delay {
+    animation-delay: -0.8s;
   }
   @keyframes ui-progress {
     from {
@@ -66,6 +78,9 @@
       width: 100%;
       animation: none;
       opacity: 0.35;
+    }
+    .ui-progress-delay {
+      display: none;
     }
   }
 </style>

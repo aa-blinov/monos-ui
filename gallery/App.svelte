@@ -272,10 +272,25 @@
     </div>
   </header>
 
-  <nav class="mt-6 flex flex-wrap gap-x-4 gap-y-2 text-whisper uppercase tracking-widest text-ink-faint" aria-label="Sections">
-    {#each [['palette', 'Palette'], ['type', 'Type'], ['buttons', 'Buttons'], ['fields', 'Fields'], ['forms', 'Forms'], ['marks', 'Chips'], ['surfaces', 'Surfaces'], ['layout', 'Layout'], ['structure', 'Structure'], ['table', 'Table'], ['data', 'Data'], ['navigation', 'Navigation'], ['utilities', 'Utilities'], ['overlays', 'Overlays'], ['feedback', 'Feedback'], ['notices', 'Notices'], ['empty', 'Empty']] as [id, name]}
-      <a href="#{id}" class="transition-colors duration-fast hover:text-ink">{name}</a>
-    {/each}
+  <nav class="mt-6" aria-label="Sections">
+    <details class="sm:hidden">
+      <summary class="flex cursor-pointer list-none items-center gap-2 text-whisper uppercase tracking-widest text-ink-faint">
+        Jump to a section
+        <svg class="h-3 w-3" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="m6 9 6 6 6-6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </summary>
+      <div class="mt-3 flex flex-wrap gap-x-4 gap-y-2 text-whisper uppercase tracking-widest text-ink-faint">
+        {#each [['palette', 'Palette'], ['type', 'Type'], ['buttons', 'Buttons'], ['fields', 'Fields'], ['forms', 'Forms'], ['marks', 'Chips'], ['surfaces', 'Surfaces'], ['layout', 'Layout'], ['structure', 'Structure'], ['table', 'Table'], ['data', 'Data'], ['navigation', 'Navigation'], ['utilities', 'Utilities'], ['overlays', 'Overlays'], ['feedback', 'Feedback'], ['notices', 'Notices'], ['empty', 'Empty']] as [id, name]}
+          <a href="#{id}" class="transition-colors duration-fast hover:text-ink">{name}</a>
+        {/each}
+      </div>
+    </details>
+    <div class="hidden flex-wrap gap-x-4 gap-y-2 text-whisper uppercase tracking-widest text-ink-faint sm:flex">
+      {#each [['palette', 'Palette'], ['type', 'Type'], ['buttons', 'Buttons'], ['fields', 'Fields'], ['forms', 'Forms'], ['marks', 'Chips'], ['surfaces', 'Surfaces'], ['layout', 'Layout'], ['structure', 'Structure'], ['table', 'Table'], ['data', 'Data'], ['navigation', 'Navigation'], ['utilities', 'Utilities'], ['overlays', 'Overlays'], ['feedback', 'Feedback'], ['notices', 'Notices'], ['empty', 'Empty']] as [id, name]}
+        <a href="#{id}" class="transition-colors duration-fast hover:text-ink">{name}</a>
+      {/each}
+    </div>
   </nav>
 
   <section id="palette" class="mt-10 scroll-mt-20">

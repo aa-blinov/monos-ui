@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.1
+
+- The indeterminate `Progress` bar now has two offset segments, so it never shows an empty track at a bad animation frame.
+- On a phone, the gallery's section index is a collapsed "Jump to a section" disclosure instead of a five-line wall.
+- `NavItem` labels stay left-aligned inside the button; the separator demo no longer creates horizontal overflow.
+
 ## 1.0.0
 
 - Layout primitives: `Container`, `Stack`, `Grid`, `Section`, `Separator`.
