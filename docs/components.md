@@ -582,7 +582,7 @@ Event: `change` with the step id when `clickable`. The current step has `aria-cu
 
 ## SidebarItem
 
-`href`, `active`, `disabled`, `depth` (`0`), `label`, `class`. Slots: `icon`, default, `trailing`. A link when `href` is set, a button otherwise; `depth` indents a tree row. The active row takes the surface.
+`href`, `active`, `disabled`, `depth` (`0`), `label`, `style`, `class`. Slots: `icon`, default, `trailing`. A link when `href` is set, a button otherwise; `depth` indents a tree row. The active row takes the surface.
 
 ## TagInput
 

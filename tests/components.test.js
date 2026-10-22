@@ -742,6 +742,8 @@ describe('Sidebar and TagInput', () => {
     expect(link.getAttribute('aria-current')).toBe('page');
     expect(link.getAttribute('style')).toContain('2.25rem');
     expect(item.component).toBeTruthy();
+    const styled = render(SidebarItem, { label: 'Styled', style: '--tree-color: #8ec07c;' });
+    expect(styled.container.querySelector('button').getAttribute('style')).toContain('--tree-color');
   });
 
   test('SidebarSection announces and toggles its body', async () => {

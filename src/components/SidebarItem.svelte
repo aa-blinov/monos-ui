@@ -8,6 +8,7 @@
   export let disabled = false;
   export let depth = 0;
   export let label = '';
+  export let style = '';
 
   let className = '';
   export { className as class };
@@ -25,8 +26,15 @@
   class="group flex min-h-8 w-full min-w-0 items-center gap-2 rounded-ui px-2 text-left text-sm transition-colors duration-fast max-sm:min-h-11 {active
     ? 'bg-surface font-bold text-ink'
     : 'text-ink-soft hover:bg-surface hover:text-ink'} {disabled ? 'cursor-not-allowed opacity-40' : ''} {className}"
-  style="padding-left: calc(0.5rem + {depth} * 0.875rem);"
+  style="padding-left: calc(0.5rem + {depth} * 0.875rem); {style}"
   on:click
+  on:contextmenu
+  on:keydown
+  on:dragstart
+  on:dragend
+  on:dragover
+  on:dragleave
+  on:drop
   {...$$restProps}
 >
   <slot name="icon" />

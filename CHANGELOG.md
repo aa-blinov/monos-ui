@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.1.4
+
+- `SidebarItem` takes `style` and forwards context-menu, keyboard and drag
+  events, so a product's existing tree row keeps its drag-and-drop and colour.
+
 ## 1.1.3
 
 - `TagInput` suggestions show the same `prefix` as the chosen tags and are
