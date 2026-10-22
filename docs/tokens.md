@@ -114,3 +114,19 @@ Solarized's ink is walked slightly darker/lighter than the upstream ramp so body
 3. A new geometry step is added to `tokens.css` and, when useful, to the preset; no arbitrary `h-[…]` in a component.
 4. Text roles are AA on `--ui-bg` and `--ui-surface`; `--ui-ink-muted` is not a text role.
 5. A status **word** uses `text-*-text`; a **dot, fill or border** uses the signal (`bg-*`). They are not interchangeable.
+
+## Control scale
+
+One height for every control at a size, so a select and a segmented control on
+the same row line up:
+
+| size | height |
+| ---- | ------ |
+| `sm` | 28px   |
+| `md` | 36px   |
+| `lg` | 44px   |
+
+`Button`, `IconButton`, `TextField`, `SelectField`, `Select`, `SegmentedControl`
+and `SearchField` use this scale. Width is the host's: fields and selects are
+full-width by default, `SegmentedControl` takes `full`, and `IconButton` is a
+square. On a phone the touch rule lifts the controls to 44px.

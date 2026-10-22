@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.1.1
+
+- `Select` `sm` is 28px, like the other small controls.
+- `SearchField` uses the same 28/36/44 scale; `md` is 36px, not 40px.
+- `SegmentedControl` has a fixed outer height, `full` and `lg`; its `sm` and `md`
+  now line up with `Select` and the fields.
+- The control scale is documented in `docs/tokens.md`; 67 tests.
+
 ## 1.1.0
 
 - `Sidebar`, `SidebarSection` and `SidebarItem` give a product shell a generic

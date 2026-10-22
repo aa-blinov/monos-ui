@@ -766,6 +766,17 @@ describe('Sidebar and TagInput', () => {
   });
 });
 
+test('controls share one height scale', () => {
+  const sm = render(Select, { size: 'sm', options: [{ value: 'a', label: 'A' }] });
+  expect(sm.container.querySelector('[aria-haspopup="listbox"]').className).toContain('h-7');
+  cleanup();
+  const seg = render(SegmentedControl, { size: 'sm', options: [{ value: 'a', label: 'A' }] });
+  expect(seg.container.querySelector('[role="group"]').className).toContain('h-7');
+  cleanup();
+  const search = render(SearchField, { size: 'md' });
+  expect(search.container.querySelector('input').className).toContain('h-9');
+});
+
 describe('Stepper and NavItem', () => {
   test('Stepper marks the current step and changes when clickable', async () => {
     const { component } = render(Stepper, {

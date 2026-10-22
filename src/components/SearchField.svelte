@@ -19,8 +19,8 @@
   const dispatch = createEventDispatcher();
 
   const sizes = {
-    sm: 'h-8 pl-8 pr-8 text-xs',
-    md: 'h-10 pl-10 pr-9 text-sm',
+    sm: 'h-7 pl-8 pr-8 text-xs',
+    md: 'h-9 pl-10 pr-9 text-sm',
     lg: 'h-11 pl-11 pr-10 text-sm',
   };
 

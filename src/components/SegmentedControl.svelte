@@ -9,6 +9,7 @@
   export let value = '';
   export let label = '';
   export let size = 'md';
+  export let full = false;
   export let disabled = false;
 
   let className = '';
@@ -17,8 +18,14 @@
   const dispatch = createEventDispatcher();
 
   const sizes = {
-    sm: 'min-h-7 px-2.5 text-whisper',
-    md: 'min-h-8 px-3 text-xs',
+    sm: 'px-2.5 text-whisper',
+    md: 'px-3 text-xs',
+    lg: 'px-3.5 text-xs',
+  };
+  const heights = {
+    sm: 'h-7',
+    md: 'h-9',
+    lg: 'h-11',
   };
 
   function pick(option) {
@@ -29,7 +36,9 @@
 </script>
 
 <div
-  class="inline-flex rounded-ui border border-line bg-surface p-0.5 {className}"
+  class="inline-flex rounded-ui border border-line bg-surface p-0.5 {heights[size] || heights.md} max-sm:h-11 {full
+    ? 'w-full'
+    : ''} {className}"
   role="group"
   aria-label={label || undefined}
 >
@@ -38,9 +47,11 @@
       type="button"
       aria-pressed={value === option.value}
       disabled={disabled || option.disabled}
-      class="inline-flex items-center justify-center rounded-ui uppercase tracking-widest transition-colors duration-fast disabled:cursor-not-allowed disabled:opacity-30 max-sm:min-h-11 {sizes[
-        size
-      ] || sizes.md} {value === option.value ? 'bg-canvas text-ink shadow-rest' : 'text-ink-soft hover:text-ink'}"
+      class="inline-flex h-full min-w-0 items-center justify-center rounded-ui uppercase tracking-widest transition-colors duration-fast disabled:cursor-not-allowed disabled:opacity-30 {full
+        ? 'flex-1'
+        : ''} {sizes[size] || sizes.md} {value === option.value
+        ? 'bg-canvas text-ink shadow-rest'
+        : 'text-ink-soft hover:text-ink'}"
       on:click={() => pick(option)}
     >
       {option.label ?? option.value}

@@ -163,15 +163,18 @@
           size="sm"
         />
       </div>
-      <SegmentedControl
-        label="Mode"
-        bind:value={mode}
-        options={[
-          { value: 'light', label: 'Light' },
-          { value: 'dark', label: 'Dark' },
-        ]}
-        size="sm"
-      />
+      <div class="w-40">
+        <SegmentedControl
+          label="Mode"
+          full
+          bind:value={mode}
+          options={[
+            { value: 'light', label: 'Light' },
+            { value: 'dark', label: 'Dark' },
+          ]}
+          size="sm"
+        />
+      </div>
     </div>
   </header>
 
