@@ -28,6 +28,7 @@
 
   const INSTALL = 'npm install github:aa-blinov/monos-ui';
   const VERSION = pkg.version;
+  const RELEASE_URL = `https://github.com/aa-blinov/monos-ui/releases/tag/v${VERSION}`;
 
   const sections = [
     ['palette', 'Palette'],
@@ -159,7 +160,7 @@
         </IconButton>
       </div>
       <p class="mt-5 flex flex-wrap gap-x-5 gap-y-1 text-whisper uppercase tracking-widest text-ink-faint">
-        <span class="normal-case">v{VERSION}</span>
+        <a href={RELEASE_URL} class="normal-case transition-colors duration-fast hover:text-ink">v{VERSION}</a>
         <span>57 components</span>
         <span>6 themes</span>
         <span>2 modes</span>
@@ -241,7 +242,11 @@
   <footer
     class="mt-16 flex flex-wrap items-center justify-between gap-3 border-t border-line pt-6 text-xs text-ink-faint"
   >
-    <p>MIT, Svelte 4, Tailwind 3 · v{VERSION}</p>
+    <p>
+      MIT, Svelte 4, Tailwind 3, <a href={RELEASE_URL} class="transition-colors duration-fast hover:text-ink"
+        >v{VERSION}</a
+      >
+    </p>
     <p>
       <a href="https://github.com/aa-blinov/monos-ui" class="transition-colors duration-fast hover:text-ink">GitHub</a>,
       <a href="https://github.com/aa-blinov/monos-ui/releases" class="transition-colors duration-fast hover:text-ink"
