@@ -15,6 +15,8 @@
   export let collapsible = false;
   export let open = true;
   export let level = 2;
+  export let toggleTestid = '';
+  export let bodyTestid = '';
 
   let className = '';
   export { className as class };
@@ -38,6 +40,7 @@
           class="flex min-w-0 flex-1 items-center gap-1 rounded-ui text-left text-whisper font-bold uppercase tracking-widest text-ink-faint transition-colors duration-fast hover:text-ink"
           aria-expanded={open}
           aria-controls={bodyId}
+          data-testid={toggleTestid || undefined}
           on:click={toggle}
         >
           <svg
@@ -70,7 +73,7 @@
       <slot name="actions" />
     </div>
   {/if}
-  <div id={bodyId} class="space-y-0.5">
+  <div id={bodyId} data-testid={bodyTestid || undefined} class="space-y-0.5">
     {#if !collapsible || open}
       <slot />
     {/if}

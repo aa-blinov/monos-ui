@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.1.6
+
+- `SidebarSection` takes `toggleTestid` and `bodyTestid`, so a host can keep its
+  existing collapse hooks while using the section.
+
 ## 1.1.5
 
 - `Sidebar` takes `scroll` and `bordered`, and forwards a context-menu event from

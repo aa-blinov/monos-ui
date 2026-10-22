@@ -578,7 +578,7 @@ Event: `change` with the step id when `clickable`. The current step has `aria-cu
 
 ## SidebarSection
 
-`title`, `count`, `collapsible` (`false`), `open` (`true`, bindable), `level` (`2`), `class`. Slots: `actions`, default. A collapsible section announces `aria-expanded` and hides its body when closed. `count` is the quiet number after the title.
+`title`, `count`, `collapsible` (`false`), `open` (`true`, bindable), `level` (`2`), `toggleTestid`, `bodyTestid`, `class`. Slots: `actions`, default. A collapsible section announces `aria-expanded` and hides its body when closed. `count` is the quiet number after the title.
 
 ## SidebarItem
 
