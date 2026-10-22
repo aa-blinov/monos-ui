@@ -44,7 +44,7 @@ npm run build:gallery    # production build of the gallery into dist-gallery/
 - **A new component needs an export.** The same contract test walks `src/components/*.svelte` and requires a matching line in `src/index.js`.
 - **Tailwind purges the kit's classes.** A consumer has to add `./node_modules/@monos/ui/src/**/*.svelte` to `content`; the preset alone is not enough.
 - **There is no library build.** `npm run build:gallery` builds the gallery only. The publishable artefact is `src/` plus `styles.css`, listed in the `files` field of `package.json`.
-- **The real CI is `test.yml`.** It runs `npm ci`, `npm test`, `npm run check`, `npm run lint`, `npm run format:check` and `npm run build:gallery` on Node 22. `ci.yml` and `release.yml` still contain placeholder `echo` steps from the scaffold and do not test the code.
+- **CI is `ci.yml`.** It runs `npm ci`, `npm test`, `npm run check`, `npm run lint`, `npm run format:check` and `npm run build:gallery` on Node 22. The scaffold's `test.yml` duplicated it and is gone; `release.yml` triggers on a tag and publishes the changelog, and builds nothing, because the kit ships source.
 - **The Node runtime is written in two places.** `package.json` declares `engines.node` as `^18.0.0 || >=20.0.0`; `test.yml` installs Node 22. A manifest without an `engines.node` value fails HS210, and the checker does not compare the range with the workflow, so the two have to be kept in step by hand.
 - **The version appears in three places.** `package.json` says 1.0.5, `CHANGELOG.md` tops out at 1.0.5, and the README status line says 1.0.5. Update all three together.
 - **The gallery is not imported by consumers.** It uses the same `src/index.js` as a consumer, but its section files are not part of the package `files` list.

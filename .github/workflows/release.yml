@@ -1,8 +1,7 @@
 name: release
 
-# Tag-triggered release. A tag of v* produces a release with the artefacts
-# the project ships, and the changelog section for that version becomes the
-# release body.
+# Tag-triggered release. The kit ships source, so there is nothing to build:
+# a tag of v* produces a release whose body is the changelog for that version.
 
 on:
   push:
@@ -31,11 +30,6 @@ jobs:
           VERSION="${GITHUB_REF_NAME#v}"
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
           echo "Building $VERSION"
-
-      - name: Build
-        # Replace with the real build. The rule is that the artefact that
-        # ships is produced by the same command the README documents.
-        run: echo "Replace with the build command for this stack."
 
       - name: Publish
         uses: softprops/action-gh-release@v2
