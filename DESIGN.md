@@ -1,31 +1,31 @@
 ---
-name: "@monos/ui"
-description: "Svelte 4 interface kit: warm paper, one 6px radius, text buttons, and six themes in light and dark."
+name: '@monos/ui'
+description: 'Svelte 4 interface kit: warm paper, one 6px radius, text buttons, and six themes in light and dark.'
 colors:
-  primary: "#3c3836"
-  canvas: "#fbf1c7"
-  surface: "#ebdbb2"
-  accent: "#458588"
-  danger: "#cc241d"
-  line: "#d5c4a1"
+  primary: '#3c3836'
+  canvas: '#fbf1c7'
+  surface: '#ebdbb2'
+  accent: '#458588'
+  danger: '#cc241d'
+  line: '#d5c4a1'
 typography:
   body:
     fontFamily: "'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace"
-    fontSize: "14px"
+    fontSize: '14px'
     fontWeight: 400
     lineHeight: 1.6
   title:
     fontFamily: "'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace"
-    fontSize: "20px"
+    fontSize: '20px'
     fontWeight: 700
     lineHeight: 1.2
-    letterSpacing: "-0.02em"
+    letterSpacing: '-0.02em'
 rounded:
-  md: "6px"
+  md: '6px'
 spacing:
-  tight: "4px"
-  base: "12px"
-  roomy: "24px"
+  tight: '4px'
+  base: '12px'
+  roomy: '24px'
 ---
 
 # Design system: @monos/ui

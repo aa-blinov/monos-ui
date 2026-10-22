@@ -19,23 +19,23 @@ npm run build:gallery    # production build of the gallery into dist-gallery/
 
 ## Where things live
 
-| Path | What it is |
-| --- | --- |
-| `src/components/` | 53 Svelte 4 primitives. Every file is exported from `src/index.js`. |
-| `src/index.js` | The public surface: components, `tooltip`, `HOVER_DELAY`, the toast store, the themes. |
-| `src/themes.js` | The six palettes, each with a `light` and a `dark` object, plus `themeNames` and `modes`. |
-| `src/theme-css.js` | `renderThemesCss`, `readableStatus` and the variable maps. Shared by the build and the tests. |
-| `src/styles/tokens.css` | Geometry, type, motion and z-index tokens. |
-| `src/styles/themes.css` | Generated colour blocks. Never edit by hand. |
-| `src/styles/base.css` | Optional page base: body colour, focus ring, selection, scrollbars, placeholders. |
-| `src/styles/index.css` | Imports tokens, themes and base in that order. |
-| `src/tailwind-preset.js` | Semantic colour, radius, font, spacing, shadow, duration and z-index names. |
-| `src/toast.js` | `toasts`, `toast`, `dismissToast`, `clearToasts`; the queue keeps four. |
-| `src/tooltip.js` | The `tooltip` action and `HOVER_DELAY` (450 ms). |
-| `gallery/` | The visual reference. `gallery/sections/` has one file per section. |
-| `tests/` | `contract.test.js`, `themes.test.js`, `components.test.js` and four harness fixtures. |
-| `scripts/build-themes.js` | Writes `src/styles/themes.css` and prints the block count. |
-| `docs/` | Architecture, the component API, tokens and the Monos migration map. |
+| Path                      | What it is                                                                                    |
+| ------------------------- | --------------------------------------------------------------------------------------------- |
+| `src/components/`         | 53 Svelte 4 primitives. Every file is exported from `src/index.js`.                           |
+| `src/index.js`            | The public surface: components, `tooltip`, `HOVER_DELAY`, the toast store, the themes.        |
+| `src/themes.js`           | The six palettes, each with a `light` and a `dark` object, plus `themeNames` and `modes`.     |
+| `src/theme-css.js`        | `renderThemesCss`, `readableStatus` and the variable maps. Shared by the build and the tests. |
+| `src/styles/tokens.css`   | Geometry, type, motion and z-index tokens.                                                    |
+| `src/styles/themes.css`   | Generated colour blocks. Never edit by hand.                                                  |
+| `src/styles/base.css`     | Optional page base: body colour, focus ring, selection, scrollbars, placeholders.             |
+| `src/styles/index.css`    | Imports tokens, themes and base in that order.                                                |
+| `src/tailwind-preset.js`  | Semantic colour, radius, font, spacing, shadow, duration and z-index names.                   |
+| `src/toast.js`            | `toasts`, `toast`, `dismissToast`, `clearToasts`; the queue keeps four.                       |
+| `src/tooltip.js`          | The `tooltip` action and `HOVER_DELAY` (450 ms).                                              |
+| `gallery/`                | The visual reference. `gallery/sections/` has one file per section.                           |
+| `tests/`                  | `contract.test.js`, `themes.test.js`, `components.test.js` and four harness fixtures.         |
+| `scripts/build-themes.js` | Writes `src/styles/themes.css` and prints the block count.                                    |
+| `docs/`                   | Architecture, the component API, tokens and the Monos migration map.                          |
 
 ## Traps
 

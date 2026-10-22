@@ -6,14 +6,14 @@
 
 The entry points are declared in `package.json`:
 
-| Entry | File | What it carries |
-| --- | --- | --- |
-| `@monos/ui` | `src/index.js` | 53 components, `tooltip`, `HOVER_DELAY`, `toasts`, `toast`, `dismissToast`, `clearToasts`, `themes`, `themeNames`, `modes` |
-| `@monos/ui/styles.css` | `src/styles/index.css` | `tokens.css`, `themes.css`, `base.css` |
-| `@monos/ui/tokens.css` | `src/styles/tokens.css` | Geometry, type, motion, z-index |
-| `@monos/ui/themes.css` | `src/styles/themes.css` | The colour blocks |
-| `@monos/ui/tailwind-preset` | `src/tailwind-preset.js` | Semantic utility names |
-| `@monos/ui/themes` | `src/themes.js` | Palette data |
+| Entry                       | File                     | What it carries                                                                                                            |
+| --------------------------- | ------------------------ | -------------------------------------------------------------------------------------------------------------------------- |
+| `@monos/ui`                 | `src/index.js`           | 53 components, `tooltip`, `HOVER_DELAY`, `toasts`, `toast`, `dismissToast`, `clearToasts`, `themes`, `themeNames`, `modes` |
+| `@monos/ui/styles.css`      | `src/styles/index.css`   | `tokens.css`, `themes.css`, `base.css`                                                                                     |
+| `@monos/ui/tokens.css`      | `src/styles/tokens.css`  | Geometry, type, motion, z-index                                                                                            |
+| `@monos/ui/themes.css`      | `src/styles/themes.css`  | The colour blocks                                                                                                          |
+| `@monos/ui/tailwind-preset` | `src/tailwind-preset.js` | Semantic utility names                                                                                                     |
+| `@monos/ui/themes`          | `src/themes.js`          | Palette data                                                                                                               |
 
 `src/index.js` is a flat list of re-exports. `tests/contract.test.js` reads the component directory and fails when a `.svelte` file has no matching export, so the surface cannot drift from the directory.
 

@@ -147,19 +147,19 @@ Full props, events and slots: [docs/components.md](docs/components.md). Tokens: 
 
 The package has six entry points and two DOM attributes; there is no runtime configuration object.
 
-| Entry point                | What it gives you                                                |
-| -------------------------- | ---------------------------------------------------------------- |
-| `@monos/ui`                | The 53 components, the tooltip action, the toast store, the palettes |
-| `@monos/ui/styles.css`     | `tokens.css`, `themes.css` and `base.css` in that order          |
-| `@monos/ui/tokens.css`     | Geometry, type, motion and z-index tokens                        |
-| `@monos/ui/themes.css`     | The colour blocks for every theme and mode                       |
-| `@monos/ui/tailwind-preset` | Semantic names for Tailwind                                    |
-| `@monos/ui/themes`         | The palette data, `themeNames` and `modes`                       |
+| Entry point                 | What it gives you                                                    |
+| --------------------------- | -------------------------------------------------------------------- |
+| `@monos/ui`                 | The 53 components, the tooltip action, the toast store, the palettes |
+| `@monos/ui/styles.css`      | `tokens.css`, `themes.css` and `base.css` in that order              |
+| `@monos/ui/tokens.css`      | Geometry, type, motion and z-index tokens                            |
+| `@monos/ui/themes.css`      | The colour blocks for every theme and mode                           |
+| `@monos/ui/tailwind-preset` | Semantic names for Tailwind                                          |
+| `@monos/ui/themes`          | The palette data, `themeNames` and `modes`                           |
 
-| Attribute   | Values                                                              | Default   |
-| ----------- | ------------------------------------------------------------------- | --------- |
-| `data-theme` | `gruvbox`, `github`, `dracula`, `nord`, `solarized`, `catppuccin`  | `gruvbox` |
-| `data-mode` | `light`, `dark`                                                     | `light`   |
+| Attribute    | Values                                                            | Default   |
+| ------------ | ----------------------------------------------------------------- | --------- |
+| `data-theme` | `gruvbox`, `github`, `dracula`, `nord`, `solarized`, `catppuccin` | `gruvbox` |
+| `data-mode`  | `light`, `dark`                                                   | `light`   |
 
 Set both attributes on `<html>`. The selectors are `:root`, `:root[data-mode="dark"]:not([data-theme])` and `[data-theme="…"][data-mode="…"]`; anything else falls back to Gruvbox light. Colour tokens are plain values, so Tailwind's `/opacity` modifier does not apply to them; use `color-mix()` as the kit does.
 

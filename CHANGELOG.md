@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.7
+
+- `@monos/ui/field` exposes `fieldControlClass` without importing the Svelte
+  components, so a host's Node-side helpers and tests can use it.
+
 ## 1.0.6
 
 - `FieldControl` and `fieldControlClass` give a native input, select or textarea
