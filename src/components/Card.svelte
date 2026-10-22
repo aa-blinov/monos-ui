@@ -41,12 +41,30 @@
     on:keydown={onKeydown}
     on:focus
     on:blur
+    on:contextmenu
+    on:dragstart
+    on:dragend
+    on:dragover
+    on:dragleave
+    on:drop
     {...$$restProps}
   >
     <slot />
   </svelte:element>
 {:else}
-  <svelte:element this={as} class={classes} {...$$restProps}>
+  <svelte:element
+    this={as}
+    role={as === 'button' || as === 'a' ? undefined : 'group'}
+    class={classes}
+    on:click
+    on:contextmenu
+    on:dragstart
+    on:dragend
+    on:dragover
+    on:dragleave
+    on:drop
+    {...$$restProps}
+  >
     <slot />
   </svelte:element>
 {/if}

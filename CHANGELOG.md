@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.1.7
+
+- `Card` forwards click, context-menu and drag events, so a product's existing
+  card can become the kit surface without a wrapper.
+
 ## 1.1.6
 
 - `SidebarSection` takes `toggleTestid` and `bodyTestid`, so a host can keep its
