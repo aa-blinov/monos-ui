@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.1.14
+
+- `SearchField` takes `clearable`. A compact field that has its own close button
+  can hide the built-in clear button.
+
 ## 1.1.13
 
 - `Tabs` takes `closable`, `closeLabel` and a `bare` variant; items take

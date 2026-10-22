@@ -12,6 +12,7 @@
   export let size = 'md';
   export let disabled = false;
   export let clearOnEscape = true;
+  export let clearable = true;
   export let inputEl = null;
 
   let className = '';
@@ -76,7 +77,7 @@
       <slot name="trailing" />
     </div>
   {/if}
-  {#if value}
+  {#if clearable && value}
     <button
       type="button"
       aria-label={clearLabel}
