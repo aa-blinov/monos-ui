@@ -1,5 +1,6 @@
 <script>
-  import { onDestroy } from 'svelte';
+  import { onDestroy, onMount } from 'svelte';
+  import pkg from '../package.json';
   import { IconButton, Select, SegmentedControl, Toaster, themes, themeNames } from '../src/index.js';
   import AppShellSection from './sections/AppShellSection.svelte';
   import ButtonsSection from './sections/ButtonsSection.svelte';
@@ -26,6 +27,7 @@
   let copyTimer = null;
 
   const INSTALL = 'npm install github:aa-blinov/monos-ui';
+  const VERSION = pkg.version;
 
   const sections = [
     ['palette', 'Palette'],
@@ -85,12 +87,21 @@
     }
   }
 
+  onMount(() => {
+    document.title = `Monos UI ${VERSION}`;
+  });
+
   onDestroy(() => clearTimeout(copyTimer));
 </script>
 
 <nav class="sticky top-0 z-20 border-b border-line bg-canvas" aria-label="Monos UI">
   <div class="mx-auto flex max-w-5xl items-center justify-between gap-4 px-6 py-3">
-    <a href="#top" class="text-sm font-bold tracking-tight">Monos UI</a>
+    <a href="#top" class="flex items-baseline gap-2 text-sm font-bold tracking-tight"
+      >Monos UI <span
+        class="rounded-ui border border-line px-1.5 py-0.5 font-mono text-[length:var(--text-whisper)] font-normal uppercase tracking-widest text-ink-faint"
+        >v{VERSION}</span
+      ></a
+    >
     <div class="flex items-center gap-5 text-whisper uppercase tracking-widest text-ink-faint">
       <a href="https://github.com/aa-blinov/monos-ui" class="transition-colors duration-fast hover:text-ink">GitHub</a>
       <a href="https://github.com/aa-blinov/monos-ui/releases" class="transition-colors duration-fast hover:text-ink"
@@ -148,6 +159,7 @@
         </IconButton>
       </div>
       <p class="mt-5 flex flex-wrap gap-x-5 gap-y-1 text-whisper uppercase tracking-widest text-ink-faint">
+        <span class="normal-case">v{VERSION}</span>
         <span>57 components</span>
         <span>6 themes</span>
         <span>2 modes</span>
@@ -229,7 +241,7 @@
   <footer
     class="mt-16 flex flex-wrap items-center justify-between gap-3 border-t border-line pt-6 text-xs text-ink-faint"
   >
-    <p>MIT, Svelte 4, Tailwind 3</p>
+    <p>MIT, Svelte 4, Tailwind 3 · v{VERSION}</p>
     <p>
       <a href="https://github.com/aa-blinov/monos-ui" class="transition-colors duration-fast hover:text-ink">GitHub</a>,
       <a href="https://github.com/aa-blinov/monos-ui/releases" class="transition-colors duration-fast hover:text-ink"

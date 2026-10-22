@@ -1,5 +1,14 @@
 <script>
-  import { Checkbox, RadioGroup, SearchField, SelectField, Switch, TextArea, TextField } from '../../src/index.js';
+  import {
+    Checkbox,
+    FieldControl,
+    RadioGroup,
+    SearchField,
+    SelectField,
+    Switch,
+    TextArea,
+    TextField,
+  } from '../../src/index.js';
 
   let title = 'A note about the desk';
   let body = 'The palette is warm, the radius is one, and nothing glows without a reason.';
@@ -8,6 +17,7 @@
   let checked = true;
   let switchOn = true;
   let radio = 'board';
+  let nativeName = 'A native field';
 
   const radioOptions = [
     { value: 'board', label: 'Board', description: 'Cards with a tint and a date' },
@@ -31,6 +41,10 @@
     />
     <TextField label="With an error" value="not an email" error="Use the form name@example.com" />
     <TextField label="Boxed" variant="boxed" placeholder="Boxed input" />
+    <div>
+      <p class="mb-1.5 text-xs uppercase tracking-widest text-ink-soft">FieldControl</p>
+      <FieldControl bind:value={nativeName} aria-label="Native field" placeholder="A native input" />
+    </div>
   </div>
   <div class="mt-6 grid gap-6 md:grid-cols-2">
     <TextArea label="Note" bind:value={body} rows={4} hint="Markdown is fine" />
