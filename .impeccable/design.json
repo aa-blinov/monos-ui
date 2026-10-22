@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-01-01T00:00:00Z",
+  "title": "Design System: monos-ui",
+  "extensions": {
+    "colorMeta": {},
+    "typographyMeta": {},
+    "shadows": [],
+    "motion": [],
+    "breakpoints": []
+  },
+  "components": [],
+  "narrative": {
+    "northStar": "",
+    "overview": "",
+    "keyCharacteristics": [],
+    "rules": [],
+    "dos": [],
+    "donts": []
+  }
+}

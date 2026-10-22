@@ -1,100 +1,168 @@
-# Monos UI — the design system
+---
+name: "@monos/ui"
+description: "Svelte 4 interface kit: warm paper, one 6px radius, text buttons, and six themes in light and dark."
+colors:
+  primary: "#3c3836"
+  canvas: "#fbf1c7"
+  surface: "#ebdbb2"
+  accent: "#458588"
+  danger: "#cc241d"
+  line: "#d5c4a1"
+typography:
+  body:
+    fontFamily: "'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace"
+    fontSize: "14px"
+    fontWeight: 400
+    lineHeight: 1.6
+  title:
+    fontFamily: "'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace"
+    fontSize: "20px"
+    fontWeight: 700
+    lineHeight: 1.2
+    letterSpacing: "-0.02em"
+rounded:
+  md: "6px"
+spacing:
+  tight: "4px"
+  base: "12px"
+  roomy: "24px"
+---
+
+# Design system: @monos/ui
 
 The kit is a desk under warm light: paper, ink, one corner, and controls that are words before they are boxes. It is extracted from Monos, but it is not the notes app: the editor, the note card, the sidebar and the terminal stay in the product.
 
 **Source of truth.** Colour values live in [`src/themes.js`](src/themes.js); geometry in [`src/styles/tokens.css`](src/styles/tokens.css); the utility names in [`src/tailwind-preset.js`](src/tailwind-preset.js). This file explains the rules; [`docs/tokens.md`](docs/tokens.md) lists the tokens, and [`docs/components.md`](docs/components.md) lists the APIs.
 
-## Colour is a role
+## Overview
 
 Six palettes ship in a light and a dark mode: Gruvbox (the reference), GitHub, Dracula, Nord, Solarized, Catppuccin. A component never names a palette colour; it reads `--ui-bg`, `--ui-ink`, `--ui-line`, `--ui-danger` and their siblings. A theme is a set of values behind those roles, so a new palette is data, not a component change.
 
-- `--ui-bg` / `--ui-surface` / `--ui-surface-2` are three tonal steps, not three colours.
-- `--ui-ink` is body text; `--ui-ink-soft` supports it; `--ui-ink-faint` is metadata; `--ui-ink-muted` is decoration and disabled, never a sentence.
-- `--ui-accent`, `--ui-danger`, `--ui-warning`, `--ui-success`, `--ui-info` are state signals for dots, fills and borders. They are not decoration.
-- A status **word** reads its `*-text` sibling (`--ui-danger-text`, and so on), which is darkened on light (or lightened on dark) until it clears AA on the page and on a card; the hue stays. The signal stays vivid in the dot; the word stays readable.
-- The text roles clear WCAG AA on the page and on a card in all twelve theme/mode pairs; the Solarized ink is walked slightly darker/lighter than the upstream ramp for that reason. Status words carry their own contrast pass.
+The personality is quiet and dense. There is one face, one corner and a small type scale. Depth belongs to hover and overlays, not to importance. The controls are deliberately plain: a button is a word, a field is an underline, and a badge is a status word.
 
-The full contract and the theme names are in [`docs/tokens.md`](docs/tokens.md).
+**Creative North Star: "the paper desk."** Everything sits on a warm ground with a hairline and a 3% shadow. When a screen needs emphasis, it changes the weight of the text or lifts one surface, never the number of colours.
 
-## Type
+Key characteristics:
 
-One face at a time: JetBrains Mono, with the system monospace stack behind it. Code stays in the fixed face; nothing else introduces a second family.
+- Warm paper and ink, with six interchangeable palettes.
+- One 6px radius on every rectangle.
+- Text-only actions.
+- A small type scale: 30, 24, 20, 14, 12, 11px.
+- Focus and state colours come from the theme.
 
-The working scale is small: `30px` display, `24px` headline, `20px` title, `14px` body, `12px` interface, `11px` metadata. Metadata is uppercase and tracked; it whispers, it does not compete with the title.
+## Colors
 
-## Space and shape
+Colour is a role. The frontmatter carries the default Gruvbox values; every theme and mode sets the same names.
 
-One 4px grid, one radius.
+### Primary
 
-- The grid: 2, 4, 6, 8, 10, 12, 16, 24, 32. A surface changes the role (card, panel, modal), not the number.
-- The radius is `6px` for every rectangle: cards, menus, fields, buttons, tags, checkboxes. Circles are only for things round by nature.
-- Controls step 24, 28, 32, 36, 40, 44px; icons 12, 14, 16, 20, 24px. On a phone the primary controls grow to 44px, because a finger is not a pointer.
-- Icons share one stroke, `1.7`.
+- **Ink** (`#3c3836`): body text, bold button labels, the focus line. This is the darkest text role on a light theme.
+- **Accent** (`#458588`): selection fills, dots and focus-adjacent marks. It is a state signal, not decoration.
 
-## Depth
+### Neutral
 
-Flat at rest, lifted by touch.
+- **Canvas** (`#fbf1c7`): the page ground.
+- **Surface** (`#ebdbb2`): a card, a panel, a hovered row.
+- **Surface 2** (`#d5c4a1`): a track or a pressed state.
+- **Line** (`#d5c4a1`): every hairline.
 
-A card has `shadow-rest` (`0 1px 2px / 3%`), which is paper texture rather than shadow. Hover adds `shadow-lift` and a half-pixel rise; a modal or menu uses `shadow-overlay`. Nothing permanent carries a shadow that means "important".
+### Status
 
-## The components
+- **Danger** (`#cc241d`): destructive fills and dots.
+- **Warning**, **success** and **info** work the same way. A status word reads its `*-text` sibling (`--ui-danger-text`, and so on), which is darkened on light or lightened on dark until it clears AA on the page and on a card; the hue stays. The signal stays vivid in the dot; the word stays readable.
 
-- **Text buttons.** The word is the button: `primary` is bold ink, `secondary` is soft ink, `danger` is red. There is no filled call to action and no outlined action. The only frame is a toggle's chosen state.
-- **Icon buttons** are 28/36/44px squares with a required `label`. A tooltip repeats the name; it is never the only name.
-- **Fields** are underline rows (`h-9`, bottom border), with search fields as pills. Height is declared, not derived from padding. A choice whose list is part of the interface uses `Select`, a themed listbox; a long form may keep the native `SelectField`.
-- **A searchable choice** is a `Combobox` (one) or `MultiSelect` (several): a field, a filtered listbox and an active option named by `aria-activedescendant`. `Select` is for a short fixed list; the native `SelectField` is for a long form.
-- **A date** is a `DatePicker`: an ISO string, a drawn calendar, month and weekday names from `Intl`, and min/max compared as strings. The kit owns no date arithmetic beyond the calendar grid.
-- **A range** is a `Slider`: a native range with a themed track and a thumb that is a circle because a thumb is round by nature. The value is visible beside the label.
-- **A file** is a `FileUpload`: a drop zone, a real file input and a list of `File` objects. The kit picks and lists; it does not upload.
-- **A group** is a `Fieldset`; a label, hint and error around an arbitrary control is a `FormField`. The error is an alert and wins over the hint.
-- **Chips** are bordered labels, not filters; **badges** are uppercase status words, optionally with a dot.
-- **Cards** are `bg-surface`, one border and a resting shadow. `interactive` makes the card a button and adds the lift.
-- **Menus** are a trigger plus data items; arrows, Home/End, Escape and an outside click work; the first item takes focus when the menu opens.
-- **Modals** name themselves, trap Tab, lock the page, close on Escape or the backdrop, and return focus.
-- **Notices** are inline, one dot, a title and a sentence.
-- **Tabs** are a line under the word (`line`) or a frame around the chosen option (`pill`). One tab is in the tab order; arrows and Home/End move. A tab is navigation, not an action.
-- **Accordions** are heading buttons over a region. The chevron turns; the content is hidden, not removed; one open at a time unless `multiple`.
-- **Popovers** are anchored, non-modal panels. They flip when the page runs out of room and close on Escape or an outside click; the content is any markup.
-- **Alert dialogs** are the one dialog with no close cross and no backdrop dismissal. The focus starts on Cancel, because the safe choice should be the easy one.
-- **Radio groups** are real radios; the circle is round by nature. `Checkbox`, `Switch`, `RadioGroup` and `Select` are the four forms of a choice; do not use one where another is the honest control.
-- **Progress** is a thin bar with the one radius. Indeterminate is a sweep, not a spinner in disguise; `Skeleton` reserves the size the content will take, so the arrival does not move the page.
-- **Avatars** are circles, image or initials, with a status dot on the edge. The dot is the only place where a status colour is a dot, not a word; it is never the only signal (the name is there).
-- **Tables** are for data, not layout. Headers sort with a triangle and `aria-sort`; selection is a checkbox column; a row action belongs in a cell, because a clickable `<tr>` is not a keyboard control.
-- **Layout** is a small set of primitives, not a CSS framework: `Container` owns the measure and gutters, `Stack` the one axis, `Grid` the tracks, `Section` the vertical rhythm, `Separator` the hairline. They read the same spacing scale as the controls.
-- **Stepper** is a sequence of steps, not a progress bar; the current step is `aria-current="step"` and earlier steps get a check. **NavItem** is one row of navigation: link when it goes somewhere, button when it acts.
-- **List** is rows with optional icon, description and meta; **DescriptionList** is a real `<dl>` for facts, stacked or inline.
-- **Portal** moves an overlay out of its parent's overflow; **FocusTrap** keeps Tab inside a custom overlay. They are utilities, not dialogs.
-- **Breadcrumbs** say where the page sits; the last item is the current page, not a link. The separator is a slash, never a middle dot.
-- **A page header** is a title, a sentence and the actions at the top right. It is a pattern, not an app shell.
-- **Pagination** keeps first, last and the current neighbourhood; a gap is an ellipsis, not a disabled button.
-- **A drawer** is the side version of a modal: same focus trap, same scroll lock, same focus return, a slide from the edge. Use it for navigation or a long filter form on a phone.
-- **Prose** is the reading column: 70ch measure, 14/1.7 body, one face, code on one surface, tables with a hairline. It owns rhythm, not words.
-- **Toasts** are transient and live in one region; `Notice` is inline and stays. A danger toast is an alert; the rest are status. Four at a time is enough.
-- **The tooltip** is one look and one delay (450ms; immediate on keyboard focus), and it does not exist below 640px.
-
-## States
-
-Every control has rest, hover, `:focus-visible`, disabled and, where it applies, selected or loading. A state never relies on colour alone: a checkbox has a check, a tab has an underline, a sort has a triangle, a toast has a word and a dot.
-
-The touch target is 44px on a phone for anything a finger presses, including a calendar day. A desktop row may be 24 or 28px; the padding around it is what makes the target, not the glyph.
-
-## Motion
-
-Only state changes move. `--ui-duration-fast` (150ms) for colour and focus, `--ui-duration-base` (200ms) for the larger transitions. The card lift is half a pixel; a popover and a toast arrive in 200ms; an indeterminate bar sweeps. Under `prefers-reduced-motion`, the lift is removed, the popover does not slide, the skeleton stops pulsing and the sweep becomes a still, low-opacity bar. Nothing jumps.
-
-## Rules
+### Named rules
 
 **The variable rule.** A component reads `var(--ui-…)` or a Tailwind name from the preset. A hex inside a component is a defect.
 
-**The one-radius rule.** Every rectangle is `--ui-radius`. Density changes size and padding, never the corner.
-
-**The text-button rule.** No filled or outlined action buttons. A frame belongs to a choice among options, not to an action.
-
-**The flat-by-default rule.** Depth answers hover or overlay, not importance.
-
 **The accent rule.** Accents mean state. Spending red, orange or yellow on decoration spends their meaning.
 
-**The words rule.** The kit has no locale files. Every label, message and empty state comes from the product as a prop or a slot; the kit supplies the shape, not the language.
+**The two surfaces rule.** Text has to clear AA on both `--ui-bg` and `--ui-surface`, because the same sentence can sit on either. `--ui-ink-muted` is for decoration and disabled states, never for a sentence.
+
+## Typography
+
+**Display Font:** JetBrains Mono, with the system monospace stack behind it.
+**Body Font:** JetBrains Mono, same stack.
+
+One face at a time. Code stays in the fixed face; nothing else introduces a second family.
+
+The working scale is small: `30px` display, `24px` headline, `20px` title, `14px` body, `12px` interface, `11px` metadata. Metadata is uppercase and tracked; it whispers, it does not compete with the title. The token layer names the two smallest steps: `--ui-text-whisper` (11px) and `--ui-text-whisper-lg` (12px); the rest come from Tailwind's scale.
+
+## Layout
+
+One 4px grid. The spacing tokens are 2, 4, 6, 8, 10, 12, 16, 24, 32px, named from `hair` to `section`. A surface changes the role (card, panel, modal), not the number.
+
+The layout primitives own the page: `Container` has the measure and the gutters, `Stack` handles one axis, `Grid` sets equal or auto-fit tracks, `Section` carries the vertical rhythm and `Separator` draws the hairline. They read the same spacing scale as the controls.
+
+Controls step through 24, 28, 32, 36, 40 and 44px; icons through 12, 14, 16, 20 and 24px. On a phone the primary controls grow to 44px, because a finger is not a pointer. The page column is `Container`'s business; the root element sets no width.
+
+## Elevation & Depth
+
+Flat at rest, lifted by touch.
+
+A card has `shadow-rest` (`0 1px 2px / 3%`), which reads as paper texture rather than shadow. Hover adds `shadow-lift` and a half-pixel rise; a modal, menu or tooltip uses `shadow-overlay`. Nothing permanent carries a shadow that means "important".
+
+## Shapes
+
+The radius is `6px` for every rectangle: cards, menus, fields, buttons, tags, checkboxes. Density changes size and padding, never the corner. Circles are reserved for things that are round by nature: avatars, radio marks, a slider thumb.
+
+Borders are one hairline in `--ui-line`; hover and focus borders use `--ui-line-strong`. There is no second border weight, no double frame and no clipped corner. Icons share one stroke, `1.7`.
+
+## Components
+
+The component set is documented prop by prop in [`docs/components.md`](docs/components.md). What follows is the design intent.
+
+### Buttons
+
+- **Shape:** no frame, no fill. Padding is horizontal; the height comes from the control scale.
+- **Primary:** bold ink. **Secondary:** soft ink. **Text:** bold ink with a stronger press. **Quiet:** sentence case. **Danger:** the AA danger word.
+- **Hover / Focus:** opacity drops slightly on hover; the focus ring is the theme's 2px ink line, keyboard only.
+
+### Inputs and fields
+
+- **Style:** underline row (`h-9`, bottom border) by default; `boxed` for a pill or a contained field.
+- **Focus:** the border takes the focus colour and the ring appears for the keyboard.
+- **Error:** the message is an alert, the border takes the danger role, and the error wins over the hint.
+
+### Fields with a list
+
+A choice whose list is part of the interface uses `Select`, a themed listbox. A long form may keep the native `SelectField`. A searchable choice is a `Combobox` (one) or `MultiSelect` (several): a field, a filtered listbox and an option named by `aria-activedescendant`.
+
+### Overlays
+
+Menus are a trigger plus data items; arrows, Home/End, Escape and an outside click work, and the first item takes focus when the menu opens. Modals name themselves, trap Tab, lock the page, close on Escape or the backdrop and return focus. Drawers are the side version with the same behaviour. Popovers are anchored and non-modal; they flip when the page runs out of room. Alert dialogs are the one dialog with no close cross and no backdrop dismissal; focus starts on Cancel.
+
+### Feedback and data
+
+Notices are inline, one dot, a title and a sentence. Toasts are transient and live in one region; a danger toast is an alert, the rest are status, and four at a time is enough. Progress is a thin bar with the one radius; indeterminate is a sweep. A skeleton reserves the size the content will take. Tables are for data, not layout: headers sort with a triangle and `aria-sort`, selection is a checkbox column, and a row action belongs in a cell.
+
+### Layout and navigation
+
+Breadcrumbs say where the page sits; the last item is the current page, not a link. A page header is a title, a sentence and the actions at the top right. Pagination keeps first, last and the current neighbourhood; a gap is an ellipsis. A stepper is a sequence, not a progress bar. A nav item is one row: a link when it goes somewhere, a button when it acts.
+
+### Utilities
+
+`Portal` moves an overlay out of its parent's overflow; `FocusTrap` keeps Tab inside a custom region. `Prose` is the reading column, 70ch wide, with code on one surface and tables on a hairline. `FileUpload` selects and lists files; it does not upload. `DatePicker` draws the calendar grid; the host owns the date logic beyond it.
+
+## Do's and Don'ts
+
+### Do
+
+- **Do** read `var(--ui-*)` or a preset name for every colour, border and shadow.
+- **Do** keep every rectangle on `--ui-radius`.
+- **Do** make an action a word, and use a frame only for a chosen state.
+- **Do** give every icon-only control a `label`, and keep a tooltip as a hint rather than the name.
+- **Do** test a new colour role on both `--ui-bg` and `--ui-surface` in all twelve theme and mode pairs.
+- **Do** let text roles carry sentences and keep `--ui-ink-muted` for decoration.
+
+### Don't
+
+- **Don't** write a hex or `rgb()` value inside a component; the contract test fails.
+- **Don't** add a filled call to action or an outlined action button.
+- **Don't** use a status signal where a status word belongs, or the reverse.
+- **Don't** invent a second corner size, a second font family or a second icon stroke.
+- **Don't** use a clickable table row as a keyboard control; put the action in a cell.
+- **Don't** add locale strings, fetch calls or application imports to the kit.
 
 ## What the kit does not own
 

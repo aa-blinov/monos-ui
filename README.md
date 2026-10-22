@@ -1,20 +1,20 @@
 # @monos/ui
 
+A Svelte 4 component kit: 53 primitives, a Tailwind preset, and a plain-CSS token layer with six themes in light and dark. The tokens work without Svelte or Tailwind; the components are source files that your bundler compiles.
+
 [![test](https://github.com/aa-blinov/monos-ui/actions/workflows/test.yml/badge.svg)](https://github.com/aa-blinov/monos-ui/actions/workflows/test.yml) [![the gallery](https://img.shields.io/badge/gallery-live-7a9e9f)](https://aa-blinov.github.io/monos-ui/)
 
-The interface kit extracted from [Monos](https://github.com/aa-blinov/monos): warm paper, one radius, text buttons and a focus ring that belongs to the theme.
+The interface kit extracted from [Monos](https://github.com/aa-blinov/monos): warm paper, one radius, text buttons and a focus ring that belongs to the theme. The design system itself, in one page: [DESIGN.md](DESIGN.md).
 
-It is a Svelte 4 component library with a Tailwind preset and a plain-CSS token layer. The tokens work without Svelte or Tailwind; the components are source files that your bundler compiles.
-
-The design system itself, in one page: [DESIGN.md](DESIGN.md).
-
-> **Status:** 1.0.3, source distribution. Not on npm yet; install from this repository.
+> **Status:** 1.0.5, source distribution. Not on npm yet; install from this repository.
 
 **Live gallery:** [aa-blinov.github.io/monos-ui](https://aa-blinov.github.io/monos-ui/)
 
 ![The kit's gallery: palette, type, buttons and fields](docs/preview.png)
 
-## Install
+---
+
+## Install and quick start
 
 ```bash
 # from GitHub, until it is published on npm
@@ -22,8 +22,6 @@ npm install github:aa-blinov/monos-ui svelte tailwindcss
 ```
 
 Peer dependencies: `svelte@^4` and `tailwindcss@^3.4`.
-
-## Set it up
 
 ### 1. Tailwind preset
 
@@ -81,7 +79,17 @@ Themes: `gruvbox`, `github`, `dracula`, `nord`, `solarized`, `catppuccin`. Modes
 </Modal>
 ```
 
-## Components
+## What it does
+
+- **A component set, not an app shell.** 53 Svelte 4 primitives cover actions, fields, choices, overlays, feedback, navigation, data and layout. The product supplies the content and the routes.
+- **One visual system, six palettes.** Every component reads a semantic `--ui-*` role; `data-theme` and `data-mode` swap the values. A new theme is data in `src/themes.js`, not a component branch.
+- **Text buttons and one radius.** Actions are words. The only frame is a toggle's chosen state. Every rectangle uses the 6px `--ui-radius`.
+- **A token layer that stands alone.** `tokens.css` and `themes.css` work in plain CSS or any framework; Svelte is only needed for the components.
+- **A Tailwind bridge.** `tailwind-preset.js` exposes the roles as utility names, so host code writes `bg-surface text-ink border-line` instead of arbitrary values.
+- **Accessible defaults.** The focus ring is a theme token. Text roles clear WCAG AA on the page and on a card in all twelve theme and mode pairs. Overlays trap and restore focus.
+- **The gallery is the reference.** Every component is shown in every theme and both modes; the gallery is built from the same source a consumer imports.
+
+### Components
 
 | Component                      | What it is                                                                                                     |
 | ------------------------------ | -------------------------------------------------------------------------------------------------------------- |
@@ -135,21 +143,80 @@ Themes: `gruvbox`, `github`, `dracula`, `nord`, `solarized`, `catppuccin`. Modes
 
 Full props, events and slots: [docs/components.md](docs/components.md). Tokens: [docs/tokens.md](docs/tokens.md). Moving Monos itself onto the kit: [docs/migrating-monos.md](docs/migrating-monos.md).
 
-## What it believes
+## Configuration
 
-- **Colour is a role, not a value.** Components read `var(--ui-…)`; a theme changes values, never components. Status words use the AA `*-text` roles; dots keep the signal.
-- **One radius.** Every rectangle is `--ui-radius` (6px). Circles are only things that are round by nature.
-- **Text is the button.** No filled CTA, no outlined action button; the only frame is a toggle's chosen state.
-- **Flat at rest.** Cards carry a 3%-black shadow; only hover and overlays lift.
-- **Quiet focus.** A 2px line in the theme's ink, shown from the keyboard; a mouse click never draws it.
-- **Words belong to the product.** The kit has no locale files; labels arrive as props and slots.
+The package has six entry points and two DOM attributes; there is no runtime configuration object.
+
+| Entry point                | What it gives you                                                |
+| -------------------------- | ---------------------------------------------------------------- |
+| `@monos/ui`                | The 53 components, the tooltip action, the toast store, the palettes |
+| `@monos/ui/styles.css`     | `tokens.css`, `themes.css` and `base.css` in that order          |
+| `@monos/ui/tokens.css`     | Geometry, type, motion and z-index tokens                        |
+| `@monos/ui/themes.css`     | The colour blocks for every theme and mode                       |
+| `@monos/ui/tailwind-preset` | Semantic names for Tailwind                                    |
+| `@monos/ui/themes`         | The palette data, `themeNames` and `modes`                       |
+
+| Attribute   | Values                                                              | Default   |
+| ----------- | ------------------------------------------------------------------- | --------- |
+| `data-theme` | `gruvbox`, `github`, `dracula`, `nord`, `solarized`, `catppuccin`  | `gruvbox` |
+| `data-mode` | `light`, `dark`                                                     | `light`   |
+
+Set both attributes on `<html>`. The selectors are `:root`, `:root[data-mode="dark"]:not([data-theme])` and `[data-theme="…"][data-mode="…"]`; anything else falls back to Gruvbox light. Colour tokens are plain values, so Tailwind's `/opacity` modifier does not apply to them; use `color-mix()` as the kit does.
+
+## How it works
+
+Three layers, one direction of dependency:
+
+```
+src/themes.js          palette data, six themes, two modes
+      |
+      v
+src/theme-css.js       contrast walker + CSS renderer
+      |
+      v
+src/styles/themes.css  generated and committed
+src/styles/tokens.css  geometry, type, motion, z
+src/tailwind-preset.js the same names as Tailwind utilities
+      |
+      v
+src/components/*.svelte  53 primitives reading roles
+      |
+      v
+src/index.js          the public surface
+```
+
+`npm run build:themes` turns the palette data into `src/styles/themes.css`. The CSS is committed so a consumer can import it without running the generator; `tests/themes.test.js` regenerates it and fails when the committed file is out of date. The status-word roles (`--ui-danger-text` and siblings) are computed by darkening or lightening the signal until the word clears AA on both `--ui-bg` and `--ui-surface`, keeping the hue.
+
+Components never write a hex or an `rgb()` value, and never import from an application. `tests/contract.test.js` enforces both, and every `.svelte` file in `src/components/` has to be exported from `src/index.js`.
+
+### Repository layout
+
+```
+src/
+  components/          Svelte 4 primitives
+  styles/
+    tokens.css         geometry, type, motion, z
+    themes.css         generated palette blocks
+    base.css           optional page base
+    index.css          all of the above
+  themes.js            palette data
+  theme-css.js         the generator shared by the build and the tests
+  tailwind-preset.js   semantic names for Tailwind
+  tooltip.js           the shared tooltip action
+  index.js             the public surface
+gallery/               the visual reference
+gallery/sections/      one component per gallery section
+tests/                 contract, contrast and behaviour tests
+docs/                  architecture, components, tokens, migration notes
+```
 
 ## Accessibility
 
-- The focus ring is a theme token and clears 3:1 (covered by the theme tests).
+- The focus ring is a 2px line in the theme's ink, drawn by `:focus-visible` and removed for a mouse click.
 - `IconButton` requires `label`; `Modal` names itself and traps Tab; `Menu` moves with arrows, Home/End, Escape; `Switch` is a `role="switch"` button.
 - Text roles (`ink`, `ink-soft`, `ink-faint`) are tested for WCAG AA on the page and on a card in all twelve theme/mode pairs.
 - Tooltips are visual hints only; every control keeps its accessible name without one.
+- Touch targets grow to 44px on a phone, including calendar days.
 
 ## Development
 
@@ -164,28 +231,8 @@ npm run build:gallery  # production build of the gallery
 npm run build:themes   # regenerate src/styles/themes.css after editing src/themes.js
 ```
 
-The gallery is the visual reference: every component, every theme, both modes. It is built from the same source consumers import.
+The gallery is the visual reference: every component, every theme, both modes. It is built from the same source consumers import. There is no library build step: the package ships `src/`, and the consumer's bundler compiles the components.
 
-## Structure
+## License
 
-```
-src/
-  components/          Svelte 4 primitives
-  styles/
-    tokens.css         geometry, type, motion, z
-    themes.css         generated palette blocks
-    base.css           optional page base
-    index.css          all of the above
-  themes.js            palette data
-  theme-css.js          the generator shared by the build and the tests
-  tailwind-preset.js   semantic names for Tailwind
-  tooltip.js           the shared tooltip action
-  index.js             the public surface
-gallery/               the visual reference
-gallery/sections/      one component per gallery section
-tests/                 contract, contrast and behaviour tests
-```
-
-## Licence
-
-MIT. The visual system comes from Monos; the kit is a separate package so other products can use it without the app.
+[MIT](LICENSE), copyright 2026 aa-blinov. The visual system comes from Monos; the kit is a separate package so other products can use it without the app.
