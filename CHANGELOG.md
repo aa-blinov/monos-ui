@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.1.10
+
+- `Menu` takes a bindable `open`; items take `iconProps` and `class`.
+- A product menu can keep its state, its filled icons and its mobile-only rows.
+
 ## 1.1.9
 
 - `Menu` items take `href` and `testid`; the list takes `menuTestid`. A product

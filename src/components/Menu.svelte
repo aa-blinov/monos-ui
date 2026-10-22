@@ -21,7 +21,7 @@
   export { className as class };
 
   const dispatch = createEventDispatcher();
-  let open = false;
+  export let open = false;
   let anchor;
   let menuEl;
 
@@ -145,13 +145,21 @@
             data-testid={item.testid || undefined}
             aria-disabled={item.disabled ? 'true' : undefined}
             tabindex={item.disabled ? -1 : undefined}
-            class="flex min-h-8 w-full items-center gap-2.5 rounded-ui px-3 text-left text-sm outline-none transition-colors duration-fast max-sm:min-h-11 focus:bg-surface focus:text-ink {item.danger
+            class="flex min-h-8 w-full items-center gap-2.5 rounded-ui px-3 text-left text-sm outline-none transition-colors duration-fast max-sm:min-h-11 focus:bg-surface focus:text-ink {item.class ||
+              ''} {item.danger
               ? 'text-danger-text hover:bg-[color-mix(in_srgb,var(--ui-danger)_10%,transparent)] hover:text-danger-text'
               : 'text-ink-soft hover:bg-surface hover:text-ink'} {item.disabled ? 'cursor-not-allowed opacity-30' : ''}"
             on:click={() => choose(item)}
           >
             {#if item.icon}
-              <svelte:component this={item.icon} size={16} strokeWidth="1.7" class="shrink-0" aria-hidden="true" />
+              <svelte:component
+                this={item.icon}
+                {...item.iconProps || {}}
+                size={16}
+                strokeWidth="1.7"
+                class="shrink-0"
+                aria-hidden="true"
+              />
             {/if}
             <span class="truncate">{item.label}</span>
           </svelte:element>
