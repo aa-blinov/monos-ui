@@ -586,4 +586,4 @@ Event: `change` with the step id when `clickable`. The current step has `aria-cu
 
 ## TagInput
 
-`tags` (bindable string array), `suggestions`, `label`, `placeholder`, `hint`, `removeLabel`, `disabled`, `max` (`0` = no limit), `id`, `class`. Enter or a comma adds a tag, Backspace in an empty field removes the last, and suggestions narrow as the person types. Event: `change` with the next array.
+`tags` (bindable string array), `suggestions`, `label`, `ariaLabel`, `placeholder`, `hint`, `removeLabel` (string or `(tag) => string`), `prefix`, `testid`, `suggestionsTestid`, `commitOnBlur`, `disabled`, `max` (`0` = no limit), `id`, `class`. Enter or a comma adds a tag, Backspace in an empty field removes the last, and suggestions narrow as the person types. Event: `change` with the next array.

@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.1.2
+
+- `TagInput` takes `ariaLabel`, `testid`, `suggestionsTestid`, `prefix`,
+  `commitOnBlur`, and `removeLabel` can be a function of the tag. This lets a
+  product keep its "Remove tag alpha" labels and `#` prefixes.
+- 68 tests.
+
 ## 1.1.1
 
 - `Select` `sm` is 28px, like the other small controls.

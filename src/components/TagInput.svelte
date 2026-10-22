@@ -17,6 +17,11 @@
   export let placeholder = 'Add a tag';
   export let hint = '';
   export let removeLabel = 'Remove';
+  export let ariaLabel = '';
+  export let testid = '';
+  export let suggestionsTestid = '';
+  export let prefix = '';
+  export let commitOnBlur = false;
   export let disabled = false;
   export let max = 0;
   export let id = '';
@@ -32,7 +37,7 @@
 
   let value = '';
   let focused = false;
-  let inputEl;
+  export let inputEl = null;
   let blurTimer;
 
   $: query = value.trim().replace(/^#/, '');
@@ -85,7 +90,12 @@
     focused = true;
   }
 
+  function removeLabelFor(tag) {
+    return typeof removeLabel === 'function' ? removeLabel(tag) : removeLabel;
+  }
+
   function onBlur() {
+    if (commitOnBlur && value.trim()) addTag(value);
     blurTimer = setTimeout(() => (focused = false), 120);
   }
 
@@ -103,10 +113,11 @@
       ? 'cursor-not-allowed opacity-50'
       : 'focus-within:border-ink-soft'}"
     role="group"
-    aria-labelledby={`${fieldId}-label`}
+    aria-labelledby={label ? `${fieldId}-label` : undefined}
+    aria-label={!label ? ariaLabel || undefined : undefined}
   >
     {#each tags as tag, index (tag)}
-      <Chip removable {removeLabel} on:remove={() => removeTag(index)}>{tag}</Chip>
+      <Chip removable removeLabel={removeLabelFor(tag)} on:remove={() => removeTag(index)}>{prefix}{tag}</Chip>
     {/each}
     <input
       bind:this={inputEl}
@@ -114,7 +125,8 @@
       bind:value
       {disabled}
       {placeholder}
-      aria-label={label}
+      data-testid={testid || undefined}
+      aria-label={!label ? ariaLabel || undefined : undefined}
       aria-describedby={hint ? hintId : undefined}
       aria-autocomplete="list"
       aria-expanded={showSuggestions}
@@ -130,7 +142,12 @@
     <p id={hintId} class="mt-1.5 text-xs text-ink-faint">{hint}</p>
   {/if}
   {#if showSuggestions}
-    <div id={listId} role="listbox" class="mt-1 w-full rounded-ui border border-line bg-canvas p-1 shadow-overlay">
+    <div
+      id={listId}
+      role="group"
+      data-testid={suggestionsTestid || undefined}
+      class="mt-1 w-full rounded-ui border border-line bg-canvas p-1 shadow-overlay"
+    >
       {#each filtered as tag (tag)}
         <button
           type="button"

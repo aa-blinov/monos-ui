@@ -752,6 +752,20 @@ describe('Sidebar and TagInput', () => {
     expect(button.getAttribute('aria-expanded')).toBe('false');
   });
 
+  test('TagInput can drop its label, prefix tags and name each remove button', () => {
+    render(TagInput, {
+      tags: ['alpha'],
+      label: '',
+      ariaLabel: 'Note tags',
+      prefix: '#',
+      testid: 'note-tags',
+      removeLabel: (tag) => `Remove tag ${tag}`,
+    });
+    expect(screen.getByTestId('note-tags')).toBeTruthy();
+    expect(screen.getByText('#alpha')).toBeTruthy();
+    expect(screen.getByRole('button', { name: 'Remove tag alpha' })).toBeTruthy();
+  });
+
   test('TagInput adds, removes and suggests tags', async () => {
     const { component } = render(TagInput, { tags: ['work'], suggestions: ['work', 'home'] });
     const changed = vi.fn();
