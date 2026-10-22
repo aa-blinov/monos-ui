@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.1.11
+
+- `SearchField` takes `clearOnEscape`. A command palette can close on Escape
+  instead of clearing its query first.
+
 ## 1.1.10
 
 - `Menu` takes a bindable `open`; items take `iconProps` and `class`.

@@ -11,6 +11,7 @@
   export let clearLabel = 'Clear';
   export let size = 'md';
   export let disabled = false;
+  export let clearOnEscape = true;
   export let inputEl = null;
 
   let className = '';
@@ -35,7 +36,7 @@
   }
 
   function onKeydown(event) {
-    if (event.key === 'Escape' && value) {
+    if (clearOnEscape && event.key === 'Escape' && value) {
       event.preventDefault();
       clear();
       return;
