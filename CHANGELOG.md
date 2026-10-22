@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.1.9
+
+- `Menu` items take `href` and `testid`; the list takes `menuTestid`. A product
+  menu keeps its links and its existing test hooks.
+
 ## 1.1.8
 
 - `Card` takes `bare`, so a product that already paints its own note card can

@@ -15,6 +15,7 @@
   export let placement = 'bottom';
   export let width = 'menu';
   export let disabled = false;
+  export let menuTestid = '';
 
   let className = '';
   export { className as class };
@@ -125,6 +126,7 @@
       bind:this={menuEl}
       role="menu"
       aria-label={label}
+      data-testid={menuTestid || undefined}
       tabindex="-1"
       class="absolute z-menu overflow-y-auto rounded-ui border border-line bg-canvas p-1 shadow-overlay {align === 'end'
         ? 'right-0'
@@ -135,20 +137,24 @@
         {#if item.separator}
           <div class="my-1 h-px bg-line" role="separator" aria-hidden="true"></div>
         {:else}
-          <button
-            type="button"
+          <svelte:element
+            this={item.href ? 'a' : 'button'}
+            href={item.href}
+            type={item.href ? undefined : 'button'}
             role="menuitem"
-            disabled={item.disabled}
-            class="flex min-h-8 w-full items-center max-sm:min-h-11 gap-2.5 rounded-ui px-3 text-left text-sm outline-none transition-colors duration-fast focus:bg-surface focus:text-ink {item.danger
+            data-testid={item.testid || undefined}
+            aria-disabled={item.disabled ? 'true' : undefined}
+            tabindex={item.disabled ? -1 : undefined}
+            class="flex min-h-8 w-full items-center gap-2.5 rounded-ui px-3 text-left text-sm outline-none transition-colors duration-fast max-sm:min-h-11 focus:bg-surface focus:text-ink {item.danger
               ? 'text-danger-text hover:bg-[color-mix(in_srgb,var(--ui-danger)_10%,transparent)] hover:text-danger-text'
-              : 'text-ink-soft hover:bg-surface hover:text-ink'} disabled:cursor-not-allowed disabled:opacity-30"
+              : 'text-ink-soft hover:bg-surface hover:text-ink'} {item.disabled ? 'cursor-not-allowed opacity-30' : ''}"
             on:click={() => choose(item)}
           >
             {#if item.icon}
               <svelte:component this={item.icon} size={16} strokeWidth="1.7" class="shrink-0" aria-hidden="true" />
             {/if}
             <span class="truncate">{item.label}</span>
-          </button>
+          </svelte:element>
         {/if}
       {/each}
     </div>
