@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.1.12
+
+- `FieldControl` keeps its `value` in step on `change` too, not only on `input`.
+  A native select bound to a store updates the store before its change handler.
+
 ## 1.1.11
 
 - `SearchField` takes `clearOnEscape`. A command palette can close on Escape

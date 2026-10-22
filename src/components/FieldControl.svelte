@@ -30,6 +30,11 @@
     value = event.currentTarget.value;
     dispatch('input', event);
   }
+
+  function onChange(event) {
+    value = event.currentTarget.value;
+    dispatch('change', event);
+  }
 </script>
 
 <svelte:element
@@ -44,7 +49,7 @@
   role={as === 'select' ? 'combobox' : 'textbox'}
   class={fieldControlClass({ variant, size, extraClass: className })}
   on:input={onInput}
-  on:change
+  on:change={onChange}
   on:keydown
   on:focus
   on:blur
