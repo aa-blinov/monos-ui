@@ -18,6 +18,8 @@
   export let value = '';
   export let label = '';
   export let variant = 'line';
+  export let closable = false;
+  export let closeLabel = 'Close';
 
   let className = '';
   export { className as class };
@@ -44,9 +46,12 @@
     const base =
       'inline-flex items-center whitespace-nowrap text-xs uppercase tracking-widest max-sm:min-h-11 transition-colors duration-fast disabled:cursor-not-allowed disabled:opacity-30';
     if (variant === 'pill') {
-      return `min-h-7 rounded-ui px-3 ${base} ${value === item.id ? 'bg-canvas text-ink shadow-rest' : 'text-ink-soft hover:text-ink'}`;
+      return `min-h-7 rounded-ui px-3 ${base} ${value === item.id ? 'bg-canvas text-ink shadow-rest' : 'text-ink-soft hover:text-ink'} ${item.class || ''}`;
     }
-    return `relative px-0.5 pb-2 pt-1 ${base} ${value === item.id ? 'font-bold text-ink' : 'text-ink-faint hover:text-ink'}`;
+    if (variant === 'bare') {
+      return `min-h-7 rounded-ui px-2 ${base} ${value === item.id ? 'bg-surface text-ink' : 'text-ink-soft hover:bg-surface hover:text-ink'} ${item.class || ''}`;
+    }
+    return `relative px-0.5 pb-2 pt-1 ${base} ${value === item.id ? 'font-bold text-ink' : 'text-ink-faint hover:text-ink'} ${item.class || ''}`;
   }
 
   async function onKeydown(event, index) {
@@ -74,26 +79,47 @@
     aria-label={label || undefined}
     class={variant === 'pill'
       ? 'inline-flex max-w-full overflow-x-auto overflow-y-hidden rounded-ui border border-line bg-surface p-0.5'
-      : 'flex max-w-full gap-6 overflow-x-auto overflow-y-hidden border-b border-line'}
+      : variant === 'bare'
+        ? 'flex max-w-full gap-1 overflow-x-auto overflow-y-hidden'
+        : 'flex max-w-full gap-6 overflow-x-auto overflow-y-hidden border-b border-line'}
   >
     {#each items as item, index}
-      <button
-        type="button"
-        role="tab"
-        id="{baseId}-tab-{item.id}"
-        aria-selected={value === item.id}
-        aria-controls={$$slots.panel ? panelId : undefined}
-        tabindex={value === item.id ? 0 : -1}
-        disabled={item.disabled}
-        class={tabClass(item)}
-        on:click={() => select(item)}
-        on:keydown={(event) => onKeydown(event, index)}
-      >
-        {item.label}
-        {#if variant !== 'pill' && value === item.id}
-          <span class="absolute inset-x-0 bottom-0 h-0.5 bg-ink" aria-hidden="true"></span>
+      <div class={variant === 'bare' ? 'group flex items-center' : 'flex items-center'}>
+        <button
+          type="button"
+          role="tab"
+          id="{baseId}-tab-{item.id}"
+          data-testid={item.testid || undefined}
+          aria-selected={value === item.id}
+          aria-controls={$$slots.panel ? panelId : undefined}
+          tabindex={value === item.id ? 0 : -1}
+          disabled={item.disabled}
+          class={tabClass(item)}
+          on:click={() => select(item)}
+          on:keydown={(event) => onKeydown(event, index)}
+        >
+          {item.label}
+          {#if variant === 'line' && value === item.id}
+            <span class="absolute inset-x-0 bottom-0 h-0.5 bg-ink" aria-hidden="true"></span>
+          {/if}
+        </button>
+        {#if closable}
+          <button
+            type="button"
+            aria-label={closeLabel}
+            data-testid={item.closeTestid || undefined}
+            class="mr-1 inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-ui text-ink-soft opacity-0 transition-opacity duration-fast hover:text-ink focus-visible:opacity-100 group-hover:opacity-100 {value ===
+            item.id
+              ? 'opacity-60'
+              : ''}"
+            on:click|stopPropagation={() => dispatch('close', item.id)}
+          >
+            <svg class="h-3 w-3" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="m6 6 12 12M18 6 6 18" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" />
+            </svg>
+          </button>
         {/if}
-      </button>
+      </div>
     {/each}
   </div>
 

@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.1.13
+
+- `Tabs` takes `closable`, `closeLabel` and a `bare` variant; items take
+  `testid`, `closeTestid` and `class`.
+
 ## 1.1.12
 
 - `FieldControl` keeps its `value` in step on `change` too, not only on `input`.
