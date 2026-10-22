@@ -574,7 +574,7 @@ Event: `change` with the step id when `clickable`. The current step has `aria-cu
 
 ## Sidebar
 
-`as` (`aside`), `label`, `width` (`16rem`), `class`. A labelled shell that owns its scroll and the one vertical border. The content is `SidebarSection` groups and `SidebarItem` rows; the component knows nothing about notes.
+`as` (`aside`), `label`, `width` (`16rem`), `scroll` (`true`), `bordered` (`true`), `class`. A labelled shell that owns its scroll and the one vertical border; a host that manages its own scroll and border passes `scroll={false}` and `bordered={false}`. The content is `SidebarSection` groups and `SidebarItem` rows; the component knows nothing about notes.
 
 ## SidebarSection
 

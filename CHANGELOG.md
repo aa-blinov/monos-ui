@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.1.5
+
+- `Sidebar` takes `scroll` and `bordered`, and forwards a context-menu event from
+  its scroll body. A host can keep its own scroll, resize border and background
+  menu while using the shell.
+
 ## 1.1.4
 
 - `SidebarItem` takes `style` and forwards context-menu, keyboard and drag

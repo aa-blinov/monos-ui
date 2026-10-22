@@ -7,6 +7,8 @@
   export let as = 'aside';
   export let label = 'Sidebar';
   export let width = '16rem';
+  export let scroll = true;
+  export let bordered = true;
 
   let className = '';
   export { className as class };
@@ -15,11 +17,15 @@
 <svelte:element
   this={as}
   aria-label={label || undefined}
-  class="flex h-full min-h-0 flex-col border-r border-line bg-canvas {className}"
+  class="flex h-full min-h-0 flex-col {bordered ? 'border-r border-line' : ''} bg-canvas {className}"
   style={width ? `width: ${width};` : undefined}
   {...$$restProps}
 >
-  <div class="flex min-h-0 flex-1 flex-col overflow-y-auto">
+  <div
+    class="flex min-h-0 flex-1 flex-col {scroll ? 'overflow-y-auto' : 'overflow-hidden'}"
+    role="presentation"
+    on:contextmenu
+  >
     <slot />
   </div>
 </svelte:element>
