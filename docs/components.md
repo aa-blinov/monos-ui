@@ -157,6 +157,8 @@ Without a trigger slot the menu draws a quiet button with `label`. Keyboard: the
 
 ## Modal
 
+`widthClass`, `titleClass` and `descriptionClass` let a host keep its dialog face. Dialogs stack: only the top one answers Escape and holds Tab; a control that autofocuses inside the dialog keeps focus.
+
 | Prop              | Type                    | Default            |
 | ----------------- | ----------------------- | ------------------ |
 | `open`            | boolean                 | `false` (bindable) |

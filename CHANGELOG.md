@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.0.5
+
+- `Modal` keeps a stack of open dialogs: only the top one answers Escape and
+  holds Tab, and a child dialog returns focus to the panel under it.
+- A control inside a dialog that autofocuses keeps focus; the panel is the
+  fallback.
+- `Modal` takes `widthClass`, `titleClass` and `descriptionClass` so a host can
+  keep its own dialog face without copying the panel.
+- 62 tests.
+
 ## 1.0.4
 
 - `IconButton` takes `bare` for a host that owns the row size and variant.

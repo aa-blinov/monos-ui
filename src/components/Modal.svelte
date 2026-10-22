@@ -1,5 +1,8 @@
 <script context="module">
   let counter = 0;
+  // Only the top dialog answers Escape or holds Tab: a confirmation over a panel
+  // closes alone and focus never leaks to the dialog underneath.
+  const openStack = [];
 </script>
 
 <script>
@@ -17,6 +20,9 @@
   export let title = '';
   export let description = '';
   export let size = 'md';
+  export let widthClass = '';
+  export let titleClass = 'text-lg font-bold tracking-tight';
+  export let descriptionClass = 'mt-1.5 text-xs leading-relaxed text-ink-soft';
   export let closeLabel = 'Close';
   export let closeOnBackdrop = true;
   export let closeOnEscape = true;
@@ -29,6 +35,7 @@
 
   const dispatch = createEventDispatcher();
   const uid = ++counter;
+  const token = {};
   const titleId = `ui-modal-title-${uid}`;
   const descriptionId = `ui-modal-description-${uid}`;
   let panel;
@@ -75,9 +82,10 @@
     lastFocused = typeof document !== 'undefined' ? document.activeElement : null;
     lockScroll();
     await tick();
-    // Focus the requested control, or the dialog itself: the first control would show its tooltip the moment
-    // the dialog opens.
-    (initialFocus || panel)?.focus();
+    // A control inside the dialog may already have taken focus (a title field that
+    // autofocuses). Keep it; otherwise focus the requested control or the panel.
+    if (initialFocus) initialFocus.focus();
+    else if (!panel?.contains(document.activeElement)) panel?.focus();
   }
 
   function deactivate() {
@@ -88,10 +96,12 @@
 
   $: if (open && !wasOpen) {
     wasOpen = true;
+    openStack.push(token);
     void activate();
   }
   $: if (!open && wasOpen) {
     wasOpen = false;
+    openStack.splice(openStack.indexOf(token), 1);
     deactivate();
   }
 
@@ -102,7 +112,10 @@
   }
 
   onDestroy(() => {
-    if (wasOpen) unlockScroll();
+    if (!wasOpen) return;
+    wasOpen = false;
+    openStack.splice(openStack.indexOf(token), 1);
+    deactivate();
   });
 
   function requestClose() {
@@ -111,7 +124,7 @@
   }
 
   function onKeydown(event) {
-    if (!open) return;
+    if (!open || openStack[openStack.length - 1] !== token) return;
     if (event.key === 'Escape' && closeOnEscape) {
       event.preventDefault();
       requestClose();
@@ -158,9 +171,8 @@
       aria-labelledby={title ? titleId : undefined}
       aria-describedby={description ? descriptionId : undefined}
       tabindex="-1"
-      class="relative z-10 max-h-[calc(100dvh-4rem)] w-full overflow-y-auto rounded-ui border border-line bg-canvas p-6 text-ink sm:p-8 shadow-overlay outline-none {sizes[
-        size
-      ] || sizes.md} {className}"
+      class="relative z-10 max-h-[calc(100dvh-4rem)] overflow-y-auto rounded-ui border border-line bg-canvas p-6 text-ink sm:p-8 shadow-overlay outline-none {widthClass ||
+        `w-full ${sizes[size] || sizes.md}`} {className}"
     >
       {#if showClose}
         <IconButton
@@ -178,10 +190,10 @@
       {/if}
 
       {#if title}
-        <h2 id={titleId} class="pr-10 text-lg font-bold tracking-tight">{title}</h2>
+        <h2 id={titleId} class="pr-10 {titleClass}">{title}</h2>
       {/if}
       {#if description}
-        <p id={descriptionId} class="mt-1.5 text-xs leading-relaxed text-ink-soft">{description}</p>
+        <p id={descriptionId} class={descriptionClass}>{description}</p>
       {/if}
 
       <div class="mt-4">
