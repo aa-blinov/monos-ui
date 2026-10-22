@@ -20,6 +20,7 @@
   export let rows = 4;
   export let variant = 'underline';
   export let size = 'md';
+  export let inputEl = null;
 
   let className = '';
   export { className as class };
@@ -46,6 +47,7 @@
   {type}
   {rows}
   {value}
+  bind:this={inputEl}
   role={as === 'select' ? 'combobox' : 'textbox'}
   class={fieldControlClass({ variant, size, extraClass: className })}
   on:input={onInput}

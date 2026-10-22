@@ -375,7 +375,7 @@ toast({ title: 'Deleted', tone: 'success', action: { label: 'Undo', onClick: und
 
 ## FieldControl
 
-`as` (`input | select | textarea`), `value`, `type`, `options`, `id`, `name`, `placeholder`, `disabled`, `rows`, `variant` (`underline | boxed`), `size`, `class`. A native field with the kit geometry, for a product that already owns its label, hint and error. The same class is exported as `fieldControlClass({ variant, size, extraClass })`.
+`as` (`input | select | textarea`), `value`, `type`, `options`, `id`, `name`, `placeholder`, `disabled`, `rows`, `inputEl`, `variant` (`underline | boxed`), `size`, `class`. A native field with the kit geometry, for a product that already owns its label, hint and error. The same class is exported as `fieldControlClass({ variant, size, extraClass })`.
 
 ## FormField
 

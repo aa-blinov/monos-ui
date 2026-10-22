@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.1.16
+
+- `FieldControl` exposes `inputEl`, so an inline editor can focus and select the
+  native field after mount.
+
 ## 1.1.15
 
 - `Menu` items take `checked`; they render as `menuitemradio`, carry
