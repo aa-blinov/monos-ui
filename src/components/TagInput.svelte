@@ -151,11 +151,9 @@
       {#each filtered as tag (tag)}
         <button
           type="button"
-          role="option"
-          aria-selected="false"
           class="block w-full rounded-ui px-2 py-1.5 text-left text-sm text-ink-soft transition-colors duration-fast hover:bg-surface hover:text-ink"
           on:mousedown|preventDefault
-          on:click={() => choose(tag)}>{tag}</button
+          on:click={() => choose(tag)}>{prefix}{tag}</button
         >
       {/each}
     </div>

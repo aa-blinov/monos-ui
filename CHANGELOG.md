@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.1.3
+
+- `TagInput` suggestions show the same `prefix` as the chosen tags and are
+  ordinary buttons, so a product keeps its `#tag` labels in the suggestions.
+
 ## 1.1.2
 
 - `TagInput` takes `ariaLabel`, `testid`, `suggestionsTestid`, `prefix`,
