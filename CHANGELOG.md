@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.1.15
+
+- `Menu` items take `checked`; they render as `menuitemradio`, carry
+  `aria-checked` and show a check mark.
+
 ## 1.1.14
 
 - `SearchField` takes `clearable`. A compact field that has its own close button

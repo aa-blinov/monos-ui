@@ -141,8 +141,9 @@
             this={item.href ? 'a' : 'button'}
             href={item.href}
             type={item.href ? undefined : 'button'}
-            role="menuitem"
+            role={item.checked === undefined ? 'menuitem' : 'menuitemradio'}
             data-testid={item.testid || undefined}
+            aria-checked={item.checked === undefined ? undefined : item.checked ? 'true' : 'false'}
             aria-disabled={item.disabled ? 'true' : undefined}
             tabindex={item.disabled ? -1 : undefined}
             class="flex min-h-8 w-full items-center gap-2.5 rounded-ui px-3 text-left text-sm outline-none transition-colors duration-fast max-sm:min-h-11 focus:bg-surface focus:text-ink {item.class ||
@@ -161,7 +162,18 @@
                 aria-hidden="true"
               />
             {/if}
-            <span class="truncate">{item.label}</span>
+            <span class="min-w-0 flex-1 truncate">{item.label}</span>
+            {#if item.checked}
+              <svg class="h-3 w-3 shrink-0" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path
+                  d="m20 6-11 11-5-5"
+                  stroke="currentColor"
+                  stroke-width="1.7"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            {/if}
           </svelte:element>
         {/if}
       {/each}

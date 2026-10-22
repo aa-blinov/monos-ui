@@ -1,6 +1,6 @@
 {
   "name": "@monos/ui",
-  "version": "1.1.14",
+  "version": "1.1.15",
   "engines": {
     "node": "^18.0.0 || >=20.0.0"
   },
