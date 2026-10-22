@@ -18,6 +18,7 @@
   export let type = 'button';
   export let disabled = false;
   export let pressed = undefined;
+  export let bare = false;
 
   let className = '';
   export { className as class };
@@ -33,9 +34,10 @@
     ghost: 'text-ink-soft hover:bg-surface hover:text-ink',
   };
 
-  $: base =
-    'inline-flex items-center justify-center rounded-ui transition-colors duration-fast disabled:cursor-not-allowed disabled:opacity-30 max-sm:h-11 max-sm:w-11';
-  $: active = pressed ? 'bg-surface text-ink' : '';
+  $: base = bare
+    ? 'inline-flex items-center justify-center rounded-ui transition-colors duration-fast disabled:cursor-not-allowed disabled:opacity-30'
+    : 'inline-flex items-center justify-center rounded-ui transition-colors duration-fast disabled:cursor-not-allowed disabled:opacity-30 max-sm:h-11 max-sm:w-11';
+  $: active = !bare && pressed ? 'bg-surface text-ink' : '';
 </script>
 
 <button
@@ -43,7 +45,9 @@
   {disabled}
   aria-label={label}
   aria-pressed={pressed === undefined ? undefined : pressed}
-  class="{base} {sizes[size] || sizes.md} {variants[variant] || variants.outline} {active} {className}"
+  class="{base} {bare ? '' : sizes[size] || sizes.md} {bare
+    ? ''
+    : variants[variant] || variants.outline} {active} {className}"
   use:tooltip={tip}
   on:click
   on:focus

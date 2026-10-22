@@ -11,6 +11,7 @@
   export let clearLabel = 'Clear';
   export let size = 'md';
   export let disabled = false;
+  export let inputEl = null;
 
   let className = '';
   export { className as class };
@@ -54,6 +55,7 @@
     <path d="m16 16 4 4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" />
   </svg>
   <input
+    bind:this={inputEl}
     type="search"
     {placeholder}
     {disabled}
@@ -68,6 +70,11 @@
     on:blur={(event) => dispatch('blur', event)}
     {...$$restProps}
   />
+  {#if $$slots.trailing}
+    <div class="absolute right-9 top-1/2 flex -translate-y-1/2 items-center gap-1">
+      <slot name="trailing" />
+    </div>
+  {/if}
   {#if value}
     <button
       type="button"

@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.0.4
+
+- `IconButton` takes `bare` for a host that owns the row size and variant.
+- `SearchField` exposes `inputEl` and a `trailing` slot, so a product can put a
+  save action inside the field without replacing it.
+- 62 tests.
+
 ## 1.0.3
 
 - Added ESLint and Prettier gates for JavaScript and Svelte; CI now runs `lint` and `format:check`.

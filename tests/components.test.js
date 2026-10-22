@@ -9,6 +9,7 @@ import Button from '../src/components/Button.svelte';
 import Container from '../src/components/Container.svelte';
 import DescriptionList from '../src/components/DescriptionList.svelte';
 import Grid from '../src/components/Grid.svelte';
+import IconButton from '../src/components/IconButton.svelte';
 import List from '../src/components/List.svelte';
 import NavItem from '../src/components/NavItem.svelte';
 import Section from '../src/components/Section.svelte';
@@ -695,6 +696,15 @@ describe('Layout primitives', () => {
     expect(second.container.firstChild.getAttribute('role')).toBe('separator');
     expect(second.container.firstChild.getAttribute('aria-orientation')).toBe('vertical');
   });
+});
+
+test('IconButton can drop its own size and variant for a host row', () => {
+  render(IconButton, { label: 'Row', bare: true, class: 'h-7 w-full' });
+  const button = screen.getByRole('button', { name: 'Row' });
+  expect(button.className).toContain('h-7');
+  expect(button.className).toContain('w-full');
+  expect(button.className).not.toContain('h-9');
+  expect(button.className).not.toContain('w-9');
 });
 
 describe('Stepper and NavItem', () => {
