@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.6
+
+- `FieldControl` and `fieldControlClass` give a native input, select or textarea
+  the same height, underline and focus as the labelled fields.
+- 63 tests.
+
 ## 1.0.5
 
 - `Modal` keeps a stack of open dialogs: only the top one answers Escape and

@@ -14,6 +14,7 @@ export { default as DescriptionList } from './components/DescriptionList.svelte'
 export { default as Drawer } from './components/Drawer.svelte';
 export { default as EmptyState } from './components/EmptyState.svelte';
 export { default as Fieldset } from './components/Fieldset.svelte';
+export { default as FieldControl } from './components/FieldControl.svelte';
 export { default as FileUpload } from './components/FileUpload.svelte';
 export { default as FocusTrap } from './components/FocusTrap.svelte';
 export { default as FormField } from './components/FormField.svelte';
@@ -51,6 +52,7 @@ export { default as TextArea } from './components/TextArea.svelte';
 export { default as TextField } from './components/TextField.svelte';
 export { default as Toaster } from './components/Toaster.svelte';
 export { default as Tooltip } from './components/Tooltip.svelte';
+export { fieldControlClass } from './field.js';
 export { tooltip, HOVER_DELAY } from './tooltip.js';
 export { toasts, toast, dismissToast, clearToasts } from './toast.js';
 export { themes, themeNames, modes } from './themes.js';

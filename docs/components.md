@@ -373,6 +373,10 @@ toast({ title: 'Deleted', tone: 'success', action: { label: 'Undo', onClick: und
 
 `legend`, `hint`, `disabled`, `class`. A native `<fieldset>` with a legend; the default slot holds the controls. Disabling the fieldset disables everything inside it.
 
+## FieldControl
+
+`as` (`input | select | textarea`), `value`, `type`, `options`, `id`, `name`, `placeholder`, `disabled`, `rows`, `variant` (`underline | boxed`), `size`, `class`. A native field with the kit geometry, for a product that already owns its label, hint and error. The same class is exported as `fieldControlClass({ variant, size, extraClass })`.
+
 ## FormField
 
 A label, a hint and an error around a control the kit does not wrap.

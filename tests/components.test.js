@@ -44,6 +44,8 @@ import { clearToasts, toast } from '../src/toast.js';
 import TextField from '../src/components/TextField.svelte';
 import FieldHarness from './fixtures/FieldHarness.svelte';
 import ModalHarness from './fixtures/ModalHarness.svelte';
+import FieldControl from '../src/components/FieldControl.svelte';
+import { fieldControlClass } from '../src/field.js';
 import FocusTrapHarness from './fixtures/FocusTrapHarness.svelte';
 import PortalHarness from './fixtures/PortalHarness.svelte';
 import PageHeader from '../src/components/PageHeader.svelte';
@@ -705,6 +707,25 @@ test('IconButton can drop its own size and variant for a host row', () => {
   expect(button.className).toContain('w-full');
   expect(button.className).not.toContain('h-9');
   expect(button.className).not.toContain('w-9');
+});
+
+test('FieldControl shares the field geometry with a native control', () => {
+  const cls = fieldControlClass({ extraClass: 'appearance-none' });
+  expect(cls).toContain('h-9');
+  expect(cls).toContain('leading-6');
+  expect(cls).toContain('border-b');
+  expect(cls).toContain('appearance-none');
+  expect(cls).not.toMatch(/\bpy-/);
+  const { container } = render(FieldControl, {
+    as: 'select',
+    value: 'b',
+    options: [
+      { value: 'a', label: 'A' },
+      { value: 'b', label: 'B' },
+    ],
+  });
+  expect(container.querySelector('select').value).toBe('b');
+  expect(container.querySelector('select').className).toContain('h-9');
 });
 
 describe('Stepper and NavItem', () => {
