@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.1.8
+
+- `Card` takes `bare`, so a product that already paints its own note card can
+  still use the kit surface for structure and events.
+
 ## 1.1.7
 
 - `Card` forwards click, context-menu and drag events, so a product's existing

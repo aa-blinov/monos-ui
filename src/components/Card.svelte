@@ -9,6 +9,7 @@
   export let padding = 'md';
   export let interactive = false;
   export let selected = false;
+  export let bare = false;
 
   let className = '';
   export { className as class };
@@ -20,7 +21,9 @@
     lg: 'p-6',
   };
 
-  $: classes = `relative block rounded-ui border bg-surface text-ink shadow-rest ${selected ? 'border-ink-soft' : 'border-line'} ${interactive ? 'cursor-pointer transition duration-fast hover:-translate-y-0.5 hover:border-line-strong hover:shadow-lift motion-reduce:hover:translate-y-0' : ''} ${paddings[padding] ?? paddings.md} ${className}`;
+  $: classes = bare
+    ? `relative block rounded-ui ${interactive ? 'cursor-pointer transition duration-fast' : ''} ${paddings[padding] ?? paddings.md} ${className}`
+    : `relative block rounded-ui border bg-surface text-ink shadow-rest ${selected ? 'border-ink-soft' : 'border-line'} ${interactive ? 'cursor-pointer transition duration-fast hover:-translate-y-0.5 hover:border-line-strong hover:shadow-lift motion-reduce:hover:translate-y-0' : ''} ${paddings[padding] ?? paddings.md} ${className}`;
 
   function onKeydown(event) {
     if (as === 'button' || as === 'a') return;
