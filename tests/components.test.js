@@ -13,6 +13,10 @@ import IconButton from '../src/components/IconButton.svelte';
 import List from '../src/components/List.svelte';
 import NavItem from '../src/components/NavItem.svelte';
 import Section from '../src/components/Section.svelte';
+import Sidebar from '../src/components/Sidebar.svelte';
+import SidebarItem from '../src/components/SidebarItem.svelte';
+import SidebarSection from '../src/components/SidebarSection.svelte';
+import TagInput from '../src/components/TagInput.svelte';
 import Separator from '../src/components/Separator.svelte';
 import Stack from '../src/components/Stack.svelte';
 import Stepper from '../src/components/Stepper.svelte';
@@ -726,6 +730,40 @@ test('FieldControl shares the field geometry with a native control', () => {
   });
   expect(container.querySelector('select').value).toBe('b');
   expect(container.querySelector('select').className).toContain('h-9');
+});
+
+describe('Sidebar and TagInput', () => {
+  test('Sidebar is a labelled surface and SidebarItem keeps its depth', () => {
+    const { container } = render(Sidebar, { label: 'Notes' });
+    expect(container.querySelector('aside').getAttribute('aria-label')).toBe('Notes');
+    cleanup();
+    const item = render(SidebarItem, { href: '/notes', label: 'Notes', active: true, depth: 2 });
+    const link = screen.getByRole('link', { name: 'Notes' });
+    expect(link.getAttribute('aria-current')).toBe('page');
+    expect(link.getAttribute('style')).toContain('2.25rem');
+    expect(item.component).toBeTruthy();
+  });
+
+  test('SidebarSection announces and toggles its body', async () => {
+    render(SidebarSection, { title: 'Folders', collapsible: true, open: true, count: 3 });
+    const button = screen.getByRole('button', { name: /Folders/ });
+    expect(button.getAttribute('aria-expanded')).toBe('true');
+    await fireEvent.click(button);
+    expect(button.getAttribute('aria-expanded')).toBe('false');
+  });
+
+  test('TagInput adds, removes and suggests tags', async () => {
+    const { component } = render(TagInput, { tags: ['work'], suggestions: ['work', 'home'] });
+    const changed = vi.fn();
+    component.$on('change', changed);
+    const input = screen.getByRole('textbox', { name: 'Tags' });
+    await fireEvent.input(input, { target: { value: 'home' } });
+    await fireEvent.keyDown(input, { key: 'Enter' });
+    expect(changed).toHaveBeenCalledWith(expect.objectContaining({ detail: ['work', 'home'] }));
+    const remove = screen.getAllByRole('button', { name: 'Remove' })[0];
+    await fireEvent.click(remove);
+    expect(changed).toHaveBeenLastCalledWith(expect.objectContaining({ detail: ['home'] }));
+  });
 });
 
 describe('Stepper and NavItem', () => {

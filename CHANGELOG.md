@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.1.0
+
+- `Sidebar`, `SidebarSection` and `SidebarItem` give a product shell a generic
+  surface, a collapsible group and a navigation row with depth.
+- `TagInput` adds a controlled tag field with suggestions and keyboard
+  add/remove.
+- 66 tests.
+
 ## 1.0.7
 
 - `@monos/ui/field` exposes `fieldControlClass` without importing the Svelte

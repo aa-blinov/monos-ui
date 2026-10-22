@@ -571,3 +571,19 @@ Event: `change` with the step id when `clickable`. The current step has `aria-cu
 ## FocusTrap
 
 `active` (`true`), `initialFocus` (an element), `returnFocus` (`true`), `class`. Keeps Tab inside the region while active, starts on `initialFocus` or the first control, and restores the previous focus when released or destroyed. It is a utility, not a dialog: the owner still handles Escape, the backdrop and the close.
+
+## Sidebar
+
+`as` (`aside`), `label`, `width` (`16rem`), `class`. A labelled shell that owns its scroll and the one vertical border. The content is `SidebarSection` groups and `SidebarItem` rows; the component knows nothing about notes.
+
+## SidebarSection
+
+`title`, `count`, `collapsible` (`false`), `open` (`true`, bindable), `level` (`2`), `class`. Slots: `actions`, default. A collapsible section announces `aria-expanded` and hides its body when closed. `count` is the quiet number after the title.
+
+## SidebarItem
+
+`href`, `active`, `disabled`, `depth` (`0`), `label`, `class`. Slots: `icon`, default, `trailing`. A link when `href` is set, a button otherwise; `depth` indents a tree row. The active row takes the surface.
+
+## TagInput
+
+`tags` (bindable string array), `suggestions`, `label`, `placeholder`, `hint`, `removeLabel`, `disabled`, `max` (`0` = no limit), `id`, `class`. Enter or a comma adds a tag, Backspace in an empty field removes the last, and suggestions narrow as the person types. Event: `change` with the next array.

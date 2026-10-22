@@ -1,6 +1,7 @@
 <script>
   import { onDestroy } from 'svelte';
   import { IconButton, Select, SegmentedControl, Toaster, themes, themeNames } from '../src/index.js';
+  import AppShellSection from './sections/AppShellSection.svelte';
   import ButtonsSection from './sections/ButtonsSection.svelte';
   import DataSection from './sections/DataSection.svelte';
   import EmptySection from './sections/EmptySection.svelte';
@@ -38,6 +39,7 @@
     ['structure', 'Structure'],
     ['table', 'Table'],
     ['data', 'Data'],
+    ['app-shell', 'App shell'],
     ['navigation', 'Navigation'],
     ['utilities', 'Utilities'],
     ['overlays', 'Overlays'],
@@ -146,7 +148,7 @@
         </IconButton>
       </div>
       <p class="mt-5 flex flex-wrap gap-x-5 gap-y-1 text-whisper uppercase tracking-widest text-ink-faint">
-        <span>53 components</span>
+        <span>57 components</span>
         <span>6 themes</span>
         <span>2 modes</span>
         <span>Svelte 4 and Tailwind 3</span>
@@ -213,6 +215,7 @@
   <StructureSection />
   <TableSection />
   <DataSection />
+  <AppShellSection />
   <NavigationSection />
   <UtilitiesSection />
   <OverlaysSection />

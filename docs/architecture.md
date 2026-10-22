@@ -8,7 +8,7 @@ The entry points are declared in `package.json`:
 
 | Entry                       | File                     | What it carries                                                                                                            |
 | --------------------------- | ------------------------ | -------------------------------------------------------------------------------------------------------------------------- |
-| `@monos/ui`                 | `src/index.js`           | 53 components, `tooltip`, `HOVER_DELAY`, `toasts`, `toast`, `dismissToast`, `clearToasts`, `themes`, `themeNames`, `modes` |
+| `@monos/ui`                 | `src/index.js`           | 57 components, `tooltip`, `HOVER_DELAY`, `toasts`, `toast`, `dismissToast`, `clearToasts`, `themes`, `themeNames`, `modes` |
 | `@monos/ui/styles.css`      | `src/styles/index.css`   | `tokens.css`, `themes.css`, `base.css`                                                                                     |
 | `@monos/ui/tokens.css`      | `src/styles/tokens.css`  | Geometry, type, motion, z-index                                                                                            |
 | `@monos/ui/themes.css`      | `src/styles/themes.css`  | The colour blocks                                                                                                          |
@@ -50,7 +50,7 @@ Every component is a Svelte 4 single-file component under `src/components/`. Lab
 
 The components share a small set of conventions:
 
-- A `class` prop is exposed through `let className = ''; export { className as class };` in 52 of the 53 components, so a host can extend the root element without a wrapper. `Spinner` is the exception.
+- A `class` prop is exposed through `let className = ''; export { className as class };` in 56 of the 57 components, so a host can extend the root element without a wrapper. `Spinner` is the exception.
 - User-facing values are bindable props (`value`, `open`, `selected`, `files`, and so on), and events are forwarded with `on:click`, `on:input` and their siblings.
 - The root element uses Tailwind names from the preset, never a palette value. `tests/contract.test.js` fails on a literal hex or `rgb()`.
 - Overlays use `Portal` to leave a parent's overflow, and `FocusTrap` for the Tab loop. `Modal` stacks open dialogs: only the top one answers Escape and holds Tab, and a child returns focus to the panel under it.
