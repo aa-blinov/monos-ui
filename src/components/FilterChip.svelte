@@ -23,5 +23,5 @@
   on:click
   {...$$restProps}
 >
-  <span class="min-w-0 truncate"><slot /></span>
+  <span class="inline-flex min-w-0 items-center gap-1 truncate"><slot /></span>
 </button>
