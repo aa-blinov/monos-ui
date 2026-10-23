@@ -61,6 +61,6 @@
   {:else}
     <slot name="icon" />
   {/if}
-  <span class="truncate"><slot /></span>
+  <span class="inline-flex min-w-0 items-center gap-2 truncate"><slot /></span>
   <slot name="trailing" />
 </button>
