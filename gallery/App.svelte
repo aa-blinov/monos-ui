@@ -97,12 +97,7 @@
 
 <nav class="sticky top-0 z-20 border-b border-line bg-canvas" aria-label="Monos UI">
   <div class="mx-auto flex max-w-5xl items-center justify-between gap-4 px-6 py-3">
-    <a href="#top" class="flex items-baseline gap-2 text-sm font-bold tracking-tight"
-      >Monos UI <span
-        class="rounded-ui border border-line px-1.5 py-0.5 font-mono text-[length:var(--text-whisper)] font-normal uppercase tracking-widest text-ink-faint"
-        >v{VERSION}</span
-      ></a
-    >
+    <a href="#top" class="text-sm font-bold tracking-tight transition-colors duration-fast hover:text-ink">Monos UI</a>
     <div class="flex items-center gap-5 text-whisper uppercase tracking-widest text-ink-faint">
       <a href="https://github.com/aa-blinov/monos-ui" class="transition-colors duration-fast hover:text-ink">GitHub</a>
       <a href="https://github.com/aa-blinov/monos-ui/releases" class="transition-colors duration-fast hover:text-ink"
@@ -160,7 +155,6 @@
         </IconButton>
       </div>
       <p class="mt-5 flex flex-wrap gap-x-5 gap-y-1 text-whisper uppercase tracking-widest text-ink-faint">
-        <a href={RELEASE_URL} class="normal-case transition-colors duration-fast hover:text-ink">v{VERSION}</a>
         <span>57 components</span>
         <span>6 themes</span>
         <span>2 modes</span>
