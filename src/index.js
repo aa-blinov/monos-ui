@@ -15,6 +15,7 @@ export { default as Drawer } from './components/Drawer.svelte';
 export { default as EmptyState } from './components/EmptyState.svelte';
 export { default as Fieldset } from './components/Fieldset.svelte';
 export { default as FieldControl } from './components/FieldControl.svelte';
+export { default as FilterChip } from './components/FilterChip.svelte';
 export { default as FileUpload } from './components/FileUpload.svelte';
 export { default as FocusTrap } from './components/FocusTrap.svelte';
 export { default as FormField } from './components/FormField.svelte';

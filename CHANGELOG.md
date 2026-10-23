@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.1.18
+
+- `FilterChip` is a selectable chip: `aria-pressed`, active border, optional
+  `element` binding for measurement.
+
 ## 1.1.17
 
 - `FieldControl` takes `bare`, so a host with its own field classes can still

@@ -106,6 +106,12 @@ The row is 24px; on a touch screen it is 44px.
 
 `checked` (bindable), `disabled`, `class`. Slot: label. Event: `change` with the new boolean. Renders `<button role="switch" aria-checked>`.
 
+## FilterChip
+
+A selectable chip for a filter row: a real button with `aria-pressed`, the active border and a bound `element` for measuring before it is shown.
+
+`active`, `disabled`, `element` (bindable), `class`. Slot: label. Event: `click`.
+
 ## Chip
 
 `tone`: `neutral | accent | danger | warning | success`; `size`: `sm | md`; `removable`; `removeLabel`; `class`. Slot: label. Event: `remove`.

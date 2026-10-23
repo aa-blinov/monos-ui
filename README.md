@@ -1,6 +1,6 @@
 # @monos/ui
 
-A Svelte 4 component kit: 57 primitives, a Tailwind preset, and a plain-CSS token layer with six themes in light and dark. The tokens work without Svelte or Tailwind; the components are source files that your bundler compiles.
+A Svelte 4 component kit: 58 primitives, a Tailwind preset, and a plain-CSS token layer with six themes in light and dark. The tokens work without Svelte or Tailwind; the components are source files that your bundler compiles.
 
 [![test](https://github.com/aa-blinov/monos-ui/actions/workflows/ci.yml/badge.svg)](https://github.com/aa-blinov/monos-ui/actions/workflows/ci.yml) [![the gallery](https://img.shields.io/badge/gallery-live-7a9e9f)](https://aa-blinov.github.io/monos-ui/)
 
@@ -81,7 +81,7 @@ Themes: `gruvbox`, `github`, `dracula`, `nord`, `solarized`, `catppuccin`. Modes
 
 ## What it does
 
-- **A component set, not an app shell.** 57 Svelte 4 primitives cover actions, fields, choices, overlays, feedback, navigation, data and layout. The product supplies the content and the routes.
+- **A component set, not an app shell.** 58 Svelte 4 primitives cover actions, fields, choices, overlays, feedback, navigation, data and layout. The product supplies the content and the routes.
 - **One visual system, six palettes.** Every component reads a semantic `--ui-*` role; `data-theme` and `data-mode` swap the values. A new theme is data in `src/themes.js`, not a component branch.
 - **Text buttons and one radius.** Actions are words. The only frame is a toggle's chosen state. Every rectangle uses the 6px `--ui-radius`.
 - **A token layer that stands alone.** `tokens.css` and `themes.css` work in plain CSS or any framework; Svelte is only needed for the components.
@@ -149,7 +149,7 @@ The package has six entry points and two DOM attributes; there is no runtime con
 
 | Entry point                 | What it gives you                                                    |
 | --------------------------- | -------------------------------------------------------------------- |
-| `@monos/ui`                 | The 57 components, the tooltip action, the toast store, the palettes |
+| `@monos/ui`                 | The 58 components, the tooltip action, the toast store, the palettes |
 | `@monos/ui/styles.css`      | `tokens.css`, `themes.css` and `base.css` in that order              |
 | `@monos/ui/tokens.css`      | Geometry, type, motion and z-index tokens                            |
 | `@monos/ui/themes.css`      | The colour blocks for every theme and mode                           |
@@ -179,7 +179,7 @@ src/styles/tokens.css  geometry, type, motion, z
 src/tailwind-preset.js the same names as Tailwind utilities
       |
       v
-src/components/*.svelte  57 primitives reading roles
+src/components/*.svelte  58 primitives reading roles
       |
       v
 src/index.js          the public surface

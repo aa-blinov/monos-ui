@@ -1,5 +1,6 @@
 <script>
-  import { Avatar, Badge, Chip } from '../../src/index.js';
+  import { Avatar, Badge, Chip, FilterChip } from '../../src/index.js';
+  let chosen = 'design';
 </script>
 
 <section id="marks" class="mt-12 scroll-mt-20">
@@ -9,6 +10,18 @@
     <Chip>#paper</Chip>
     <Chip tone="accent">#accent</Chip>
     <Chip removable>#remove me</Chip>
+    <FilterChip
+      active={chosen === 'design'}
+      on:click={() => {
+        chosen = chosen === 'design' ? '' : 'design';
+      }}>#design</FilterChip
+    >
+    <FilterChip
+      active={chosen === 'paper'}
+      on:click={() => {
+        chosen = chosen === 'paper' ? '' : 'paper';
+      }}>#paper</FilterChip
+    >
     <Badge>Draft</Badge>
     <Badge tone="accent" dot>Agent</Badge>
     <Badge tone="danger">Conflict</Badge>
