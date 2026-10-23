@@ -21,6 +21,7 @@
   export let variant = 'underline';
   export let size = 'md';
   export let inputEl = null;
+  export let bare = false;
 
   let className = '';
   export { className as class };
@@ -49,7 +50,7 @@
   {value}
   bind:this={inputEl}
   role={as === 'select' ? 'combobox' : 'textbox'}
-  class={fieldControlClass({ variant, size, extraClass: className })}
+  class={bare ? className : fieldControlClass({ variant, size, extraClass: className })}
   on:input={onInput}
   on:change={onChange}
   on:keydown

@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.1.17
+
+- `FieldControl` takes `bare`, so a host with its own field classes can still
+  use the component and its `inputEl`.
+
 ## 1.1.16
 
 - `FieldControl` exposes `inputEl`, so an inline editor can focus and select the
