@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.3.0
+
+- `MindMap`: a tree of `{ id, label, children }` drawn in SVG, laid out to the
+  right or on both sides of the root. Branches fold, the background pans,
+  Ctrl or Cmd with the wheel zooms, and arrow keys move through the nodes as a
+  WAI-ARIA tree. No new dependency.
+- `layoutMindMap` and `measureLabel` are exported for hosts that draw their
+  own map.
+- The gallery has a Mind map section.
+
 ## 1.2.1
 
 - `Button` label wrapper fills the button and inherits its `justify-content`,

@@ -13,6 +13,7 @@
   import LayoutSection from './sections/LayoutSection.svelte';
   import MarksSection from './sections/MarksSection.svelte';
   import MobileSection from './sections/MobileSection.svelte';
+  import MindMapSection from './sections/MindMapSection.svelte';
   import NavigationSection from './sections/NavigationSection.svelte';
   import NoticesSection from './sections/NoticesSection.svelte';
   import OverlaysSection from './sections/OverlaysSection.svelte';
@@ -64,6 +65,7 @@
         ['surfaces', 'Surfaces'],
         ['data', 'Data'],
         ['table', 'Table'],
+        ['mindmap', 'Mind map'],
         ['empty', 'Empty'],
       ],
     },
@@ -206,7 +208,7 @@
         </IconButton>
       </div>
       <p class="mt-5 flex flex-wrap gap-x-5 gap-y-1 text-whisper uppercase tracking-widest text-ink-faint">
-        <span>64 components</span>
+        <span>65 components</span>
         <span>6 themes</span>
         <span>2 modes</span>
         <span>Svelte 4 and Tailwind 3</span>
@@ -297,6 +299,7 @@
   <SurfacesSection />
   <DataSection />
   <TableSection />
+  <MindMapSection />
   <EmptySection />
 
   <GroupHeading index={4} id="structure-group" name={groups[3].name} hint={groups[3].hint} />

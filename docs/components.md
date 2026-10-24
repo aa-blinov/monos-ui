@@ -672,3 +672,24 @@ A floating pill with a word, fixed above the bottom edge and the home indicator.
 | `class`    | string                    | `''`    |                                                  |
 
 Slots: default, `icon`. Event: `click`.
+
+## MindMap
+
+One idea in the middle and its branches around it, drawn in SVG. It is a WAI-ARIA tree: one node is in the tab order, arrows move between nodes, Enter or Space folds a branch, Home returns to the root. Drag the background to pan; Ctrl or Cmd with the wheel zooms.
+
+| Prop           | Type                       | Default       | Notes                                            |
+| -------------- | -------------------------- | ------------- | ------------------------------------------------ |
+| `root`         | `{ id, label, children? }` | `null`        | The tree; ids are unique strings                 |
+| `value`        | string                     | `''`          | Selected id (bindable)                           |
+| `collapsed`    | string[]                   | `[]`          | Ids of folded branches (bindable)                |
+| `direction`    | `right \| both`            | `right`       | `both` splits the root's children onto two sides |
+| `label`        | string                     | `Mind map`    | `aria-label` of the tree                         |
+| `height`       | string                     | `28rem`       | CSS height of the frame                          |
+| `zoomInLabel`  | string                     | `Zoom in`     | Names of the three corner buttons                |
+| `zoomOutLabel` | string                     | `Zoom out`    |                                                  |
+| `fitLabel`     | string                     | `Fit to view` |                                                  |
+| `class`        | string                     | `''`          |                                                  |
+
+Events: `select` (detail is the id), `toggle` (detail is `{ id, collapsed }`).
+
+`layoutMindMap(root, { collapsed, direction, rowGap, colGap, nodeHeight, measure })` is exported for a host that draws its own map: it returns `{ nodes, links, bounds }` with positioned boxes and cubic link paths.
