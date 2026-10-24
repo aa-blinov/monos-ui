@@ -51,6 +51,7 @@ import ModalHarness from './fixtures/ModalHarness.svelte';
 import FieldControl from '../src/components/FieldControl.svelte';
 import { fieldControlClass } from '../src/field.js';
 import FocusTrapHarness from './fixtures/FocusTrapHarness.svelte';
+import FocusTrapSkipHarness from './fixtures/FocusTrapSkipHarness.svelte';
 import PortalHarness from './fixtures/PortalHarness.svelte';
 import PageHeader from '../src/components/PageHeader.svelte';
 import Pagination from '../src/components/Pagination.svelte';
@@ -757,6 +758,26 @@ test('FieldControl shares the field geometry with a native control', () => {
   expect(container.querySelector('select').className).toContain('h-9');
 });
 
+test('FieldControl renders a real input, textarea and select, and Svelte has nothing to warn about', () => {
+  const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+  for (const as of ['input', 'textarea', 'select']) {
+    const { container } = render(FieldControl, {
+      as,
+      value: 'x',
+      options: [{ value: 'x', label: 'X' }],
+      'aria-label': as,
+    });
+    const field = container.querySelector(as);
+    expect(field).toBeTruthy();
+    expect(field.value).toBe('x');
+    expect(field.getAttribute('role')).toBe(as === 'select' ? 'combobox' : 'textbox');
+    cleanup();
+  }
+  const messages = warn.mock.calls.map((call) => String(call[0]));
+  warn.mockRestore();
+  expect(messages.filter((message) => /self-closing|svelte:element/.test(message))).toEqual([]);
+});
+
 describe('Sidebar and TagInput', () => {
   test('Sidebar is a labelled surface and SidebarItem keeps its depth', () => {
     const { container } = render(Sidebar, { label: 'Notes' });
@@ -894,6 +915,20 @@ describe('Portal and FocusTrap', () => {
     screen.getByRole('button', { name: 'Two' }).focus();
     await fireEvent.keyDown(window, { key: 'Tab' });
     expect(document.activeElement.textContent).toBe('One');
+  });
+});
+
+describe('FocusTrap tab order', () => {
+  test('controls with tabindex -1 are not stops: Tab wraps between the ones a person can reach', async () => {
+    render(FocusTrapSkipHarness);
+    await tick();
+    await tick();
+    expect(document.activeElement.textContent).toBe('One');
+    screen.getByLabelText('Two').focus();
+    await fireEvent.keyDown(window, { key: 'Tab' });
+    expect(document.activeElement.textContent).toBe('One');
+    await fireEvent.keyDown(window, { key: 'Tab', shiftKey: true });
+    expect(document.activeElement).toBe(screen.getByLabelText('Two'));
   });
 });
 

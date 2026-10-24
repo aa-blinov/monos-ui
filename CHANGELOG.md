@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.5.3
+
+- `FieldControl` renders a real `<input>`, `<textarea>` or `<select>` instead of
+  one `<svelte:element>`, so Svelte's development runtime no longer prints the
+  self-closing warning for every text field. The props, events and classes are
+  the same.
+- `FocusTrap` skips `tabindex="-1"` buttons, inputs, links, selects and
+  textareas: they cannot be reached with Tab, so they are no longer the first or
+  last stop that Tab wraps around.
+
 ## 1.5.2
 
 - Gallery: the top bar has a fixed 48px height and the phone section picker

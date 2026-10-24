@@ -39,28 +39,64 @@
   }
 </script>
 
-<svelte:element
-  this={as}
-  {id}
-  {name}
-  {placeholder}
-  {disabled}
-  {type}
-  {rows}
-  {value}
-  bind:this={inputEl}
-  role={as === 'select' ? 'combobox' : 'textbox'}
-  class={bare ? className : fieldControlClass({ variant, size, extraClass: className })}
-  on:input={onInput}
-  on:change={onChange}
-  on:keydown
-  on:focus
-  on:blur
-  {...$$restProps}
->
-  {#if as === 'select'}
+<!-- Three real elements rather than one `<svelte:element>`: a dynamic `input` is given a children block, and Svelte
+     reports that on every field as a self-closing warning. -->
+{#if as === 'select'}
+  <select
+    {id}
+    {name}
+    {disabled}
+    {value}
+    bind:this={inputEl}
+    role="combobox"
+    class={bare ? className : fieldControlClass({ variant, size, extraClass: className })}
+    on:input={onInput}
+    on:change={onChange}
+    on:keydown
+    on:focus
+    on:blur
+    {...$$restProps}
+  >
     {#each options as option}
       <option value={option.value} selected={option.value === value} disabled={option.disabled}>{option.label}</option>
     {/each}
-  {/if}
-</svelte:element>
+  </select>
+{:else if as === 'textarea'}
+  <!-- svelte-ignore a11y-no-redundant-roles -->
+  <textarea
+    {id}
+    {name}
+    {placeholder}
+    {disabled}
+    {rows}
+    {value}
+    bind:this={inputEl}
+    role="textbox"
+    class={bare ? className : fieldControlClass({ variant, size, extraClass: className })}
+    on:input={onInput}
+    on:change={onChange}
+    on:keydown
+    on:focus
+    on:blur
+    {...$$restProps}
+  ></textarea>
+{:else}
+  <!-- svelte-ignore a11y-no-redundant-roles -->
+  <input
+    {id}
+    {name}
+    {placeholder}
+    {disabled}
+    {type}
+    {value}
+    bind:this={inputEl}
+    role="textbox"
+    class={bare ? className : fieldControlClass({ variant, size, extraClass: className })}
+    on:input={onInput}
+    on:change={onChange}
+    on:keydown
+    on:focus
+    on:blur
+    {...$$restProps}
+  />
+{/if}
