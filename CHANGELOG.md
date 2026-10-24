@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.3.1
+
+- `Button` drops its own `px-*` and `justify-center` when the host passes a
+  `p-`, `px-` or `justify-` class. Tailwind orders those by value, so `px-0` and
+  `justify-start` used to lose to the kit's defaults.
+
 ## 1.3.0
 
 - `MindMap`: a tree of `{ id, label, children }` drawn in SVG, laid out to the

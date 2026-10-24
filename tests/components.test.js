@@ -70,6 +70,19 @@ afterEach(() => {
 });
 
 describe('Button', () => {
+  test('leaves padding and justify to the host when it names them', () => {
+    render(Button, { class: '!px-0 justify-start' });
+    const own = screen.getByRole('button').className;
+    expect(own).not.toContain('px-3');
+    expect(own).not.toContain('px-4');
+    expect(own).not.toContain('justify-center');
+    cleanup();
+    render(Button);
+    const plain = screen.getByRole('button').className;
+    expect(plain).toContain('px-4');
+    expect(plain).toContain('justify-center');
+  });
+
   test('its label wrapper follows the button justify-content', () => {
     render(Button, { class: 'w-full justify-between' });
     const wrapper = screen.getByRole('button').querySelector('span');

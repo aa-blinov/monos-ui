@@ -24,10 +24,11 @@
   export { className as class };
 
   const sizes = {
-    sm: 'min-h-7 px-3 text-xs',
-    md: 'min-h-9 px-4 text-sm',
-    lg: 'min-h-11 px-5 text-sm',
+    sm: 'min-h-7 text-xs',
+    md: 'min-h-9 text-sm',
+    lg: 'min-h-11 text-sm',
   };
+  const padding = { sm: 'px-3', md: 'px-4', lg: 'px-5' };
 
   const variants = {
     primary: 'font-bold text-ink hover:opacity-70 active:opacity-60',
@@ -37,8 +38,13 @@
     danger: 'font-bold text-danger-text hover:opacity-70 active:opacity-60',
   };
 
-  $: base =
-    'inline-flex items-center justify-center gap-2 rounded-ui uppercase tracking-widest transition-colors duration-fast max-sm:min-h-11';
+  // Tailwind orders utilities by value, not by where they sit in the class
+  // string, so a host's `px-0` or `justify-start` would lose to the kit's own
+  // `px-3` or `justify-center`. The kit leaves those two out when the host
+  // names them.
+  $: ownPadding = /(^|\s)!?-?(p|px)-/.test(className);
+  $: ownJustify = /(^|\s)!?justify-/.test(className);
+  $: base = `inline-flex items-center ${ownJustify ? '' : 'justify-center'} gap-2 rounded-ui uppercase tracking-widest transition-colors duration-fast max-sm:min-h-11`;
   $: state = loading ? 'cursor-wait opacity-70' : 'disabled:cursor-not-allowed disabled:opacity-30';
 </script>
 
@@ -47,9 +53,8 @@
   {type}
   disabled={disabled || loading}
   aria-busy={loading ? 'true' : undefined}
-  class="{base} {sizes[size] || sizes.md} {variants[variant] || variants.primary} {state} {full
-    ? 'w-full'
-    : ''} {className}"
+  class="{base} {sizes[size] || sizes.md} {ownPadding ? '' : padding[size] || padding.md} {variants[variant] ||
+    variants.primary} {state} {full ? 'w-full' : ''} {className}"
   on:click
   on:focus
   on:blur
