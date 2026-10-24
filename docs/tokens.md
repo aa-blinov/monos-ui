@@ -65,21 +65,33 @@ The rest of the scale is Tailwind: `text-xs` (12), `text-sm` (14), `text-lg` (18
 
 ## Controls and icons
 
-| Token                | Value | Tailwind | Role                |
-| -------------------- | ----- | -------- | ------------------- |
-| `--ui-control-xs`    | 24px  | —        | inline icon button  |
-| `--ui-control-sm`    | 28px  | —        | dense rows          |
-| `--ui-control-md`    | 32px  | —        | toolbars            |
-| `--ui-control-lg`    | 36px  | —        | default controls    |
-| `--ui-control-xl`    | 40px  | —        | header bars, search |
-| `--ui-control-touch` | 44px  | —        | touch rows          |
-| `--ui-icon-xs`       | 12px  | —        | inside text         |
-| `--ui-icon-sm`       | 14px  | —        | dense rows          |
-| `--ui-icon-md`       | 16px  | —        | default icon        |
-| `--ui-icon-lg`       | 20px  | —        | page actions        |
-| `--ui-icon-xl`       | 24px  | —        | rare, large         |
+| Token                | Value | Tailwind      | Role                |
+| -------------------- | ----- | ------------- | ------------------- |
+| `--ui-control-xs`    | 24px  | —             | inline icon button  |
+| `--ui-control-sm`    | 28px  | —             | dense rows          |
+| `--ui-control-md`    | 32px  | —             | toolbars            |
+| `--ui-control-lg`    | 36px  | —             | default controls    |
+| `--ui-control-xl`    | 40px  | —             | header bars, search |
+| `--ui-control-touch` | 44px  | `min-h-touch` | touch rows          |
+| `--ui-icon-xs`       | 12px  | —             | inside text         |
+| `--ui-icon-sm`       | 14px  | —             | dense rows          |
+| `--ui-icon-md`       | 16px  | —             | default icon        |
+| `--ui-icon-lg`       | 20px  | —             | page actions        |
+| `--ui-icon-xl`       | 24px  | —             | rare, large         |
 
 Icons use `strokeWidth="1.7"` throughout.
+
+## Phone bars and safe areas
+
+| Token              | Value                            | Tailwind | Role                                 |
+| ------------------ | -------------------------------- | -------- | ------------------------------------ |
+| `--ui-bar-height`  | 52px                             | `h-bar`  | height of a top or bottom bar        |
+| `--ui-safe-top`    | `env(safe-area-inset-top, 0)`    | —        | `TopBar` pads itself with it         |
+| `--ui-safe-bottom` | `env(safe-area-inset-bottom, 0)` | —        | `BottomNav`, `BottomSheet` and `Fab` |
+| `--ui-safe-left`   | `env(safe-area-inset-left, 0)`   | —        | landscape notch                      |
+| `--ui-safe-right`  | `env(safe-area-inset-right, 0)`  | —        | landscape notch                      |
+
+The insets are 0 off a phone. A page needs `viewport-fit=cover` in its viewport meta tag for the browser to report them.
 
 ## Depth and motion
 

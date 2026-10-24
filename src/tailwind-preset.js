@@ -71,6 +71,12 @@ export default {
         fast: 'var(--ui-duration-fast)',
         base: 'var(--ui-duration-base)',
       },
+      height: {
+        bar: 'var(--ui-bar-height)',
+      },
+      minHeight: {
+        touch: 'var(--ui-control-touch)',
+      },
       zIndex: {
         menu: 'var(--ui-z-menu)',
         modal: 'var(--ui-z-modal)',

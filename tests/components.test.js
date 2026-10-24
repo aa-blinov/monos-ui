@@ -57,6 +57,11 @@ import Pagination from '../src/components/Pagination.svelte';
 import Prose from '../src/components/Prose.svelte';
 import MultiSelect from '../src/components/MultiSelect.svelte';
 import Slider from '../src/components/Slider.svelte';
+import BottomNav from '../src/components/BottomNav.svelte';
+import BottomSheet from '../src/components/BottomSheet.svelte';
+import Fab from '../src/components/Fab.svelte';
+import ListRow from '../src/components/ListRow.svelte';
+import TopBar from '../src/components/TopBar.svelte';
 
 afterEach(() => {
   cleanup();
@@ -869,5 +874,108 @@ describe('Portal and FocusTrap', () => {
     screen.getByRole('button', { name: 'Two' }).focus();
     await fireEvent.keyDown(window, { key: 'Tab' });
     expect(document.activeElement.textContent).toBe('One');
+  });
+});
+
+describe('mobile components', () => {
+  test('TopBar names the screen, and the back control fires back', async () => {
+    const { component } = render(TopBar, { title: 'Notes', back: true, backLabel: 'Back to list' });
+    const back = vi.fn();
+    component.$on('back', back);
+    expect(screen.getByRole('heading', { name: 'Notes' })).toBeTruthy();
+    await fireEvent.click(screen.getByRole('button', { name: 'Back to list' }));
+    expect(back).toHaveBeenCalledTimes(1);
+  });
+
+  test('TopBar without back has no back control', () => {
+    render(TopBar, { title: 'Home' });
+    expect(screen.queryByRole('button')).toBeNull();
+  });
+
+  test('BottomNav marks the current item and reports a change', async () => {
+    const items = [
+      { id: 'notes', label: 'Notes' },
+      { id: 'search', label: 'Search', badge: 3 },
+      { id: 'tags', label: 'Tags', href: '#tags' },
+    ];
+    const { component } = render(BottomNav, { items, value: 'notes', label: 'Main' });
+    const change = vi.fn();
+    component.$on('change', change);
+    expect(screen.getByRole('navigation', { name: 'Main' })).toBeTruthy();
+    expect(screen.getByRole('button', { name: /Notes/ }).getAttribute('aria-current')).toBe('page');
+    expect(screen.getByRole('link', { name: 'Tags' }).getAttribute('href')).toBe('#tags');
+    await fireEvent.click(screen.getByRole('button', { name: /Search/ }));
+    expect(change).toHaveBeenCalledTimes(1);
+    expect(change.mock.calls[0][0].detail).toBe('search');
+    expect(screen.getByRole('button', { name: /Search/ }).getAttribute('aria-current')).toBe('page');
+  });
+
+  test('BottomNav ignores a disabled item', async () => {
+    const { component } = render(BottomNav, {
+      items: [
+        { id: 'a', label: 'A' },
+        { id: 'b', label: 'B', disabled: true },
+      ],
+      value: 'a',
+    });
+    const change = vi.fn();
+    component.$on('change', change);
+    await fireEvent.click(screen.getByRole('button', { name: 'B' }));
+    expect(change).not.toHaveBeenCalled();
+  });
+
+  test('BottomSheet is a labelled dialog that closes on Escape and the backdrop', async () => {
+    const { component } = render(BottomSheet, { open: true, title: 'Sort', closeLabel: 'Dismiss' });
+    const close = vi.fn();
+    component.$on('close', close);
+    const dialog = screen.getByRole('dialog', { name: 'Sort' });
+    expect(dialog.getAttribute('aria-modal')).toBe('true');
+    expect(document.body.style.overflow).toBe('hidden');
+    await fireEvent.keyDown(window, { key: 'Escape' });
+    expect(close).toHaveBeenCalledTimes(1);
+    await tick();
+    expect(screen.queryByRole('dialog')).toBeNull();
+    expect(document.body.style.overflow).toBe('');
+  });
+
+  test('BottomSheet closes from the backdrop button', async () => {
+    const { component } = render(BottomSheet, { open: true, title: 'Sort' });
+    const close = vi.fn();
+    component.$on('close', close);
+    await fireEvent.click(screen.getByLabelText('Close'));
+    expect(close).toHaveBeenCalledTimes(1);
+  });
+
+  test('BottomSheet renders nothing while closed', () => {
+    render(BottomSheet, { open: false, title: 'Sort' });
+    expect(screen.queryByRole('dialog')).toBeNull();
+  });
+
+  test('ListRow is a link with href and a button without', async () => {
+    render(ListRow, { title: 'Theme', value: 'Gruvbox', href: '#theme', navigates: true });
+    expect(screen.getByRole('link').getAttribute('href')).toBe('#theme');
+    expect(screen.getByText('Gruvbox')).toBeTruthy();
+    cleanup();
+
+    const second = render(ListRow, { title: 'Delete', danger: true });
+    const click = vi.fn();
+    second.component.$on('click', click);
+    const row = screen.getByRole('button', { name: 'Delete' });
+    expect(row.className).toContain('text-danger-text');
+    await fireEvent.click(row);
+    expect(click).toHaveBeenCalledTimes(1);
+  });
+
+  test('ListRow disabled is not clickable', () => {
+    render(ListRow, { title: 'Locked', disabled: true });
+    expect(screen.getByRole('button').disabled).toBe(true);
+  });
+
+  test('Fab shows its word and forwards a click', async () => {
+    const { component } = render(Fab, { label: 'New note' });
+    const click = vi.fn();
+    component.$on('click', click);
+    await fireEvent.click(screen.getByRole('button', { name: 'New note' }));
+    expect(click).toHaveBeenCalledTimes(1);
   });
 });

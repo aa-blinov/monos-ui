@@ -140,6 +140,11 @@ Themes: `gruvbox`, `github`, `dracula`, `nord`, `solarized`, `catppuccin`. Modes
 | `List` / `DescriptionList`     | Rows with icon/meta; term and description                                                                      |
 | `Portal` / `FocusTrap`         | Move an overlay out of its parent; keep Tab inside a region                                                    |
 | `Tooltip` / `tooltip`          | Hint on any element; one look, 450 ms, never on a phone                                                        |
+| `TopBar`                       | Phone navigation bar: back, title, actions; pads the top safe area                                             |
+| `BottomNav`                    | Phone tab bar of three to five destinations; badge, current mark, pads the home indicator                      |
+| `BottomSheet`                  | Modal panel from the bottom edge; focus trap, Escape, backdrop, drag-down to close                             |
+| `ListRow`                      | 44px touch row: icon, title, second line, value, chevron; link or button                                       |
+| `Fab`                          | Floating action pill with a word, above the home indicator                                                     |
 
 Full props, events and slots: [docs/components.md](docs/components.md). Tokens: [docs/tokens.md](docs/tokens.md). Moving Monos itself onto the kit: [docs/migrating-monos.md](docs/migrating-monos.md).
 
@@ -149,7 +154,7 @@ The package has six entry points and two DOM attributes; there is no runtime con
 
 | Entry point                 | What it gives you                                                    |
 | --------------------------- | -------------------------------------------------------------------- |
-| `@monos/ui`                 | The 58 components, the tooltip action, the toast store, the palettes |
+| `@monos/ui`                 | The 64 components, the tooltip action, the toast store, the palettes |
 | `@monos/ui/styles.css`      | `tokens.css`, `themes.css` and `base.css` in that order              |
 | `@monos/ui/tokens.css`      | Geometry, type, motion and z-index tokens                            |
 | `@monos/ui/themes.css`      | The colour blocks for every theme and mode                           |

@@ -1,5 +1,17 @@
 # Changelog
 
+## 1.2.0
+
+- Mobile set for a phone app: `TopBar`, `BottomNav`, `BottomSheet`, `ListRow`
+  and `Fab`. Each pads itself with the safe-area insets and keeps targets at
+  44px.
+- Tokens `--ui-safe-top`, `--ui-safe-right`, `--ui-safe-bottom`,
+  `--ui-safe-left` and `--ui-bar-height`; the Tailwind preset adds `h-bar` and
+  `min-h-touch`.
+- The gallery reads in seven numbered parts (foundations, inputs, content,
+  layout and navigation, overlays and feedback, utilities, mobile) with a
+  grouped section index, and has a Mobile section with a phone frame.
+
 ## 1.1.18
 
 - `FilterChip` is a selectable chip: `aria-pressed`, active border, optional

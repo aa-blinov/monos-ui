@@ -41,6 +41,14 @@
   --ui-duration-fast: 150ms;
   --ui-duration-base: 200ms;
 
+  /* Notch and home-indicator insets. They are 0 off a phone, so a mobile bar
+     can pad itself with them without a media query. */
+  --ui-safe-top: env(safe-area-inset-top, 0px);
+  --ui-safe-right: env(safe-area-inset-right, 0px);
+  --ui-safe-bottom: env(safe-area-inset-bottom, 0px);
+  --ui-safe-left: env(safe-area-inset-left, 0px);
+  --ui-bar-height: 3.25rem; /* 52px, the height of a phone top or bottom bar */
+
   --ui-z-menu: 40;
   --ui-z-modal: 50;
   --ui-z-tooltip: 60;

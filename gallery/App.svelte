@@ -9,8 +9,10 @@
   import FeedbackSection from './sections/FeedbackSection.svelte';
   import FieldsSection from './sections/FieldsSection.svelte';
   import FormsSection from './sections/FormsSection.svelte';
+  import GroupHeading from './GroupHeading.svelte';
   import LayoutSection from './sections/LayoutSection.svelte';
   import MarksSection from './sections/MarksSection.svelte';
+  import MobileSection from './sections/MobileSection.svelte';
   import NavigationSection from './sections/NavigationSection.svelte';
   import NoticesSection from './sections/NoticesSection.svelte';
   import OverlaysSection from './sections/OverlaysSection.svelte';
@@ -30,25 +32,74 @@
   const VERSION = pkg.version;
   const RELEASE_URL = `https://github.com/aa-blinov/monos-ui/releases/tag/v${VERSION}`;
 
-  const sections = [
-    ['palette', 'Palette'],
-    ['type', 'Type'],
-    ['buttons', 'Buttons'],
-    ['fields', 'Fields'],
-    ['forms', 'Forms'],
-    ['marks', 'Chips'],
-    ['surfaces', 'Surfaces'],
-    ['layout', 'Layout'],
-    ['structure', 'Structure'],
-    ['table', 'Table'],
-    ['data', 'Data'],
-    ['app-shell', 'App shell'],
-    ['navigation', 'Navigation'],
-    ['utilities', 'Utilities'],
-    ['overlays', 'Overlays'],
-    ['feedback', 'Feedback'],
-    ['notices', 'Notices'],
-    ['empty', 'Empty'],
+  // The page reads in the order a product is built: tokens, the controls a
+  // person acts on, what the page shows, how it is laid out and moved through,
+  // what appears on top of it, and last the phone set.
+  const groups = [
+    {
+      id: 'foundations',
+      name: 'Foundations',
+      hint: 'The tokens every other part is drawn from.',
+      items: [
+        ['palette', 'Palette'],
+        ['type', 'Type'],
+      ],
+    },
+    {
+      id: 'inputs',
+      name: 'Actions and inputs',
+      hint: 'What a person presses, types and chooses.',
+      items: [
+        ['buttons', 'Buttons'],
+        ['fields', 'Fields'],
+        ['forms', 'Forms'],
+      ],
+    },
+    {
+      id: 'display',
+      name: 'Content',
+      hint: 'Marks, surfaces and the data a page shows.',
+      items: [
+        ['marks', 'Chips'],
+        ['surfaces', 'Surfaces'],
+        ['data', 'Data'],
+        ['table', 'Table'],
+        ['empty', 'Empty'],
+      ],
+    },
+    {
+      id: 'structure-group',
+      name: 'Layout and navigation',
+      hint: 'How a page is arranged and how a person moves through it.',
+      items: [
+        ['layout', 'Layout'],
+        ['structure', 'Structure'],
+        ['app-shell', 'App shell'],
+        ['navigation', 'Navigation'],
+      ],
+    },
+    {
+      id: 'overlay-group',
+      name: 'Overlays and feedback',
+      hint: 'What appears over the page, and how it answers back.',
+      items: [
+        ['overlays', 'Overlays'],
+        ['feedback', 'Feedback'],
+        ['notices', 'Notices'],
+      ],
+    },
+    {
+      id: 'utility-group',
+      name: 'Utilities',
+      hint: 'Small helpers for custom parts.',
+      items: [['utilities', 'Utilities']],
+    },
+    {
+      id: 'mobile-group',
+      name: 'Mobile',
+      hint: 'Phone-sized parts for a mobile app.',
+      items: [['mobile', 'Mobile']],
+    },
   ];
 
   $: palette = themes[theme][mode];
@@ -155,7 +206,7 @@
         </IconButton>
       </div>
       <p class="mt-5 flex flex-wrap gap-x-5 gap-y-1 text-whisper uppercase tracking-widest text-ink-faint">
-        <span>58 components</span>
+        <span>64 components</span>
         <span>6 themes</span>
         <span>2 modes</span>
         <span>Svelte 4 and Tailwind 3</span>
@@ -201,37 +252,69 @@
           />
         </svg>
       </summary>
-      <div class="mt-3 flex flex-wrap gap-x-4 gap-y-2 text-whisper uppercase tracking-widest text-ink-faint">
-        {#each sections as [id, name]}
-          <a href="#{id}" class="transition-colors duration-fast hover:text-ink">{name}</a>
+      <div class="mt-3 space-y-3">
+        {#each groups as group}
+          <div>
+            <p class="text-whisper font-bold uppercase tracking-widest text-ink-soft">{group.name}</p>
+            <div class="mt-1 flex flex-wrap gap-x-4 gap-y-1 text-whisper uppercase tracking-widest text-ink-faint">
+              {#each group.items as [id, name]}
+                <a href="#{id}" class="transition-colors duration-fast hover:text-ink">{name}</a>
+              {/each}
+            </div>
+          </div>
         {/each}
       </div>
     </details>
-    <div class="hidden flex-wrap gap-x-4 gap-y-2 text-whisper uppercase tracking-widest text-ink-faint sm:flex">
-      {#each sections as [id, name]}
-        <a href="#{id}" class="transition-colors duration-fast hover:text-ink">{name}</a>
+    <div class="hidden gap-x-8 gap-y-4 sm:grid sm:grid-cols-2 lg:grid-cols-3">
+      {#each groups as group, at}
+        <div>
+          <a
+            href="#{group.id}"
+            class="text-whisper font-bold uppercase tracking-widest text-ink-soft transition-colors duration-fast hover:text-ink"
+            >{at + 1}. {group.name}</a
+          >
+          <div class="mt-1.5 flex flex-wrap gap-x-4 gap-y-1 text-whisper uppercase tracking-widest text-ink-faint">
+            {#each group.items as [id, name]}
+              <a href="#{id}" class="transition-colors duration-fast hover:text-ink">{name}</a>
+            {/each}
+          </div>
+        </div>
       {/each}
     </div>
   </nav>
 
+  <GroupHeading index={1} id="foundations" name={groups[0].name} hint={groups[0].hint} />
   <PaletteSection {palette} />
   <TypeSection />
+
+  <GroupHeading index={2} id="inputs" name={groups[1].name} hint={groups[1].hint} />
   <ButtonsSection />
   <FieldsSection />
   <FormsSection />
+
+  <GroupHeading index={3} id="display" name={groups[2].name} hint={groups[2].hint} />
   <MarksSection />
   <SurfacesSection />
+  <DataSection />
+  <TableSection />
+  <EmptySection />
+
+  <GroupHeading index={4} id="structure-group" name={groups[3].name} hint={groups[3].hint} />
   <LayoutSection />
   <StructureSection />
-  <TableSection />
-  <DataSection />
   <AppShellSection />
   <NavigationSection />
-  <UtilitiesSection />
+
+  <GroupHeading index={5} id="overlay-group" name={groups[4].name} hint={groups[4].hint} />
   <OverlaysSection />
   <FeedbackSection />
   <NoticesSection />
-  <EmptySection />
+
+  <GroupHeading index={6} id="utility-group" name={groups[5].name} hint={groups[5].hint} />
+  <UtilitiesSection />
+
+  <GroupHeading index={7} id="mobile-group" name={groups[6].name} hint={groups[6].hint} />
+  <MobileSection />
 
   <footer
     class="mt-16 flex flex-wrap items-center justify-between gap-3 border-t border-line pt-6 text-xs text-ink-faint"

@@ -593,3 +593,82 @@ Event: `change` with the step id when `clickable`. The current step has `aria-cu
 ## TagInput
 
 `tags` (bindable string array), `suggestions`, `label`, `ariaLabel`, `placeholder`, `hint`, `removeLabel` (string or `(tag) => string`), `prefix`, `testid`, `suggestionsTestid`, `commitOnBlur`, `disabled`, `max` (`0` = no limit), `id`, `class`. Enter or a comma adds a tag, Backspace in an empty field removes the last, and suggestions narrow as the person types. Event: `change` with the next array.
+
+## TopBar
+
+The navigation bar of a phone screen. It pads itself with `--ui-safe-top`, so it sits under a notch.
+
+| Prop        | Type    | Default | Notes                                |
+| ----------- | ------- | ------- | ------------------------------------ |
+| `title`     | string  | `''`    | The default slot replaces it         |
+| `subtitle`  | string  | `''`    | A small line under the title         |
+| `back`      | boolean | `false` | Shows the back control; fires `back` |
+| `backLabel` | string  | `Back`  | Accessible name of the back control  |
+| `sticky`    | boolean | `true`  | Sticks to the top of its scroll area |
+| `bordered`  | boolean | `true`  | A line under the bar                 |
+| `class`     | string  | `''`    |                                      |
+
+Slots: default (the title), `leading` (replaces the back control), `actions`. Event: `back`.
+
+## BottomNav
+
+The tab bar at the foot of a phone screen: three to five destinations. It pads itself with `--ui-safe-bottom`.
+
+| Prop    | Type    | Default | Notes                                                          |
+| ------- | ------- | ------- | -------------------------------------------------------------- |
+| `items` | array   | `[]`    | `{ id, label, href?, badge?, disabled? }`; `href` makes a link |
+| `value` | string  | `''`    | The current id (bindable); `aria-current="page"` marks it      |
+| `label` | string  | `Main`  | `aria-label` of the `nav`                                      |
+| `fixed` | boolean | `true`  | Fixed to the screen bottom; `false` for an in-flow bar         |
+| `class` | string  | `''`    |                                                                |
+
+Slot: `icon` (receives `item` and `active`). Event: `change` (detail is the id).
+
+## BottomSheet
+
+A dialog that rises from the bottom edge. Focus is held, the page does not scroll, Escape and the backdrop close it, and a drag down on the handle past `dismissDistance` closes it.
+
+| Prop              | Type                   | Default | Notes                                         |
+| ----------------- | ---------------------- | ------- | --------------------------------------------- |
+| `open`            | boolean                | `false` | Bindable                                      |
+| `title`           | string                 | `''`    | Names the dialog                              |
+| `description`     | string                 | `''`    |                                               |
+| `snap`            | `auto \| half \| full` | `auto`  | Content up to 85% of the screen, 50%, or full |
+| `closeLabel`      | string                 | `Close` | Name of the backdrop button                   |
+| `closeOnBackdrop` | boolean                | `true`  |                                               |
+| `closeOnEscape`   | boolean                | `true`  |                                               |
+| `dismissDistance` | number                 | `96`    | Pixels of drag that close the sheet           |
+
+Slots: default, `footer`. Event: `close`.
+
+## ListRow
+
+One touch row, at least 44px tall. An anchor when `href` is set, a button otherwise.
+
+| Prop          | Type    | Default | Notes                        |
+| ------------- | ------- | ------- | ---------------------------- |
+| `title`       | string  | `''`    | The default slot replaces it |
+| `description` | string  | `''`    | A second line                |
+| `value`       | string  | `''`    | Quiet text on the right      |
+| `href`        | string  | `''`    |                              |
+| `navigates`   | boolean | `false` | Draws a chevron              |
+| `danger`      | boolean | `false` | Destructive colour           |
+| `disabled`    | boolean | `false` |                              |
+| `class`       | string  | `''`    |                              |
+
+Slots: default, `icon`, `trailing`. Event: `click`.
+
+## Fab
+
+A floating pill with a word, fixed above the bottom edge and the home indicator.
+
+| Prop       | Type                      | Default | Notes                                            |
+| ---------- | ------------------------- | ------- | ------------------------------------------------ |
+| `label`    | string                    | `''`    | The default slot replaces it                     |
+| `position` | `left \| center \| right` | `right` |                                                  |
+| `lift`     | boolean                   | `false` | Adds the bar height, to clear a `BottomNav`      |
+| `fixed`    | boolean                   | `true`  | `false` pins it to the nearest positioned parent |
+| `disabled` | boolean                   | `false` |                                                  |
+| `class`    | string                    | `''`    |                                                  |
+
+Slots: default, `icon`. Event: `click`.
