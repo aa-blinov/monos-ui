@@ -1,7 +1,8 @@
 <script>
-  import { BottomNav, BottomSheet, Button, Fab, ListRow, TopBar } from '../../src/index.js';
+  import { BottomNav, BottomSheet, Button, Fab, ListRow, SegmentedControl, TopBar } from '../../src/index.js';
 
   let tab = 'notes';
+  let phone = 'iphone';
   let sheetOpen = false;
   let sort = 'Recent';
 
@@ -30,8 +31,18 @@
   </p>
 
   <div class="mt-6 grid gap-8 md:grid-cols-2">
-    <div class="flex justify-center">
+    <div class="flex flex-col items-center gap-4">
+      <SegmentedControl
+        label="Platform"
+        size="sm"
+        bind:value={phone}
+        options={[
+          { value: 'iphone', label: 'iPhone' },
+          { value: 'android', label: 'Android' },
+        ]}
+      />
       <div
+        data-profile={phone}
         class="relative flex h-[34rem] w-[19rem] max-w-full flex-col overflow-hidden rounded-[1.75rem] border-2 border-line-strong bg-canvas shadow-lift"
         data-testid="phone-frame"
       >

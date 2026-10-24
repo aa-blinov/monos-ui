@@ -698,12 +698,12 @@ Events: `select` (detail is the id), `toggle` (detail is `{ id, collapsed }`).
 
 A device around a screen, for previewing a layout at the size of a profile. The screen has the exact CSS-pixel size and carries `data-profile`; the frame scales down to the width it is given and to `maxHeight`.
 
-| Prop        | Type                                             | Default  | Notes                                 |
-| ----------- | ------------------------------------------------ | -------- | ------------------------------------- |
-| `profile`   | `desktop \| laptop \| tablet \| mobile \| watch` | `mobile` | Unknown values fall back to `mobile`  |
-| `label`     | string                                           | profile  | `aria-label` of the frame             |
-| `maxHeight` | number                                           | `620`    | Pixels; a phone is taller than a page |
-| `class`     | string                                           | `''`     |                                       |
+| Prop        | Type                                                        | Default  | Notes                                 |
+| ----------- | ----------------------------------------------------------- | -------- | ------------------------------------- |
+| `profile`   | `desktop \| laptop \| tablet \| iphone \| android \| watch` | `iphone` | Unknown values fall back to `iphone`  |
+| `label`     | string                                                      | profile  | `aria-label` of the frame             |
+| `maxHeight` | number                                                      | `620`    | Pixels; a phone is taller than a page |
+| `class`     | string                                                      | `''`     |                                       |
 
 Slot: default (the screen). Use `fixed={false}` on `Fab` and `BottomNav` inside it.
 
@@ -716,7 +716,24 @@ Slot: default (the screen). Use `fixed={false}` on `Fab` and `BottomNav` inside 
 | `desktop` | 1280 x 800  | 3rem              | 2.25rem              |
 | `laptop`  | 1024 x 640  | 3rem              | 2.25rem              |
 | `tablet`  | 768 x 1024  | 3.5rem            | 2.75rem              |
-| `mobile`  | 390 x 844   | 3.25rem           | 2.75rem              |
+| `iphone`  | 390 x 844   | 2.75rem           | 2.75rem              |
+| `android` | 412 x 892   | 3.5rem            | 3rem                 |
 | `watch`   | 198 x 242   | 2.25rem           | 2.5rem               |
 
 On the watch, anything marked `ui-wide-only` (a bar subtitle, its actions, a tab label) is hidden.
+
+## FontPicker
+
+One card per typeface, each set in its own face; a radio group. The kit ships `mono` (JetBrains Mono, the default), `sans` (Inter) and `serif` (Source Serif 4), all with Latin and Cyrillic.
+
+| Prop       | Type                                      | Default           | Notes                                                |
+| ---------- | ----------------------------------------- | ----------------- | ---------------------------------------------------- |
+| `value`    | string                                    | `mono`            | Selected face id (bindable)                          |
+| `options`  | `{ id, name, category, note?, family }[]` | the three faces   | A host adds its own, with its own `[data-font]` rule |
+| `label`    | string                                    | `Typeface`        | Legend of the group                                  |
+| `sample`   | string                                    | pangram, Cyrillic | Line set in each face                                |
+| `apply`    | boolean                                   | `false`           | Also sets `data-font` on the root                    |
+| `disabled` | boolean                                   | `false`           |                                                      |
+| `class`    | string                                    | `''`              |                                                      |
+
+Event: `change` with `{ value, option }`. `data-font` sets `--ui-font`; load the faces with `@monos/ui/fonts.css` (already in `styles.css`).

@@ -58,3 +58,20 @@
   --ui-focus: color-mix(in srgb, var(--ui-ink) 85%, transparent);
   --ui-selection: color-mix(in srgb, var(--ui-accent) 22%, transparent);
 }
+
+/* A host picks a face with data-font on the root. The faces are in fonts.css;
+   without it these fall back to the system stack of the same kind. */
+:root[data-font='mono'],
+[data-font='mono'] {
+  --ui-font: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+:root[data-font='sans'],
+[data-font='sans'] {
+  --ui-font: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+}
+
+:root[data-font='serif'],
+[data-font='serif'] {
+  --ui-font: 'Source Serif 4', ui-serif, Georgia, 'Times New Roman', serif;
+}

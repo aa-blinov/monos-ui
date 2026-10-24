@@ -1,5 +1,5 @@
 /**
- * The five device profiles of the kit. A profile is a screen size plus the
+ * The six device profiles of the kit. A profile is a screen size plus the
  * density that goes with it: how tall a bar is, how big a touch target is,
  * which parts of a bar are worth their room. `styles/profiles.css` carries the
  * tokens (set `data-profile` on any element), `DeviceFrame` draws the screen,
@@ -48,18 +48,31 @@ export const profiles = {
     bezel: 18,
     radius: 36,
   },
-  mobile: {
-    id: 'mobile',
-    name: 'Mobile',
+  iphone: {
+    id: 'iphone',
+    name: 'iPhone',
     width: 390,
     height: 844,
-    input: 'touch',
-    bar: '3.25rem',
+    input: 'touch, Dynamic Island, home indicator',
+    bar: '2.75rem',
     touch: '2.75rem',
-    safe: { top: '2.75rem', bottom: '1.5rem' },
+    safe: { top: '3.1875rem', bottom: '2.125rem' },
     shape: 'phone',
     bezel: 12,
-    radius: 48,
+    radius: 52,
+  },
+  android: {
+    id: 'android',
+    name: 'Android',
+    width: 412,
+    height: 892,
+    input: 'touch, camera cut-out, gesture bar',
+    bar: '3.5rem',
+    touch: '3rem',
+    safe: { top: '1.75rem', bottom: '1.5rem' },
+    shape: 'android',
+    bezel: 10,
+    radius: 38,
   },
   watch: {
     id: 'watch',

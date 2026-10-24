@@ -19,7 +19,7 @@
 
   let available = 0;
 
-  $: spec = profiles[profile] || profiles.mobile;
+  $: spec = profiles[profile] || profiles.iphone;
   $: chrome = spec.shape === 'browser' ? 30 : 0;
   $: base = spec.shape === 'laptop' ? 16 : 0;
   $: outerWidth = spec.width + spec.bezel * 2;
@@ -58,10 +58,12 @@
         >
           <slot />
         </div>
-        {#if spec.shape === 'phone'}
+        {#if spec.shape === 'phone' || spec.shape === 'android'}
           <span
             class="absolute left-1/2 -translate-x-1/2 rounded-full bg-ink"
-            style="top: {spec.bezel + 8}px; width: 96px; height: 24px;"
+            style="top: {spec.bezel + (spec.shape === 'android' ? 10 : 8)}px; width: {spec.shape === 'android'
+              ? 16
+              : 96}px; height: {spec.shape === 'android' ? 16 : 24}px;"
             aria-hidden="true"
           ></span>
         {/if}

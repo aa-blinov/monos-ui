@@ -1,7 +1,7 @@
 <script>
   import { onDestroy, onMount } from 'svelte';
   import pkg from '../package.json';
-  import { IconButton, Select, SegmentedControl, Toaster, themes, themeNames } from '../src/index.js';
+  import { IconButton, Select, SegmentedControl, Toaster, fontNames, fonts, themes, themeNames } from '../src/index.js';
   import AppShellSection from './sections/AppShellSection.svelte';
   import ButtonsSection from './sections/ButtonsSection.svelte';
   import DataSection from './sections/DataSection.svelte';
@@ -25,8 +25,26 @@
   import TypeSection from './sections/TypeSection.svelte';
   import UtilitiesSection from './sections/UtilitiesSection.svelte';
 
-  let theme = 'gruvbox';
-  let mode = 'light';
+  const STORE = 'monos-ui-gallery';
+
+  // The choice survives a reload; a blocked or empty store just means the defaults.
+  function readSaved() {
+    try {
+      const saved = JSON.parse(localStorage.getItem(STORE) || '{}');
+      return {
+        theme: themeNames.includes(saved.theme) ? saved.theme : 'gruvbox',
+        mode: saved.mode === 'dark' ? 'dark' : 'light',
+        font: fontNames.includes(saved.font) ? saved.font : 'mono',
+      };
+    } catch {
+      return { theme: 'gruvbox', mode: 'light', font: 'mono' };
+    }
+  }
+
+  const initial = readSaved();
+  let theme = initial.theme;
+  let mode = initial.mode;
+  let font = initial.font;
   let copied = false;
   let copyTimer = null;
 
@@ -113,13 +131,19 @@
   $: activeName = groups.flatMap((group) => group.items).find(([id]) => id === active)?.[1] || 'Sections';
 
   $: palette = themes[theme][mode];
-  $: applyTheme(theme, mode);
+  $: applyTheme(theme, mode, font);
 
-  function applyTheme(nextTheme, nextMode) {
+  function applyTheme(nextTheme, nextMode, nextFont) {
     if (typeof document === 'undefined') return;
     const root = document.documentElement;
     root.dataset.theme = nextTheme;
     root.dataset.mode = nextMode;
+    root.dataset.font = nextFont;
+    try {
+      localStorage.setItem(STORE, JSON.stringify({ theme: nextTheme, mode: nextMode, font: nextFont }));
+    } catch {
+      // Private windows and blocked storage refuse a write; the page still works.
+    }
   }
 
   async function copyInstall() {
@@ -238,7 +262,7 @@
         </IconButton>
       </div>
       <p class="mt-5 flex flex-wrap gap-x-5 gap-y-1 text-whisper uppercase tracking-widest text-ink-faint">
-        <span>66 components</span>
+        <span>67 components</span>
         <span>6 themes</span>
         <span>2 modes</span>
         <span>Svelte 4 and Tailwind 3</span>
@@ -250,6 +274,14 @@
           label="Theme"
           bind:value={theme}
           options={themeNames.map((id) => ({ value: id, label: themes[id].name }))}
+          size="sm"
+        />
+      </div>
+      <div class="w-40">
+        <Select
+          label="Font"
+          bind:value={font}
+          options={fontNames.map((id) => ({ value: id, label: fonts[id].name }))}
           size="sm"
         />
       </div>
@@ -336,7 +368,7 @@
 
       <GroupHeading index={1} id="foundations" name={groups[0].name} hint={groups[0].hint} />
       <PaletteSection {palette} />
-      <TypeSection />
+      <TypeSection bind:font />
 
       <GroupHeading index={2} id="inputs" name={groups[1].name} hint={groups[1].hint} />
       <ButtonsSection />

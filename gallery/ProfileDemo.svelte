@@ -1,7 +1,7 @@
 <script>
   import { BottomNav, Badge, Button, Fab, List, ListRow, NavItem, PageHeader, TopBar } from '../src/index.js';
 
-  export let profile = 'mobile';
+  export let profile = 'iphone';
 
   let tab = 'notes';
 

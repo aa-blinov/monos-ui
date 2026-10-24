@@ -2,7 +2,24 @@
   import { DeviceFrame, SegmentedControl, profileNames, profiles } from '../../src/index.js';
   import ProfileDemo from '../ProfileDemo.svelte';
 
-  let profile = 'mobile';
+  const KEY = 'monos-ui-gallery-profile';
+
+  function saved() {
+    try {
+      const value = localStorage.getItem(KEY);
+      return profileNames.includes(value) ? value : 'iphone';
+    } catch {
+      return 'iphone';
+    }
+  }
+
+  let profile = saved();
+
+  $: try {
+    localStorage.setItem(KEY, profile);
+  } catch {
+    // A blocked store only loses the memory of the choice.
+  }
 
   $: spec = profiles[profile];
   const options = profileNames.map((id) => ({ value: id, label: profiles[id].name }));
@@ -11,8 +28,10 @@
 <section id="profiles" class="mt-12 scroll-mt-20">
   <h2 class="text-lg font-bold tracking-tight">Device profiles</h2>
   <p class="mt-2 max-w-xl text-sm leading-relaxed text-ink-soft">
-    Five profiles: desktop, laptop, tablet, mobile and watch. Put <code class="font-mono text-xs">data-profile</code> on
-    an app root and the bars, rows and touch targets take that device's size;
+    Six profiles: desktop, laptop, tablet, iPhone, Android and watch. The two phones differ in the way their platforms
+    do: iOS centres the title over a 44px bar and keeps small tab labels, Android left-aligns it over a 56px bar, marks
+    the current tab with a pill and rounds the action. Put <code class="font-mono text-xs">data-profile</code> on an app
+    root and the bars, rows and touch targets take that device's size;
     <code class="font-mono text-xs">DeviceFrame</code> shows a layout at the real screen size, scaled to fit.
   </p>
 

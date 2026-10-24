@@ -1,30 +1,45 @@
 /**
- * Device profiles. Put `data-profile="desktop | laptop | tablet | mobile |
- * watch"` on the root of an app or of a preview and the bars, rows and
- * touch targets of the kit take that device's size. The numbers match
- * `src/profiles.js`.
+ * Device profiles. Put `data-profile="desktop | laptop | tablet | iphone |
+ * android | watch"` on the root of an app or of a preview and the bars, rows
+ * and touch targets of the kit take that device's size and habits. The numbers
+ * match `src/profiles.js`.
  *
  * `.ui-wide-only` marks the parts a small screen drops (a bar subtitle, its
- * actions, a tab label); the watch hides them.
+ * actions, a tab label); the watch hides them. `ui-topbar`, `ui-tab`,
+ * `ui-tab-icon`, `ui-tab-label` and `ui-fab` are the hooks the two phone
+ * profiles restyle: iOS centres the title over a 44px bar and keeps small
+ * tab labels, Material left-aligns it over a 56px bar, marks the current tab
+ * with a pill and rounds the action to a square.
  */
 [data-profile='desktop'],
 [data-profile='laptop'] {
   --ui-bar-height: 3rem;
+  --ui-tab-height: 3rem;
   --ui-control-touch: 2.25rem;
 }
 
 [data-profile='tablet'] {
   --ui-bar-height: 3.5rem;
+  --ui-tab-height: 3.5rem;
   --ui-control-touch: 2.75rem;
 }
 
+[data-profile='iphone'],
 [data-profile='mobile'] {
-  --ui-bar-height: 3.25rem;
+  --ui-bar-height: 2.75rem;
+  --ui-tab-height: 3.0625rem;
   --ui-control-touch: 2.75rem;
+}
+
+[data-profile='android'] {
+  --ui-bar-height: 3.5rem;
+  --ui-tab-height: 5rem;
+  --ui-control-touch: 3rem;
 }
 
 [data-profile='watch'] {
   --ui-bar-height: 2.25rem;
+  --ui-tab-height: 2.25rem;
   --ui-control-touch: 2.5rem;
   --ui-text-whisper: 0.625rem;
   --ui-text-whisper-lg: 0.6875rem;
@@ -32,4 +47,41 @@
 
 [data-profile='watch'] .ui-wide-only {
   display: none;
+}
+
+[data-profile='android'] .ui-topbar {
+  grid-template-columns: auto minmax(0, 1fr) auto !important;
+}
+
+[data-profile='android'] .ui-topbar-title {
+  max-width: none !important;
+  text-align: left !important;
+  padding-left: 0.5rem;
+}
+
+[data-profile='android'] .ui-topbar-title h1 {
+  font-size: 1.25rem;
+  font-weight: 500;
+}
+
+[data-profile='android'] .ui-tab-label {
+  font-size: 0.75rem;
+  letter-spacing: 0 !important;
+  text-transform: none !important;
+}
+
+[data-profile='android'] .ui-tab-icon {
+  width: 4rem !important;
+  height: 2rem !important;
+  border-radius: 1rem;
+  margin-bottom: 0.25rem;
+}
+
+[data-profile='android'] [aria-current='page'] .ui-tab-icon {
+  background: var(--ui-surface-2);
+}
+
+[data-profile='android'] .ui-fab {
+  border-radius: 1rem !important;
+  min-height: 3.5rem !important;
 }

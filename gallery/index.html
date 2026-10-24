@@ -1,11 +1,23 @@
 <!doctype html>
-<html lang="en" data-theme="gruvbox" data-mode="light">
+<html lang="en" data-theme="gruvbox" data-mode="light" data-font="mono">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>Monos UI</title>
   </head>
   <body>
+    <script>
+      // Apply the saved choice before the first paint, so a reload does not flash the defaults.
+      try {
+        var saved = JSON.parse(localStorage.getItem('monos-ui-gallery') || '{}');
+        var root = document.documentElement;
+        if (saved.theme) root.dataset.theme = saved.theme;
+        if (saved.mode) root.dataset.mode = saved.mode;
+        if (saved.font) root.dataset.font = saved.font;
+      } catch (error) {
+        // Blocked storage: the defaults in the tag above stay.
+      }
+    </script>
     <div id="app"></div>
     <script type="module" src="./main.js"></script>
   </body>

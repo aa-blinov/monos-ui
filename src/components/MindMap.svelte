@@ -12,7 +12,7 @@
    *
    * direction: right | both
    */
-  import { createEventDispatcher, tick } from 'svelte';
+  import { createEventDispatcher, onMount, tick } from 'svelte';
   import { layoutMindMap, neighbour } from '../mindmap-layout.js';
   import IconButton from './IconButton.svelte';
 
@@ -41,7 +41,38 @@
   let dragging = null;
   let focusId = '';
 
-  $: layout = layoutMindMap(root, { collapsed, direction });
+  // A proportional face is not 7.4px a letter, so boxes are measured with the
+  // face the page uses now, and again when `data-font` or the font files change.
+  let measure;
+  let canvas = null;
+
+  function buildMeasure() {
+    if (!box || typeof document === 'undefined' || /jsdom/i.test(navigator.userAgent)) return undefined;
+    canvas ||= document.createElement('canvas').getContext('2d');
+    if (!canvas) return undefined;
+    const family = getComputedStyle(box).fontFamily;
+    return (text) => {
+      canvas.font = `700 12px ${family}`;
+      return Math.max(56, canvas.measureText(String(text ?? '')).width + 28);
+    };
+  }
+
+  onMount(() => {
+    const refresh = () => {
+      measure = buildMeasure();
+    };
+    refresh();
+    const watcher = new MutationObserver(refresh);
+    watcher.observe(document.documentElement, { attributes: true, attributeFilter: ['data-font', 'style'] });
+    document.fonts?.addEventListener?.('loadingdone', refresh);
+    document.fonts?.ready?.then(refresh);
+    return () => {
+      watcher.disconnect();
+      document.fonts?.removeEventListener?.('loadingdone', refresh);
+    };
+  });
+
+  $: layout = layoutMindMap(root, { collapsed, direction, measure });
   $: nodes = layout.nodes;
   $: if (!focusId || !nodes.some((node) => node.id === focusId))
     focusId = value && nodes.some((node) => node.id === value) ? value : nodes[0]?.id || '';

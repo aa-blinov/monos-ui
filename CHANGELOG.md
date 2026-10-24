@@ -1,5 +1,24 @@
 # Changelog
 
+## 1.5.0
+
+- Typefaces: JetBrains Mono (the default), Inter and Source Serif 4, each as
+  variable woff2 with Latin and Cyrillic (`styles/fonts.css`, imported by
+  `styles.css`; the licences sit beside the files). `data-font="mono | sans |
+serif"` on the root sets `--ui-font`. `fonts`, `fontNames` and `DEFAULT_FONT`
+  describe them (`@monos/ui/fonts`).
+- `FontPicker`: a radio group of cards, each set in its own face. `apply` writes
+  `data-font` for the host; `options` takes a host's own faces.
+- The mobile profile is split into `iphone` and `android` (the `mobile` token
+  block stays as an alias of `iphone`). iOS centres the title over a 44px bar
+  with small tab labels; Android left-aligns it over a 56px bar, marks the
+  current tab with a pill and squares the `Fab`.
+- `MindMap` measures its boxes with the face the page uses, and again when
+  `data-font` changes.
+- The gallery remembers the theme, mode, font and profile across a reload, has
+  a font switch in the header and a font picker in Type, and an iPhone or
+  Android switch on the mobile parts.
+
 ## 1.4.0
 
 - Device profiles: desktop, laptop, tablet, mobile and watch. Put

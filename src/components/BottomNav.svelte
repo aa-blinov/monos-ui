@@ -33,7 +33,7 @@
   class="{fixed ? 'fixed inset-x-0 bottom-0 z-menu' : ''} border-t border-line bg-canvas text-ink {className}"
   style="padding-bottom: var(--ui-safe-bottom); padding-left: var(--ui-safe-left); padding-right: var(--ui-safe-right);"
 >
-  <ul class="flex h-bar items-stretch">
+  <ul class="flex h-[var(--ui-tab-height,var(--ui-bar-height))] items-stretch">
     {#each items as item (item.id)}
       <li class="min-w-0 flex-1">
         <svelte:element
@@ -51,7 +51,7 @@
             : 'text-ink-faint hover:text-ink'} {item.disabled ? 'cursor-not-allowed opacity-40' : ''}"
           on:click={() => select(item)}
         >
-          <span class="relative inline-flex h-5 w-5 items-center justify-center">
+          <span class="ui-tab-icon relative inline-flex h-5 w-5 items-center justify-center">
             <slot name="icon" {item} active={value === item.id} />
             {#if item.badge}
               <span
@@ -60,7 +60,7 @@
               >
             {/if}
           </span>
-          <span class="ui-wide-only max-w-full truncate">{item.label}</span>
+          <span class="ui-wide-only ui-tab-label max-w-full truncate">{item.label}</span>
         </svelte:element>
       </li>
     {/each}

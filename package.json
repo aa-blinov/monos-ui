@@ -1,6 +1,6 @@
 {
   "name": "@monos/ui",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "engines": {
     "node": "^18.0.0 || >=20.0.0"
   },
@@ -16,6 +16,8 @@
     "./styles.css": "./src/styles/index.css",
     "./tokens.css": "./src/styles/tokens.css",
     "./profiles.css": "./src/styles/profiles.css",
+    "./fonts.css": "./src/styles/fonts.css",
+    "./fonts": "./src/fonts.js",
     "./profiles": "./src/profiles.js",
     "./themes.css": "./src/styles/themes.css",
     "./tailwind-preset": "./src/tailwind-preset.js",

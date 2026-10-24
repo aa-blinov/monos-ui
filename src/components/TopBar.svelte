@@ -27,7 +27,7 @@
   class="{sticky ? 'sticky top-0 z-menu' : ''} bg-canvas text-ink {bordered ? 'border-b border-line' : ''} {className}"
   style="padding-top: var(--ui-safe-top); padding-left: var(--ui-safe-left); padding-right: var(--ui-safe-right);"
 >
-  <div class="grid h-bar grid-cols-[minmax(2.75rem,1fr)_auto_minmax(2.75rem,1fr)] items-center gap-2 px-2">
+  <div class="ui-topbar grid h-bar grid-cols-[minmax(2.75rem,1fr)_auto_minmax(2.75rem,1fr)] items-center gap-2 px-2">
     <div class="flex min-w-0 items-center justify-start">
       {#if $$slots.leading}
         <slot name="leading" />
@@ -52,7 +52,7 @@
         </IconButton>
       {/if}
     </div>
-    <div class="min-w-0 max-w-[55vw] text-center">
+    <div class="ui-topbar-title min-w-0 max-w-[55vw] text-center">
       <h1 class="truncate text-sm font-bold tracking-tight">
         <slot>{title}</slot>
       </h1>
