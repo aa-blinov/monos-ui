@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.5.2
+
+- Gallery: the top bar has a fixed 48px height and the phone section picker
+  tucks 2px under it, so no strip of the page shows between them while
+  scrolling.
+
 ## 1.5.1
 
 - `FontPicker` cards shrink to the screen: the one-column grid is
