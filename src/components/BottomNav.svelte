@@ -44,6 +44,7 @@
           aria-disabled={item.href && item.disabled ? 'true' : undefined}
           aria-current={value === item.id ? 'page' : undefined}
           role={item.href ? 'link' : 'button'}
+          aria-label={item.label}
           class="relative flex h-full w-full min-w-0 flex-col items-center justify-center gap-0.5 px-1 text-whisper uppercase tracking-widest transition-colors duration-fast {value ===
           item.id
             ? 'font-bold text-ink'
@@ -59,7 +60,7 @@
               >
             {/if}
           </span>
-          <span class="max-w-full truncate">{item.label}</span>
+          <span class="ui-wide-only max-w-full truncate">{item.label}</span>
         </svelte:element>
       </li>
     {/each}

@@ -40,6 +40,7 @@ test('the styles entry brings tokens, themes and base together', () => {
   expect(index).toContain('./tokens.css');
   expect(index).toContain('./themes.css');
   expect(index).toContain('./base.css');
+  expect(index).toContain('./profiles.css');
 });
 
 test('the package exposes source, styles and the Tailwind preset', () => {

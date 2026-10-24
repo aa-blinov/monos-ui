@@ -46,10 +46,9 @@
     branch, drag the background to pan, and use Ctrl or Cmd with the wheel to zoom. Arrow keys move between nodes.
   </p>
   <div class="mt-4 flex flex-wrap items-end justify-between gap-3">
-    <div class="w-64">
+    <div>
       <SegmentedControl
         label="Layout"
-        full
         size="sm"
         bind:value={direction}
         options={[

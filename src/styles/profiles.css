@@ -1,0 +1,35 @@
+/**
+ * Device profiles. Put `data-profile="desktop | laptop | tablet | mobile |
+ * watch"` on the root of an app or of a preview and the bars, rows and
+ * touch targets of the kit take that device's size. The numbers match
+ * `src/profiles.js`.
+ *
+ * `.ui-wide-only` marks the parts a small screen drops (a bar subtitle, its
+ * actions, a tab label); the watch hides them.
+ */
+[data-profile='desktop'],
+[data-profile='laptop'] {
+  --ui-bar-height: 3rem;
+  --ui-control-touch: 2.25rem;
+}
+
+[data-profile='tablet'] {
+  --ui-bar-height: 3.5rem;
+  --ui-control-touch: 2.75rem;
+}
+
+[data-profile='mobile'] {
+  --ui-bar-height: 3.25rem;
+  --ui-control-touch: 2.75rem;
+}
+
+[data-profile='watch'] {
+  --ui-bar-height: 2.25rem;
+  --ui-control-touch: 2.5rem;
+  --ui-text-whisper: 0.625rem;
+  --ui-text-whisper-lg: 0.6875rem;
+}
+
+[data-profile='watch'] .ui-wide-only {
+  display: none;
+}

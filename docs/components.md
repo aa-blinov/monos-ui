@@ -693,3 +693,30 @@ One idea in the middle and its branches around it, drawn in SVG. It is a WAI-ARI
 Events: `select` (detail is the id), `toggle` (detail is `{ id, collapsed }`).
 
 `layoutMindMap(root, { collapsed, direction, rowGap, colGap, nodeHeight, measure })` is exported for a host that draws its own map: it returns `{ nodes, links, bounds }` with positioned boxes and cubic link paths.
+
+## DeviceFrame
+
+A device around a screen, for previewing a layout at the size of a profile. The screen has the exact CSS-pixel size and carries `data-profile`; the frame scales down to the width it is given and to `maxHeight`.
+
+| Prop        | Type                                             | Default  | Notes                                 |
+| ----------- | ------------------------------------------------ | -------- | ------------------------------------- |
+| `profile`   | `desktop \| laptop \| tablet \| mobile \| watch` | `mobile` | Unknown values fall back to `mobile`  |
+| `label`     | string                                           | profile  | `aria-label` of the frame             |
+| `maxHeight` | number                                           | `620`    | Pixels; a phone is taller than a page |
+| `class`     | string                                           | `''`     |                                       |
+
+Slot: default (the screen). Use `fixed={false}` on `Fab` and `BottomNav` inside it.
+
+## Profiles
+
+`profiles` (from `@monos/ui` or `@monos/ui/profiles`) maps each id to `{ name, width, height, input, bar, touch, safe, shape }`. `styles/profiles.css` turns `data-profile` into tokens:
+
+| Profile   | Screen (px) | `--ui-bar-height` | `--ui-control-touch` |
+| --------- | ----------- | ----------------- | -------------------- |
+| `desktop` | 1280 x 800  | 3rem              | 2.25rem              |
+| `laptop`  | 1024 x 640  | 3rem              | 2.25rem              |
+| `tablet`  | 768 x 1024  | 3.5rem            | 2.75rem              |
+| `mobile`  | 390 x 844   | 3.25rem           | 2.75rem              |
+| `watch`   | 198 x 242   | 2.25rem           | 2.5rem               |
+
+On the watch, anything marked `ui-wide-only` (a bar subtitle, its actions, a tab label) is hidden.

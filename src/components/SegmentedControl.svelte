@@ -47,7 +47,7 @@
       type="button"
       aria-pressed={value === option.value}
       disabled={disabled || option.disabled}
-      class="inline-flex h-full min-w-0 items-center justify-center rounded-ui uppercase tracking-widest transition-colors duration-fast disabled:cursor-not-allowed disabled:opacity-30 {full
+      class="inline-flex h-full min-w-0 items-center justify-center rounded-ui whitespace-nowrap uppercase tracking-widest transition-colors duration-fast disabled:cursor-not-allowed disabled:opacity-30 {full
         ? 'flex-1'
         : ''} {sizes[size] || sizes.md} {value === option.value
         ? 'bg-canvas text-ink shadow-rest'

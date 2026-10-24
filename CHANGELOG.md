@@ -1,5 +1,20 @@
 # Changelog
 
+## 1.4.0
+
+- Device profiles: desktop, laptop, tablet, mobile and watch. Put
+  `data-profile` on an app root and the bar height and touch target follow the
+  device (`styles/profiles.css`, imported by `styles.css`). `profiles` and
+  `profileNames` describe each one (`@monos/ui/profiles`).
+- `DeviceFrame` shows a layout at the real screen size of a profile, scaled to
+  fit, with the safe-area insets of that device.
+- `TopBar` and `BottomNav` mark their subtitle, actions and tab labels
+  `ui-wide-only`; the watch profile hides them. A `BottomNav` item keeps its
+  `aria-label` either way.
+- `SegmentedControl` options no longer wrap their labels.
+- The gallery has a sticky section index with the current section marked, a
+  sticky section picker on a phone, and a Devices part with a profile switcher.
+
 ## 1.3.1
 
 - `Button` drops its own `px-*` and `justify-center` when the host passes a

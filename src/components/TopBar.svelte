@@ -57,10 +57,10 @@
         <slot>{title}</slot>
       </h1>
       {#if subtitle}
-        <p class="truncate text-whisper uppercase tracking-widest text-ink-faint">{subtitle}</p>
+        <p class="ui-wide-only truncate text-whisper uppercase tracking-widest text-ink-faint">{subtitle}</p>
       {/if}
     </div>
-    <div class="flex min-w-0 items-center justify-end gap-1">
+    <div class="ui-wide-only flex min-w-0 items-center justify-end gap-1">
       <slot name="actions" />
     </div>
   </div>

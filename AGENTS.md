@@ -1,6 +1,6 @@
 # AGENTS.md: agent context for `monos-ui`
 
-`@monos/ui` is a Svelte 4 component kit: 65 primitives in `src/components/`, a Tailwind preset, and a CSS token layer with six themes in light and dark. The package ships source. There is no library build.
+`@monos/ui` is a Svelte 4 component kit: 66 primitives in `src/components/`, a Tailwind preset, and a CSS token layer with six themes in light and dark. The package ships source. There is no library build.
 
 ## Run / build / test
 
@@ -21,7 +21,7 @@ npm run build:gallery    # production build of the gallery into dist-gallery/
 
 | Path                      | What it is                                                                                    |
 | ------------------------- | --------------------------------------------------------------------------------------------- |
-| `src/components/`         | 65 Svelte 4 primitives. Every file is exported from `src/index.js`.                           |
+| `src/components/`         | 66 Svelte 4 primitives. Every file is exported from `src/index.js`.                           |
 | `src/index.js`            | The public surface: components, `tooltip`, `HOVER_DELAY`, the toast store, the themes.        |
 | `src/themes.js`           | The six palettes, each with a `light` and a `dark` object, plus `themeNames` and `modes`.     |
 | `src/theme-css.js`        | `renderThemesCss`, `readableStatus` and the variable maps. Shared by the build and the tests. |

@@ -14,6 +14,7 @@
   import MarksSection from './sections/MarksSection.svelte';
   import MobileSection from './sections/MobileSection.svelte';
   import MindMapSection from './sections/MindMapSection.svelte';
+  import ProfilesSection from './sections/ProfilesSection.svelte';
   import NavigationSection from './sections/NavigationSection.svelte';
   import NoticesSection from './sections/NoticesSection.svelte';
   import OverlaysSection from './sections/OverlaysSection.svelte';
@@ -98,11 +99,18 @@
     },
     {
       id: 'mobile-group',
-      name: 'Mobile',
-      hint: 'Phone-sized parts for a mobile app.',
-      items: [['mobile', 'Mobile']],
+      name: 'Devices',
+      hint: 'One kit from a desktop window to a watch: the five profiles, then the parts made for a phone.',
+      items: [
+        ['profiles', 'Profiles'],
+        ['mobile', 'Mobile parts'],
+      ],
     },
   ];
+
+  let active = 'palette';
+  $: activeGroup = groups.find((group) => group.items.some(([id]) => id === active))?.id || groups[0].id;
+  $: activeName = groups.flatMap((group) => group.items).find(([id]) => id === active)?.[1] || 'Sections';
 
   $: palette = themes[theme][mode];
   $: applyTheme(theme, mode);
@@ -141,15 +149,37 @@
     }
   }
 
+  let observer;
+
   onMount(() => {
     document.title = `Monos UI ${VERSION}`;
+    // The sections mount after the browser has resolved the hash, so a shared link has to jump again.
+    if (location.hash) requestAnimationFrame(() => document.getElementById(location.hash.slice(1))?.scrollIntoView());
+    // The section whose top has passed the upper fifth of the screen is the one being read.
+    if (typeof IntersectionObserver === 'undefined') return;
+    observer = new IntersectionObserver(
+      (entries) => {
+        const hit = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)[0];
+        if (hit) active = hit.target.id;
+      },
+      { rootMargin: '-15% 0px -75% 0px' },
+    );
+    for (const [id] of groups.flatMap((group) => group.items)) {
+      const element = document.getElementById(id);
+      if (element) observer.observe(element);
+    }
   });
 
-  onDestroy(() => clearTimeout(copyTimer));
+  onDestroy(() => {
+    clearTimeout(copyTimer);
+    observer?.disconnect();
+  });
 </script>
 
 <nav class="sticky top-0 z-20 border-b border-line bg-canvas" aria-label="Monos UI">
-  <div class="mx-auto flex max-w-5xl items-center justify-between gap-4 px-6 py-3">
+  <div class="mx-auto flex max-w-7xl items-center justify-between gap-4 px-6 py-3">
     <a href="#top" class="text-sm font-bold tracking-tight transition-colors duration-fast hover:text-ink">Monos UI</a>
     <div class="flex items-center gap-5 text-whisper uppercase tracking-widest text-ink-faint">
       <a href="https://github.com/aa-blinov/monos-ui" class="transition-colors duration-fast hover:text-ink">GitHub</a>
@@ -164,7 +194,7 @@
   </div>
 </nav>
 
-<div id="top" class="mx-auto max-w-5xl px-6 pb-24 pt-10">
+<div id="top" class="mx-auto max-w-7xl px-6 pb-24 pt-10">
   <header class="flex flex-wrap items-end justify-between gap-6 border-b border-line pb-6">
     <div class="min-w-0">
       <h1 class="text-3xl font-bold tracking-tight">The desk, as a kit</h1>
@@ -208,7 +238,7 @@
         </IconButton>
       </div>
       <p class="mt-5 flex flex-wrap gap-x-5 gap-y-1 text-whisper uppercase tracking-widest text-ink-faint">
-        <span>65 components</span>
+        <span>66 components</span>
         <span>6 themes</span>
         <span>2 modes</span>
         <span>Svelte 4 and Tailwind 3</span>
@@ -238,86 +268,108 @@
     </div>
   </header>
 
-  <nav class="mt-6" aria-label="Sections">
-    <details class="sm:hidden">
-      <summary
-        class="flex cursor-pointer list-none items-center gap-2 text-whisper uppercase tracking-widest text-ink-faint"
-      >
-        Jump to a section
-        <svg class="h-3 w-3" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path
-            d="m6 9 6 6 6-6"
-            stroke="currentColor"
-            stroke-width="1.7"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-        </svg>
-      </summary>
-      <div class="mt-3 space-y-3">
-        {#each groups as group}
-          <div>
-            <p class="text-whisper font-bold uppercase tracking-widest text-ink-soft">{group.name}</p>
-            <div class="mt-1 flex flex-wrap gap-x-4 gap-y-1 text-whisper uppercase tracking-widest text-ink-faint">
+  <div class="lg:grid lg:grid-cols-[13rem_minmax(0,1fr)] lg:gap-12">
+    <aside class="hidden lg:block">
+      <nav class="sticky top-16 max-h-[calc(100vh-5rem)] overflow-y-auto pb-8 pt-8 pr-2" aria-label="Sections">
+        {#each groups as group, at}
+          <div class="mb-5">
+            <a
+              href="#{group.id}"
+              class="block text-whisper font-bold uppercase tracking-widest transition-colors duration-fast hover:text-ink {activeGroup ===
+              group.id
+                ? 'text-ink'
+                : 'text-ink-soft'}">{at + 1}. {group.name}</a
+            >
+            <ul class="mt-1.5 space-y-0.5 border-l border-line">
               {#each group.items as [id, name]}
-                <a href="#{id}" class="transition-colors duration-fast hover:text-ink">{name}</a>
+                <li>
+                  <a
+                    href="#{id}"
+                    aria-current={active === id ? 'location' : undefined}
+                    class="-ml-px block border-l py-0.5 pl-3 text-xs transition-colors duration-fast hover:text-ink {active ===
+                    id
+                      ? 'border-ink font-bold text-ink'
+                      : 'border-transparent text-ink-faint'}">{name}</a
+                  >
+                </li>
               {/each}
-            </div>
+            </ul>
           </div>
         {/each}
-      </div>
-    </details>
-    <div class="hidden gap-x-8 gap-y-4 sm:grid sm:grid-cols-2 lg:grid-cols-3">
-      {#each groups as group, at}
-        <div>
-          <a
-            href="#{group.id}"
-            class="text-whisper font-bold uppercase tracking-widest text-ink-soft transition-colors duration-fast hover:text-ink"
-            >{at + 1}. {group.name}</a
+      </nav>
+    </aside>
+
+    <div class="min-w-0">
+      <nav
+        class="sticky top-[3.1rem] z-10 -mx-6 border-b border-line bg-canvas px-6 py-2 lg:hidden"
+        aria-label="Sections"
+      >
+        <details>
+          <summary
+            class="flex cursor-pointer list-none items-center gap-2 text-whisper uppercase tracking-widest text-ink-faint"
           >
-          <div class="mt-1.5 flex flex-wrap gap-x-4 gap-y-1 text-whisper uppercase tracking-widest text-ink-faint">
-            {#each group.items as [id, name]}
-              <a href="#{id}" class="transition-colors duration-fast hover:text-ink">{name}</a>
+            {activeName}
+            <svg class="h-3 w-3" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path
+                d="m6 9 6 6 6-6"
+                stroke="currentColor"
+                stroke-width="1.7"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </summary>
+          <div class="mt-3 max-h-[60vh] space-y-3 overflow-y-auto pb-2">
+            {#each groups as group}
+              <div>
+                <p class="text-whisper font-bold uppercase tracking-widest text-ink-soft">{group.name}</p>
+                <div class="mt-1 flex flex-wrap gap-x-4 gap-y-1 text-whisper uppercase tracking-widest text-ink-faint">
+                  {#each group.items as [id, name]}
+                    <a href="#{id}" class="transition-colors duration-fast hover:text-ink">{name}</a>
+                  {/each}
+                </div>
+              </div>
             {/each}
           </div>
-        </div>
-      {/each}
+        </details>
+      </nav>
+
+      <GroupHeading index={1} id="foundations" name={groups[0].name} hint={groups[0].hint} />
+      <PaletteSection {palette} />
+      <TypeSection />
+
+      <GroupHeading index={2} id="inputs" name={groups[1].name} hint={groups[1].hint} />
+      <ButtonsSection />
+      <FieldsSection />
+      <FormsSection />
+
+      <GroupHeading index={3} id="display" name={groups[2].name} hint={groups[2].hint} />
+      <MarksSection />
+      <SurfacesSection />
+      <DataSection />
+      <TableSection />
+      <MindMapSection />
+      <EmptySection />
+
+      <GroupHeading index={4} id="structure-group" name={groups[3].name} hint={groups[3].hint} />
+      <LayoutSection />
+      <StructureSection />
+      <AppShellSection />
+      <NavigationSection />
+
+      <GroupHeading index={5} id="overlay-group" name={groups[4].name} hint={groups[4].hint} />
+      <OverlaysSection />
+      <FeedbackSection />
+      <NoticesSection />
+
+      <GroupHeading index={6} id="utility-group" name={groups[5].name} hint={groups[5].hint} />
+      <UtilitiesSection />
+
+      <GroupHeading index={7} id="mobile-group" name={groups[6].name} hint={groups[6].hint} />
+      <ProfilesSection />
+      <MobileSection />
     </div>
-  </nav>
-
-  <GroupHeading index={1} id="foundations" name={groups[0].name} hint={groups[0].hint} />
-  <PaletteSection {palette} />
-  <TypeSection />
-
-  <GroupHeading index={2} id="inputs" name={groups[1].name} hint={groups[1].hint} />
-  <ButtonsSection />
-  <FieldsSection />
-  <FormsSection />
-
-  <GroupHeading index={3} id="display" name={groups[2].name} hint={groups[2].hint} />
-  <MarksSection />
-  <SurfacesSection />
-  <DataSection />
-  <TableSection />
-  <MindMapSection />
-  <EmptySection />
-
-  <GroupHeading index={4} id="structure-group" name={groups[3].name} hint={groups[3].hint} />
-  <LayoutSection />
-  <StructureSection />
-  <AppShellSection />
-  <NavigationSection />
-
-  <GroupHeading index={5} id="overlay-group" name={groups[4].name} hint={groups[4].hint} />
-  <OverlaysSection />
-  <FeedbackSection />
-  <NoticesSection />
-
-  <GroupHeading index={6} id="utility-group" name={groups[5].name} hint={groups[5].hint} />
-  <UtilitiesSection />
-
-  <GroupHeading index={7} id="mobile-group" name={groups[6].name} hint={groups[6].hint} />
-  <MobileSection />
+  </div>
 
   <footer
     class="mt-16 flex flex-wrap items-center justify-between gap-3 border-t border-line pt-6 text-xs text-ink-faint"

@@ -23,7 +23,7 @@
 </script>
 
 <section id="mobile" class="mt-12 scroll-mt-20">
-  <h2 class="text-lg font-bold tracking-tight">Mobile</h2>
+  <h2 class="text-lg font-bold tracking-tight">Mobile parts</h2>
   <p class="mt-2 max-w-xl text-sm leading-relaxed text-ink-soft">
     Five components for a phone app: a top bar, a tab bar, a bottom sheet, a touch row and a floating action. They pad
     themselves with the safe-area insets, keep every target at 44px and use the same tokens as the rest of the kit.
