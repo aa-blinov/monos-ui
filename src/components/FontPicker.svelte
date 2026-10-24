@@ -36,10 +36,10 @@
 
 <fieldset class="min-w-0 {className}" {disabled}>
   <legend class="mb-2 text-whisper uppercase tracking-widest text-ink-faint">{label}</legend>
-  <div class="grid gap-3 sm:grid-cols-3">
+  <div class="grid grid-cols-[minmax(0,1fr)] gap-3 sm:grid-cols-3">
     {#each options as option (option.id)}
       <label
-        class="flex cursor-pointer flex-col gap-2 rounded-ui border p-4 transition-colors duration-fast has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 {value ===
+        class="flex min-w-0 cursor-pointer flex-col gap-2 rounded-ui border p-4 transition-colors duration-fast has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 {value ===
         option.id
           ? 'border-ink bg-surface'
           : 'border-line hover:border-line-strong'} {disabled ? 'cursor-not-allowed opacity-50' : ''}"

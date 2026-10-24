@@ -55,6 +55,12 @@ describe('FontPicker', () => {
     expect(document.documentElement.dataset.font).toBe('serif');
   });
 
+  test('its cards can shrink below their content, so a phone gets no sideways scroll', () => {
+    const { container } = render(FontPicker);
+    expect(container.querySelector('.grid').className).toContain('grid-cols-[minmax(0,1fr)]');
+    expect(container.querySelector('label').className).toContain('min-w-0');
+  });
+
   test('takes a host list of faces', () => {
     render(FontPicker, { options: [{ id: 'x', name: 'Mine', category: 'Own', family: 'serif' }], value: 'x' });
     expect(screen.getAllByRole('radio')).toHaveLength(1);

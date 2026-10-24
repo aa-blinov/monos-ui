@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.5.1
+
+- `FontPicker` cards shrink to the screen: the one-column grid is
+  `minmax(0, 1fr)` and each card is `min-w-0`, so a long sample line no longer
+  widens the page on a phone. The gallery's phone frame shrinks the same way at
+  320px.
+
 ## 1.5.0
 
 - Typefaces: JetBrains Mono (the default), Inter and Source Serif 4, each as

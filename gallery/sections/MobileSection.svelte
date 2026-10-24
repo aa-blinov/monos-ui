@@ -31,7 +31,7 @@
   </p>
 
   <div class="mt-6 grid gap-8 md:grid-cols-2">
-    <div class="flex flex-col items-center gap-4">
+    <div class="flex min-w-0 flex-col items-center gap-4">
       <SegmentedControl
         label="Platform"
         size="sm"
