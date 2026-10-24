@@ -70,6 +70,13 @@ afterEach(() => {
 });
 
 describe('Button', () => {
+  test('its label wrapper follows the button justify-content', () => {
+    render(Button, { class: 'w-full justify-between' });
+    const wrapper = screen.getByRole('button').querySelector('span');
+    expect(wrapper.className).toContain('[justify-content:inherit]');
+    expect(wrapper.className).toContain('flex-1');
+  });
+
   test('forwards a click and can be disabled or busy', async () => {
     const { component } = render(Button);
     const click = vi.fn();

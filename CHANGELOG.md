@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.2.1
+
+- `Button` label wrapper fills the button and inherits its `justify-content`,
+  so `justify-between` and `justify-start` on a button spread or align its
+  children again. They had collapsed into one group since 1.1.20.
+
 ## 1.2.0
 
 - Mobile set for a phone app: `TopBar`, `BottomNav`, `BottomSheet`, `ListRow`

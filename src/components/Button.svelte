@@ -61,6 +61,6 @@
   {:else}
     <slot name="icon" />
   {/if}
-  <span class="inline-flex min-w-0 items-center gap-2 truncate"><slot /></span>
+  <span class="inline-flex min-w-0 flex-1 items-center [justify-content:inherit] gap-2 truncate"><slot /></span>
   <slot name="trailing" />
 </button>
