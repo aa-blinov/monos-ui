@@ -1,6 +1,6 @@
 <script>
   import { MoreHorizontal, Plus, Star, Trash2 } from 'lucide-svelte';
-  import { Button, IconButton } from '../../src/index.js';
+  import { Button, IconButton, Tooltip } from '../../src/index.js';
 </script>
 
 <section id="buttons" class="mt-12 scroll-mt-20">
@@ -30,5 +30,8 @@
     <IconButton label="Drag" size="sm" variant="ghost">
       <MoreHorizontal class="h-3.5 w-3.5" strokeWidth="1.7" />
     </IconButton>
+    <Tooltip text="A hint on any element">
+      <span class="rounded-ui border border-dashed border-line px-3 py-2 text-xs text-ink-soft">Hover me</span>
+    </Tooltip>
   </div>
 </section>

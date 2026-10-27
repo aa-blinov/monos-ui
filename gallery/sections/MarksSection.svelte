@@ -1,10 +1,10 @@
 <script>
-  import { Avatar, Badge, Chip, FilterChip } from '../../src/index.js';
+  import { Avatar, Badge, Chip, FilterChip, Kbd } from '../../src/index.js';
   let chosen = 'design';
 </script>
 
 <section id="marks" class="mt-12 scroll-mt-20">
-  <h2 class="text-lg font-bold tracking-tight">Chips and badges</h2>
+  <h2 class="text-lg font-bold tracking-tight">Chips, badges and keys</h2>
   <div class="mt-4 flex flex-wrap items-center gap-3">
     <Chip>#design</Chip>
     <Chip>#paper</Chip>
@@ -34,4 +34,5 @@
     <Avatar name="Alan Turing" size="sm" status="away" />
     <Avatar name="Katherine Johnson" size="xl" />
   </div>
+  <p class="mt-6 text-sm text-ink-soft">Open the palette with <Kbd>⌘</Kbd> <Kbd>K</Kbd></p>
 </section>

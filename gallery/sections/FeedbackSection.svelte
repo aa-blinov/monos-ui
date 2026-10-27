@@ -1,5 +1,5 @@
 <script>
-  import { Button, Progress, Skeleton, toast } from '../../src/index.js';
+  import { Button, Progress, Skeleton, Spinner, toast } from '../../src/index.js';
 
   const progress = 62;
 </script>
@@ -15,6 +15,10 @@
       <div>
         <p class="mb-1.5 text-xs text-ink-soft">Loading</p>
         <Progress indeterminate label="Loading" />
+      </div>
+      <div class="flex items-center gap-3">
+        <Spinner size="lg" label="Loading" />
+        <span class="text-xs text-ink-soft">A spinner, when the wait has no length</span>
       </div>
       <div class="flex flex-wrap gap-3">
         <Button

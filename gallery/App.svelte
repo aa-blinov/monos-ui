@@ -22,6 +22,7 @@
   import StructureSection from './sections/StructureSection.svelte';
   import SurfacesSection from './sections/SurfacesSection.svelte';
   import TableSection from './sections/TableSection.svelte';
+  import QuickStart from './sections/QuickStartSection.svelte';
   import TypeSection from './sections/TypeSection.svelte';
   import UtilitiesSection from './sections/UtilitiesSection.svelte';
 
@@ -52,10 +53,16 @@
   const VERSION = pkg.version;
   const RELEASE_URL = `https://github.com/aa-blinov/monos-ui/releases/tag/v${VERSION}`;
 
-  // The page reads in the order a product is built: tokens, the controls a
+  // The page reads in the order a product is built: how to start, tokens, the controls a
   // person acts on, what the page shows, how it is laid out and moved through,
   // what appears on top of it, and last the phone set.
   const groups = [
+    {
+      id: 'start-group',
+      name: 'Get started',
+      hint: 'Four steps from an empty project to a screen.',
+      items: [['start', 'Quick start']],
+    },
     {
       id: 'foundations',
       name: 'Foundations',
@@ -95,8 +102,8 @@
       items: [
         ['layout', 'Layout'],
         ['structure', 'Structure'],
-        ['app-shell', 'App shell'],
         ['navigation', 'Navigation'],
+        ['app-shell', 'App shell'],
       ],
     },
     {
@@ -126,7 +133,7 @@
     },
   ];
 
-  let active = 'palette';
+  let active = 'start';
   $: activeGroup = groups.find((group) => group.items.some(([id]) => id === active))?.id || groups[0].id;
   $: activeName = groups.flatMap((group) => group.items).find(([id]) => id === active)?.[1] || 'Sections';
 
@@ -366,16 +373,19 @@
         </details>
       </nav>
 
-      <GroupHeading index={1} id="foundations" name={groups[0].name} hint={groups[0].hint} />
+      <GroupHeading index={1} id="start-group" name={groups[0].name} hint={groups[0].hint} />
+      <QuickStart />
+
+      <GroupHeading index={2} id="foundations" name={groups[1].name} hint={groups[1].hint} />
       <PaletteSection {palette} />
       <TypeSection bind:font />
 
-      <GroupHeading index={2} id="inputs" name={groups[1].name} hint={groups[1].hint} />
+      <GroupHeading index={3} id="inputs" name={groups[2].name} hint={groups[2].hint} />
       <ButtonsSection />
       <FieldsSection />
       <FormsSection />
 
-      <GroupHeading index={3} id="display" name={groups[2].name} hint={groups[2].hint} />
+      <GroupHeading index={4} id="display" name={groups[3].name} hint={groups[3].hint} />
       <MarksSection />
       <SurfacesSection />
       <DataSection />
@@ -383,21 +393,21 @@
       <MindMapSection />
       <EmptySection />
 
-      <GroupHeading index={4} id="structure-group" name={groups[3].name} hint={groups[3].hint} />
+      <GroupHeading index={5} id="structure-group" name={groups[4].name} hint={groups[4].hint} />
       <LayoutSection />
       <StructureSection />
       <AppShellSection />
       <NavigationSection />
 
-      <GroupHeading index={5} id="overlay-group" name={groups[4].name} hint={groups[4].hint} />
+      <GroupHeading index={6} id="overlay-group" name={groups[5].name} hint={groups[5].hint} />
       <OverlaysSection />
       <FeedbackSection />
       <NoticesSection />
 
-      <GroupHeading index={6} id="utility-group" name={groups[5].name} hint={groups[5].hint} />
+      <GroupHeading index={7} id="utility-group" name={groups[6].name} hint={groups[6].hint} />
       <UtilitiesSection />
 
-      <GroupHeading index={7} id="mobile-group" name={groups[6].name} hint={groups[6].hint} />
+      <GroupHeading index={8} id="mobile-group" name={groups[7].name} hint={groups[7].hint} />
       <ProfilesSection />
       <MobileSection />
     </div>
