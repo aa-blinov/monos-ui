@@ -1,5 +1,15 @@
 # Changelog
 
+## 2.0.0
+
+- The kit's faces are now Medeo (SIL OFL 1.1, Latin and Cyrillic): `mono` is
+  Medeo Mono, `sans` is Medeo Sans, and the old `serif` face is gone in favour
+  of `pixel`, Medeo Pixel, a display face. JetBrains Mono, Inter and Source
+  Serif 4 no longer ship, which also trims the package.
+- Migration: a host that stored `data-font="serif"` must map it to `mono` or
+  `sans` (or `pixel`); a host that named `'JetBrains Mono'` or `'Inter'` in
+  its own CSS should name `'Medeo Mono'` or `'Medeo Sans'`.
+
 ## 1.5.3
 
 - `FieldControl` renders a real `<input>`, `<textarea>` or `<select>` instead of

@@ -10,12 +10,12 @@ colors:
   line: '#d5c4a1'
 typography:
   body:
-    fontFamily: "'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace"
+    fontFamily: "'Medeo Mono', ui-monospace, SFMono-Regular, Menlo, monospace"
     fontSize: '14px'
     fontWeight: 400
     lineHeight: 1.6
   title:
-    fontFamily: "'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace"
+    fontFamily: "'Medeo Mono', ui-monospace, SFMono-Regular, Menlo, monospace"
     fontSize: '20px'
     fontWeight: 700
     lineHeight: 1.2
@@ -81,8 +81,8 @@ Colour is a role. The frontmatter carries the default Gruvbox values; every them
 
 ## Typography
 
-**Display Font:** JetBrains Mono, with the system monospace stack behind it.
-**Body Font:** JetBrains Mono, same stack.
+**Display Font:** Medeo Mono, with the system monospace stack behind it.
+**Body Font:** Medeo Mono, same stack.
 
 One face at a time. Code stays in the fixed face; nothing else introduces a second family.
 

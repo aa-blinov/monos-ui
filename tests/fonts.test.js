@@ -17,7 +17,7 @@ const tokensCss = fs.readFileSync(path.join(root, 'styles', 'tokens.css'), 'utf-
 
 describe('fonts', () => {
   test('three faces, the monospace one the default', () => {
-    expect(fontNames).toEqual(['mono', 'sans', 'serif']);
+    expect(fontNames).toEqual(['mono', 'sans', 'pixel']);
     expect(DEFAULT_FONT).toBe('mono');
   });
 
@@ -27,9 +27,8 @@ describe('fonts', () => {
       expect(tokensCss, font.id).toContain(`[data-font='${font.id}']`);
     }
     const files = [...fontsCss.matchAll(/url\('\.\.\/fonts\/([^']+)'\)/g)].map((match) => match[1]);
-    expect(files).toHaveLength(12);
+    expect(files).toHaveLength(5);
     for (const file of files) expect(fs.existsSync(path.join(root, 'fonts', file)), file).toBe(true);
-    expect(files.filter((file) => file.includes('cyrillic'))).toHaveLength(6);
   });
 
   test('the files are local: no remote url in the stylesheet', () => {
@@ -42,7 +41,7 @@ describe('FontPicker', () => {
     render(FontPicker, { value: 'sans' });
     const radios = screen.getAllByRole('radio');
     expect(radios).toHaveLength(3);
-    expect(screen.getByRole('radio', { name: /Inter/ }).checked).toBe(true);
+    expect(screen.getByRole('radio', { name: /Medeo Sans/ }).checked).toBe(true);
   });
 
   test('choosing reports the face and, with apply, sets data-font', async () => {
@@ -50,9 +49,9 @@ describe('FontPicker', () => {
     const change = vi.fn();
     component.$on('change', change);
     expect(document.documentElement.dataset.font).toBe('mono');
-    await fireEvent.click(screen.getByRole('radio', { name: /Source Serif 4/ }));
-    expect(change.mock.calls[0][0].detail.value).toBe('serif');
-    expect(document.documentElement.dataset.font).toBe('serif');
+    await fireEvent.click(screen.getByRole('radio', { name: /Medeo Pixel/ }));
+    expect(change.mock.calls[0][0].detail.value).toBe('pixel');
+    expect(document.documentElement.dataset.font).toBe('pixel');
   });
 
   test('its cards can shrink below their content, so a phone gets no sideways scroll', () => {

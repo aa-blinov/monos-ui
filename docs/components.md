@@ -724,7 +724,7 @@ On the watch, anything marked `ui-wide-only` (a bar subtitle, its actions, a tab
 
 ## FontPicker
 
-One card per typeface, each set in its own face; a radio group. The kit ships `mono` (JetBrains Mono, the default), `sans` (Inter) and `serif` (Source Serif 4), all with Latin and Cyrillic.
+One card per typeface, each set in its own face; a radio group. The kit ships `mono` (Medeo Mono, the default), `sans` (Medeo Sans) and `pixel` (Medeo Pixel, a display face), all with Latin and Cyrillic.
 
 | Prop       | Type                                      | Default           | Notes                                                |
 | ---------- | ----------------------------------------- | ----------------- | ---------------------------------------------------- |

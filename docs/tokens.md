@@ -40,11 +40,11 @@ Derived tokens are `color-mix()` over `--ui-ink` / `--ui-ink-soft` / `--ui-accen
 
 ## Typography
 
-| Token                  | Value                | Tailwind          | Role               |
-| ---------------------- | -------------------- | ----------------- | ------------------ |
-| `--ui-font`            | JetBrains Mono stack | `font-ui`         | the interface face |
-| `--ui-text-whisper`    | 0.6875rem (11px)     | `text-whisper`    | metadata           |
-| `--ui-text-whisper-lg` | 0.75rem (12px)       | `text-whisper-lg` | metadata labels    |
+| Token                  | Value            | Tailwind          | Role               |
+| ---------------------- | ---------------- | ----------------- | ------------------ |
+| `--ui-font`            | Medeo Mono stack | `font-ui`         | the interface face |
+| `--ui-text-whisper`    | 0.6875rem (11px) | `text-whisper`    | metadata           |
+| `--ui-text-whisper-lg` | 0.75rem (12px)   | `text-whisper-lg` | metadata labels    |
 
 The rest of the scale is Tailwind: `text-xs` (12), `text-sm` (14), `text-lg` (18), `text-xl` (20), `text-2xl` (24), `text-3xl` (30).
 

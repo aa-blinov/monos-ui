@@ -147,7 +147,7 @@ Themes: `gruvbox`, `github`, `dracula`, `nord`, `solarized`, `catppuccin`. Modes
 | `Fab`                          | Floating action pill with a word, above the home indicator                                                     |
 | `MindMap`                      | SVG mind map from a tree: both-sided or rightward, fold, pan, zoom, arrow-key tree navigation                  |
 | `DeviceFrame`                  | Preview frame at a profile's real screen size: desktop, laptop, tablet, mobile, watch                          |
-| `FontPicker`                   | Cards that show each typeface in itself; JetBrains Mono, Inter and Source Serif 4 ship with the kit            |
+| `FontPicker`                   | Cards that show each typeface in itself; Medeo Mono, Medeo Sans and Medeo Pixel ship with the kit              |
 
 Full props, events and slots: [docs/components.md](docs/components.md). Tokens: [docs/tokens.md](docs/tokens.md). Moving Monos itself onto the kit: [docs/migrating-monos.md](docs/migrating-monos.md).
 
