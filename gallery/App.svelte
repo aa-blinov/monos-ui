@@ -134,6 +134,12 @@
   ];
 
   let active = 'start';
+  let sectionMenu;
+
+  // The phone's list covers the page; choosing a section is the end of its job.
+  function closeSectionMenu() {
+    if (sectionMenu) sectionMenu.open = false;
+  }
   $: activeGroup = groups.find((group) => group.items.some(([id]) => id === active))?.id || groups[0].id;
   $: activeName = groups.flatMap((group) => group.items).find(([id]) => id === active)?.[1] || 'Sections';
 
@@ -211,15 +217,20 @@
 
 <nav class="sticky top-0 z-20 border-b border-line bg-canvas" aria-label="Monos UI">
   <div class="mx-auto flex h-12 max-w-7xl items-center justify-between gap-4 px-6">
-    <a href="#top" class="text-sm font-bold tracking-tight transition-colors duration-fast hover:text-ink">Monos UI</a>
+    <a href="#top" class="py-2 text-sm font-bold tracking-tight transition-colors duration-fast hover:text-ink"
+      >Monos UI</a
+    >
     <div class="flex items-center gap-5 text-whisper uppercase tracking-widest text-ink-faint">
-      <a href="https://github.com/aa-blinov/monos-ui" class="transition-colors duration-fast hover:text-ink">GitHub</a>
-      <a href="https://github.com/aa-blinov/monos-ui/releases" class="transition-colors duration-fast hover:text-ink"
-        >Release</a
+      <a href="https://github.com/aa-blinov/monos-ui" class="py-2 transition-colors duration-fast hover:text-ink"
+        >GitHub</a
+      >
+      <a
+        href="https://github.com/aa-blinov/monos-ui/releases"
+        class="py-2 transition-colors duration-fast hover:text-ink">Release</a
       >
       <a
         href="https://github.com/aa-blinov/monos-ui/tree/main/docs"
-        class="transition-colors duration-fast hover:text-ink">Docs</a
+        class="py-2 transition-colors duration-fast hover:text-ink">Docs</a
       >
     </div>
   </div>
@@ -314,7 +325,7 @@
           <div class="mb-5">
             <a
               href="#{group.id}"
-              class="block text-whisper font-bold uppercase tracking-widest transition-colors duration-fast hover:text-ink {activeGroup ===
+              class="block py-1 text-whisper font-bold uppercase tracking-widest transition-colors duration-fast hover:text-ink {activeGroup ===
               group.id
                 ? 'text-ink'
                 : 'text-ink-soft'}">{at + 1}. {group.name}</a
@@ -325,7 +336,7 @@
                   <a
                     href="#{id}"
                     aria-current={active === id ? 'location' : undefined}
-                    class="-ml-px block border-l py-0.5 pl-3 text-xs transition-colors duration-fast hover:text-ink {active ===
+                    class="-ml-px block border-l py-1 pl-3 text-xs transition-colors duration-fast hover:text-ink {active ===
                     id
                       ? 'border-ink font-bold text-ink'
                       : 'border-transparent text-ink-faint'}">{name}</a
@@ -343,7 +354,7 @@
         class="sticky top-[calc(3rem-1px)] z-10 -mx-6 border-b border-line bg-canvas px-6 py-2 lg:hidden"
         aria-label="Sections"
       >
-        <details>
+        <details bind:this={sectionMenu}>
           <summary
             class="flex cursor-pointer list-none items-center gap-2 text-whisper uppercase tracking-widest text-ink-faint"
           >
@@ -364,7 +375,11 @@
                 <p class="text-whisper font-bold uppercase tracking-widest text-ink-soft">{group.name}</p>
                 <div class="mt-1 flex flex-wrap gap-x-4 gap-y-1 text-whisper uppercase tracking-widest text-ink-faint">
                   {#each group.items as [id, name]}
-                    <a href="#{id}" class="transition-colors duration-fast hover:text-ink">{name}</a>
+                    <a
+                      href="#{id}"
+                      class="-my-0.5 py-1.5 transition-colors duration-fast hover:text-ink"
+                      on:click={closeSectionMenu}>{name}</a
+                    >
                   {/each}
                 </div>
               </div>
