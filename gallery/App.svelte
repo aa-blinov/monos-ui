@@ -4,6 +4,7 @@
   import { IconButton, Select, SegmentedControl, Toaster, fontNames, fonts, themes, themeNames } from '../src/index.js';
   import AppShellSection from './sections/AppShellSection.svelte';
   import ButtonsSection from './sections/ButtonsSection.svelte';
+  import ChatSection from './sections/ChatSection.svelte';
   import DataSection from './sections/DataSection.svelte';
   import EmptySection from './sections/EmptySection.svelte';
   import FeedbackSection from './sections/FeedbackSection.svelte';
@@ -87,6 +88,7 @@
       name: 'Content',
       hint: 'Marks, surfaces and the data a page shows.',
       items: [
+        ['chat', 'Chat'],
         ['marks', 'Chips'],
         ['surfaces', 'Surfaces'],
         ['data', 'Data'],
@@ -280,7 +282,7 @@
         </IconButton>
       </div>
       <p class="mt-5 flex flex-wrap gap-x-5 gap-y-1 text-whisper uppercase tracking-widest text-ink-faint">
-        <span>67 components</span>
+        <span>70 components</span>
         <span>6 themes</span>
         <span>2 modes</span>
         <span>Svelte 4 and Tailwind 3</span>
@@ -401,6 +403,7 @@
       <FormsSection />
 
       <GroupHeading index={4} id="display" name={groups[3].name} hint={groups[3].hint} />
+      <ChatSection />
       <MarksSection />
       <SurfacesSection />
       <DataSection />

@@ -49,4 +49,5 @@ test('the package exposes source, styles and the Tailwind preset', () => {
   expect(pkg.svelte).toBe('./src/index.js');
   expect(pkg.exports['./styles.css']).toBe('./src/styles/index.css');
   expect(pkg.exports['./tailwind-preset']).toBe('./src/tailwind-preset.js');
+  expect(pkg.exports['./chat']).toBe('./src/chat.js');
 });

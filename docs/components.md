@@ -53,6 +53,44 @@ Events: `input`, `change`, `keydown`, `focus`, `blur`.
 
 Same label, hint, error, `variant`, `disabled`, `required` and `class` props as TextField, plus `rows` (4), `name`, `placeholder`, `id`, `value` (bindable). Events: `input`, `change`, `keydown`, `focus`, `blur`.
 
+## ChatPanel
+
+A conversation region with three named slots. The host owns transcript data, scrolling, message state and submit behaviour.
+
+| Prop    | Type    | Default | Notes                                      |
+| ------- | ------- | ------- | ------------------------------------------ |
+| `label` | string  | `''`    | Names the conversation region              |
+| `busy`  | boolean | `false` | Sets `aria-busy` while a turn is in flight |
+| `class` | string  | `''`    |                                            |
+
+Slots: `header`, `messages`, `composer`. The messages slot should contain the host's scroll region with an accessible name and live-region behaviour appropriate to the application.
+
+## ChatMessage
+
+A neutral article for one message. The host provides role copy, content and actions; the component adds consistent metadata spacing and a divider.
+
+| Prop       | Type   | Default     | Notes                           |
+| ---------- | ------ | ----------- | ------------------------------- |
+| `kind`     | string | `assistant` | Semantic variant for the host   |
+| `label`    | string | `''`        | Optional author or tool name    |
+| `time`     | string | `''`        | Optional displayed time         |
+| `datetime` | string | `''`        | Machine-readable `<time>` value |
+| `class`    | string | `''`        |                                 |
+
+Slots: default message content and `actions`.
+
+## ChatComposer
+
+A labelled composer group with one token-based frame. It does not submit or own an input value.
+
+| Prop    | Type    | Default | Notes                                      |
+| ------- | ------- | ------- | ------------------------------------------ |
+| `label` | string  | `''`    | Names the composer group                   |
+| `busy`  | boolean | `false` | Sets `aria-busy` while a turn is in flight |
+| `class` | string  | `''`    |                                            |
+
+Slots: `before`, default content and `after`.
+
 ## Select
 
 A themed single choice: the trigger shows the current label, the popup is drawn by the kit. Use it where the choice is part of the interface (a theme picker, a toolbar mode). For a long form with many options, `SelectField` is the native control.

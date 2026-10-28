@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.1.0
+
+### Added
+
+- `ChatPanel`, `ChatMessage` and `ChatComposer` provide token-based conversation structure while leaving wording, content and send behaviour to the host.
+- A chat section in the gallery shows the components together at desktop and phone widths.
+- `@monos/ui/chat` imports the three conversation components without importing the full public component surface.
+
 ## 2.0.0
 
 - The kit's faces are now Medeo (SIL OFL 1.1, Latin and Cyrillic): `mono` is
