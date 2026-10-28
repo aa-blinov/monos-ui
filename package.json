@@ -1,6 +1,6 @@
 {
   "name": "@monos/ui",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "engines": {
     "node": "^18.0.0 || >=20.0.0"
   },
@@ -22,7 +22,8 @@
     "./themes.css": "./src/styles/themes.css",
     "./tailwind-preset": "./src/tailwind-preset.js",
     "./themes": "./src/themes.js",
-    "./field": "./src/field.js"
+    "./field": "./src/field.js",
+    "./chat": "./src/chat.js"
   },
   "files": [
     "src",

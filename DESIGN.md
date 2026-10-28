@@ -136,6 +136,10 @@ Menus are a trigger plus data items; arrows, Home/End, Escape and an outside cli
 
 Notices are inline, one dot, a title and a sentence. Toasts are transient and live in one region; a danger toast is an alert, the rest are status, and four at a time is enough. Progress is a thin bar with the one radius; indeterminate is a sweep. A skeleton reserves the size the content will take. Tables are for data, not layout: headers sort with a triangle and `aria-sort`, selection is a checkbox column, and a row action belongs in a cell.
 
+### Conversation
+
+`ChatPanel` separates the conversation header, the host's scrollable transcript and the composer. `ChatMessage` stays in the transcript flow with one divider; it does not turn every reply into a card. `ChatComposer` supplies one surface and focus ring around host-owned inputs and actions. The host owns all wording, message rendering, live updates and submit behaviour. Composer controls keep the 44px touch target on a phone.
+
 ### Layout and navigation
 
 Breadcrumbs say where the page sits; the last item is the current page, not a link. A page header is a title, a sentence and the actions at the top right. Pagination keeps first, last and the current neighbourhood; a gap is an ellipsis. A stepper is a sequence, not a progress bar. A nav item is one row: a link when it goes somewhere, a button when it acts.

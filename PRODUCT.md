@@ -40,7 +40,8 @@ The gallery runs at `http://127.0.0.1:5180` with `npm run dev` and shows every c
 
 Confirmed:
 
-- 53 Svelte 4 components exported from `src/index.js`, covering actions, form fields, choices, overlays, notices, navigation, data display and layout.
+- 70 Svelte 4 components exported from `src/index.js`, covering actions, form fields, choices, overlays, notices, navigation, data display, layout and chat.
+- Three conversation components: `ChatPanel` provides named layout slots, `ChatMessage` standardizes a message row, and `ChatComposer` supplies the composer surface. The host owns the words, messages, controls and send action.
 - Six themes (`gruvbox`, `github`, `dracula`, `nord`, `solarized`, `catppuccin`), each with a light and a dark palette, so twelve theme and mode pairs.
 - A semantic token layer: colour, geometry, type, depth, motion and z-index. Components read `var(--ui-*)` or a preset utility, never a palette value.
 - A Tailwind preset with semantic colour, radius, font, spacing, shadow, duration and z-index names.
@@ -72,14 +73,14 @@ The name `@monos/ui`, the warm-paper palette, the 6px radius, text buttons, the 
 
 Real files and counts:
 
-- `src/components/` holds 53 `.svelte` files, all exported from `src/index.js`.
+- `src/components/` holds 70 `.svelte` files, all exported from `src/index.js`.
 - `src/themes.js` holds six palettes, each with a `light` and a `dark` object of thirteen colour keys.
 - `src/styles/themes.css` is committed and matches `renderThemesCss(themes, modes)` in `tests/themes.test.js`.
-- `tests/` holds 62 tests across `components.test.js`, `contract.test.js` and `themes.test.js`, plus four harness fixtures.
-- `gallery/sections/` holds 17 section files; `gallery/App.svelte` holds the shell and the theme picker.
+- `tests/` holds 105 tests across six Vitest files, plus five component harness fixtures.
+- `gallery/sections/` holds 23 section files; `gallery/App.svelte` holds the shell and the theme picker.
 - `docs/preview.png` is a 1600x1125 capture of the gallery.
 - `docs/components.md`, `docs/tokens.md` and `docs/migrating-monos.md` describe the API, the tokens and the move from Monos.
-- `CHANGELOG.md` records 1.0.5 as the current release.
+- `CHANGELOG.md` records 2.1.0 as the current release.
 
 Not present, and not to be invented: a published npm package, download counts, user studies, performance benchmarks, a Figma source, a Svelte 5 build, screenshots of individual components, or a support policy.
 

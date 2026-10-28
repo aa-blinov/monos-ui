@@ -63,6 +63,7 @@ import BottomSheet from '../src/components/BottomSheet.svelte';
 import Fab from '../src/components/Fab.svelte';
 import ListRow from '../src/components/ListRow.svelte';
 import TopBar from '../src/components/TopBar.svelte';
+import ChatComponentsHarness from './fixtures/ChatComponentsHarness.svelte';
 
 afterEach(() => {
   cleanup();
@@ -107,6 +108,29 @@ describe('Button', () => {
     const busy = screen.getByRole('button');
     expect(busy.getAttribute('aria-busy')).toBe('true');
     expect(busy.disabled).toBe(true);
+  });
+});
+
+describe('chat components', () => {
+  test('ChatPanel names the conversation, marks a running turn and renders its slot', () => {
+    render(ChatComponentsHarness);
+    const panel = screen.getByRole('region', { name: 'Assistant conversation' });
+    expect(panel.getAttribute('aria-busy')).toBe('true');
+    expect(screen.getByText('Panel reply')).toBeTruthy();
+  });
+
+  test('ChatMessage provides a labelled article and time', () => {
+    render(ChatComponentsHarness);
+    expect(screen.getByRole('article', { name: 'Assistant' })).toBeTruthy();
+    expect(screen.getByText('10:42').getAttribute('datetime')).toBe('2026-10-28T10:42:00Z');
+    expect(screen.getByText('Message reply')).toBeTruthy();
+  });
+
+  test('ChatComposer names its group and reports busy state', () => {
+    render(ChatComponentsHarness);
+    const composer = screen.getByRole('group', { name: 'Message composer' });
+    expect(composer.getAttribute('aria-busy')).toBe('true');
+    expect(screen.getByRole('textbox', { name: 'Message' })).toBeTruthy();
   });
 });
 
